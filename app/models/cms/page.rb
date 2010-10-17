@@ -17,9 +17,8 @@ module Cms
     validates_presence_of :content
 #    validates_presence_of :slug, :message => "can't be blank for a published page", :if => proc{|page| page.published?}
     validates_format_of :name, :with => NAME_REGEX
-    # FIXME replace :dealer_id with :context_id
-    validates_uniqueness_of :name, :scope => (Cms.context_class ? :dealer_id : nil), :case_sensitive => false
-    validates_uniqueness_of :slug, :scope => (Cms.context_class ? :dealer_id : nil), :case_sensitive => false, :allow_blank => true
+    validates_uniqueness_of :name, :scope => (Cms.context_class ? :context_id : nil), :case_sensitive => false
+    validates_uniqueness_of :slug, :scope => (Cms.context_class ? :context_id : nil), :case_sensitive => false, :allow_blank => true
 
     validates_each :slug do |record,attr,value|
       record.errors.add attr, "is reserved and can't be used for this page" if record.reserved_slug?
