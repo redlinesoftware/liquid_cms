@@ -1,0 +1,33 @@
+<h2>Notes</h2>
+
+<p>Variables and text can be used for parameters to the various tags and blocks.</p>
+
+<p>
+Text parameter: <code>{% tag name:"text_value" %}</code><br/>
+Variable parameter: <code>{% tag name:var_value %}</code>
+</p>
+
+<p>See <strong>assign</strong> and <strong>capture</strong> in the github link at the top for details on assigning values to variables.</p>
+
+<p>Variables assigned to in templates can be used in the layouts template as well.</p>
+
+<p>In the child template:</p>
+<code>
+<pre>
+  {% assign title = 'Page Title' %}
+</pre>
+</code>
+
+<p>In the layout template:</p>
+<code>
+<pre>
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;Website{% if title %} - {{ title }}{% endif %}&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+     {{ content_for_layout }}
+    &lt;/body&gt;
+  &lt;/html&gt;
+</pre>
+</code>

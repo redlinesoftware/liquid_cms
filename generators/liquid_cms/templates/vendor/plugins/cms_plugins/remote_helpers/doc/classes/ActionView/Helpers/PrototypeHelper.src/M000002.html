@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>remote_function (ActionView::Helpers::PrototypeHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/remote_helpers.rb, line 72</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remote_function</span>(<span class="ruby-identifier">options</span>)
+    <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge!</span> <span class="ruby-identifier">:indicator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">RemoteIndicator</span>.<span class="ruby-identifier">default_id</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">indicator</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:indicator</span>)
+      <span class="ruby-identifier">before_js</span> = <span class="ruby-node">&quot;Element.show('#{indicator}')&quot;</span>
+      <span class="ruby-identifier">event_options</span> = {
+        <span class="ruby-identifier">:before</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">RAILS_ENV</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'development'</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;try { #{before_js} } catch(e) { alert('The remote helper indicator \\'#{indicator}\\' has not been defined.') }&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">before_js</span>),
+        <span class="ruby-identifier">:complete</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Element.hide('#{indicator}')&quot;</span>
+      }
+
+      <span class="ruby-identifier">add_callback_code!</span> <span class="ruby-identifier">options</span>, <span class="ruby-identifier">event_options</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">remote_function_old</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <title>Liquid CMS</title>
+  <%= javascript_include_tag 'prototype', 'effects' %>
+  <%= javascript_include_tag '/cms/javascripts/humanmsg', '/cms/javascripts/cookiejar', '/cms/javascripts/cms' %>
+  <%= javascript_include_tag '/cms/codemirror/js/codemirror' %>
+  <%= stylesheet_link_tag '/cms/stylesheets/simple_form' %>
+  <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles' %>
+  <%= yield :cms_styles %>
+  <!--[if lte IE 8]>
+  <%= stylesheet_link_tag '/cms/stylesheets/ie' %>
+  <![endif]-->
+</head>
+<body id="cms">
+  <div id="header">
+    <h1>Liquid CMS</h1>
+  </div>
+
+  <div class="clearfix">
+    <div id="sidebar">
+      <%= render 'cms/shared/sidebar' %>
+    </div> 
+
+    <div id="content">
+      <%= yield %>
+      <%= cms_flash_message %>
+    </div>
+  </div>
+</body>
+</html>

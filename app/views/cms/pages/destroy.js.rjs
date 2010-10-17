@@ -1,0 +1,2 @@
+page.remove dom_id(@page)
+page << %[humanMsg.displayMsg('#{escape_javascript(flash[:notice])}', 'notice}');]

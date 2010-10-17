@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>indicator (ActionView::Helpers::PrototypeHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/remote_helpers.rb, line 44</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">indicator</span>(<span class="ruby-identifier">options</span> = {})
+    <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">RemoteIndicator</span>.<span class="ruby-identifier">default_id</span>, <span class="ruby-identifier">:hide</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+
+    <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:style</span>] = [<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:style</span>], <span class="ruby-value str">'display:none'</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">';'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:hide</span>)
+
+    <span class="ruby-identifier">image_tag</span> <span class="ruby-constant">RemoteIndicator</span>.<span class="ruby-identifier">default_image</span>, <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

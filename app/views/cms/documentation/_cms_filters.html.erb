@@ -1,0 +1,148 @@
+<h3><span class="function">money</span> - format a number to a dollar value</h3>
+<ol>
+  <li><span class="param">precision</span> - Precision of dollar value. Defaults to 0.</li>
+</ol>
+
+<code>
+<pre>
+{{ 75 | money }} = $75
+{{ 75 | money: 2 }} = $75.00
+</pre>
+</code>
+
+<h3><span class="function">json</span> - converts data to json format</h3>
+
+<code>
+<pre>
+{{ some_value | json }}
+</pre>
+</code>
+
+<h3><span class="function">textilize</span> - formats text to html using textile markup</h3>
+<ol>
+  <li><span class="param">wrap</span> - Wrap text with paragraphs. true/false. Defaults to true.</li>
+</ol>
+ 
+<code>
+<pre>
+{{ "test *string*" | textilize }} = &lt;p&gt;test &lt;strong&gt;string&lt;/strong&gt;&lt;/p&gt;
+{{ "test *string*" | textilize: false }} = test &lt;strong&gt;string&lt;/strong&gt;
+</pre>
+</code>
+
+<h3><span class="function">url_encode</span> - encodes a value for a url</h3>
+
+<code>
+<pre>
+{{ "test space" | url_encode }} = test+space
+</pre>
+</code>
+
+<h3><span class="function">url_decode</span> - decodes a value from a url</h3>
+
+<code>
+<pre>
+{{ "test+space" | url_decode }} = test space
+</pre>
+</code>
+
+<h3><span class="function">script_tag</span> - converts text to a javascript include tag (works the same as rails javascript_include_tag)</h3>
+
+<code>
+<pre>
+{{ "test.js" | script_tag }}
+</pre>
+</code>
+
+<h3><span class="function">stylesheet_tag</span> - converts text to a stylesheet link tag (works the same as rails stylesheet_link_tag)</h3>
+
+<code>
+<pre>
+{{ "test.css" | stylesheet_tag }}
+</pre>
+</code>
+
+<h3><span class="function">link_to</span> - converts a url to an anchor tag.</h3>
+<ol>
+  <li><span class="param">text</span> - Link text.  Defaults to the link url.</li>
+</ol>
+
+<code>
+<pre>
+{{ "www.google.com" | link_to }} = &lt;a href="www.google.com"&gt;www.google.com&lt;/a&gt;
+{{ "www.google.com" | link_to: Google }} = &lt;a href="www.google.com"&gt;Google&lt;/a&gt;
+</pre>
+</code>
+
+<h3><span class="function">image_tag</span> - converts a url to an img tag.</h3>
+<ol>
+  <li><span class="param">title</span> - Title for the image tag.</li>
+  <li><span class="param">size</span> - Size as a "50x60" (width x height) formatted string.</li>
+</ol>
+
+<code>
+<pre>
+{{ "img.jpg" | image_tag }} = &lt;img src="img.jpg" /&gt;
+{{ "img.jpg" | image_tag: "An Image" }} = &lt;img src="img.jpg" title="An Image" /&gt;
+{{ "img.jpg" | image_tag: "An Image", "50x60" }} = &lt;img src="img.jpg" title="An Image" width="50" height="60" /&gt;
+{{ "img.jpg" | image_tag: nil, "50x60" }} = &lt;img src="img.jpg" width="50" height="60" /&gt;
+</pre>
+</code>
+
+<h3><span class="function">assign_to</span> - assigns the filter results to a variable.</h3>
+<ul>
+  <li><span class="param">name</span> - Specify the name of the variable that the data will be saved in.</li>
+</ul>
+
+<p class="example">Assigns the paginated collection to the variable <strong>data</strong>.</p>
+<code>
+<pre>
+{{ collection | paginate_collection: 10, 1 | assign_to: 'data' }}
+{% for item in data %}
+  ...
+{% endfor %}
+</pre>
+</code>
+
+<h3><span class="function">paginate</span> - use to paginate new and used vehicles</h3>
+<p>Uses a page parameter from the url (if set) to determine what page of the pagination to display.  Ie. /vehicles?page=3</p>
+<ol>
+  <li><span class="param">anchor</span> - apply an #anchor to all generated urls in the pagination</li>
+  <li><span class="param">prev_label</span> - label for the previous page button</li>
+  <li><span class="param">next_label</span> - label for the next page button</li>
+</ol>
+
+<code>
+<pre>
+{{ vehicles | paginate }}
+{{ vehicles | paginate : "anchor", "Previous vehicles", "Next Vehicles" }}
+</pre>
+</code>
+
+<h3><span class="function">paginate_collection</span> - use to paginate any collection of data</h3>
+<ol>
+  <li><span class="param">limit</span> - the number of items to retrieve</li>
+  <li><span class="param">page</span> - the page of data to retrieve</li>
+</ol>
+
+<p class="example">Retrieves 10 items from the collection at a time.  The 1st to 10th items for the 1st call and the 11th to 20th items for the 2nd call.</p>
+<code>
+<pre>
+{{ collection | paginate_collection: 10, 1 }}
+{{ collection | paginate_collection: 10, 2 }}
+</pre>
+</code>
+
+<p>An additional variable called <strong>paginate</strong> is automatically assigned when calling this method.  It contains the following pagination details:</p>
+<ul>
+  <li><span class="param">total_pages</span> - the total number of pages available</li>
+  <li><span class="param">current_page</span> - the current page</li>
+  <li><span class="param">previous_page</span> - the previous page</li>
+  <li><span class="param">next_page</span> - the next page</li>
+</ul>
+<code>
+<pre>
+{{ paginate.total_pages }}
+{{ paginate.next_page }}
+</pre>
+</code>

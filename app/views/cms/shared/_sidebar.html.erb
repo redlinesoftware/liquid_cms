@@ -1,0 +1,11 @@
+<h2><%= t 'pages.actions.index.title' %></h2>
+<%= render 'cms/pages/list' %>
+
+<h2><%= t 'assets.actions.index.title' %></h2>
+<%= render 'cms/assets/list' %>
+
+<h2><%= t 'components.actions.index.title' %></h2>
+<%= render 'cms/components/list' %>
+
+<hr style="border:1px solid #BBB" />
+<p style="text-align:right"><%= cms_icon 'page.png' %> <%= link_to 'Documentation', cms_documentation_path %></p>

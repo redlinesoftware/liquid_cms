@@ -1,0 +1,105 @@
+== Description
+
+Provides helper methods and options for easily adding graphical or textual "indicators" to a page when performing remote (AJAX) calls.
+
+See the examples below for usage.  All remote rails methods wrap the <tt>remote_function</tt> method, so the same options that work for <tt>remote_function</tt> will work for <tt>remote_form_for</tt>, etc.
+
+== Updates
+Feb 2, 2008
+- if using :disable_form => true, re-disable any form fields that were already disabled
+
+Dec 13, 2007
+- Fixed to work with rails 2.0.1
+
+May 11, 2007
+- Checked in an experimental feature.  Could possibly change in the future.  Comments on the feature are welcome.
+- new :toggle option.  Specify the id of the indicator to toggle the current element with.
+
+ex.)
+<tt>
+<%= link_to_remote 'link', :url => url, :indicator => {:toggle => indicator_id} %>
+<%= indicator :id => indicator_id %>
+</tt>
+
+- This will toggle the link with the specified indicator when the remote request is made.  ie. The link will be hidden and the indicator will be shown.
+
+April 1, 2007
+- Added a new option, <tt>RemoteIndicator.enable_all</tt>, which can be used to turn off indicators on all remote functions by default.
+- This option defaults to true, but if you're integrating with an existing application or indicators are only to be used in select areas of your app, then set this value to false (in your environment.rb file) and an indicator won't be expected by default.  To use the default indicator when <tt>RemoteIndicator.enable_all</tt> is set to false, simply pass <tt>:indicator => true</tt> to the remote function.
+
+Dec. 14, 2006
+- Added a css class option to the indicator options, which is defaulted to 'indicator', but can be overridden with the <tt>@@default_class</tt> variable.
+- Added options to set how the indicator is shown and hidden using two new options <tt>:before_effect</tt> and <tt>:after_effect</tt> which default to 'Element.show' and 'Element.hide' respectively.  For example, :after_effect can be set to 'new Effect.Fade'.
+
+Dec. 5, 2006 - Added two additional methods, +indicator_options+ and +indicator_image+, to allow for more flexible indicators.  See the api for more details.
+
+<tt><%= content_tag 'div', 'Updating Data... ' + indicator_image, indicator_options %></tt>
+
+Nov. 16, 2006 - If using the :disable_form option (set to true by default), the form is now disabled after the ajax request is made, not before. This change is required due to a change in prototype so make sure to update to the latest version of this plugin.
+
+Sept. 27, 2006 - Auto form disable when using the :submit option with remote_function. The :disable_form option can be used to prevent this.
+
+All remote actions are automatically enabled to show a gui indicator during a remote call with this plugin.
+
+== Examples
+
+To disable the gui indicator:
+
+<tt><%= remote_function :url => {:action => 'dosomething'}, :indicator => false %></tt>
+
+To use the default values:
+
+<tt><%= remote_function :url => {:action => 'dosomething'} %> <%= indicator %></tt>
+
+To use a custom <tt>:id</tt>:
+
+<tt><%= remote_function :url => {:action => 'dosomething'}, :indicator => 'custom' %> <%= indicator :id => 'custom' %></tt>
+
+Using many indicators on the same page:
+
+  <% collection.each do |id| %>
+    <%= link_to_remote :url => {:action => 'dosomething'}, :indicator => "link#{id}" %>
+    <%= indicator :id => "link#{id}" %>
+  <% end %>
+
+A string can be passed to <tt>indicator</tt> which is a shorthand for specifying the :id:
+
+<tt><%= indicator 'delete_spinner' %></tt> is the same as <tt><%= indicator :id => 'delete_spinner' %></tt>
+
+To use a custom image:
+
+<tt><%= image_tag 'custom.gif', indicator_options %></tt>
+
+Defaults are also provided which can be overridden.
+
+The default image name to use:
+
+<tt>default_image = 'indicator.gif'</tt>
+
+The default id that's used:
+
+<tt>default_id = 'indicator'</tt>
+
+You can override these defaults in your environment.rb file like so...
+
+<tt>RemoteIndicator.default_image = 'spinner.gif'</tt>
+
+See the api for more information on options available.
+
+*IMPORTANT GOTCHA*
+Don't forget to use <%= indicator %> on the page with remote calls or the javascript will fail and your action won't complete (In development mode you will be shown an alert if the indicator has not been defined). This doesn't apply if you have used the :indicator => false option or you have turned indicators off by setting RemoteIndicator.enable_all to false.
+
+== Additional Form Methods
+
+Both the form_remote_tag and submit_to_remote methods disable their associated
+form by default during a remote call. This is useful to prevent a user from
+submitting a form twice while a remote call is in progress.
+
+To prevent this from occuring use the :disable_form option and set it to false
+(default is true).
+
+eg.) form_remote_tag(:url => {:action => 'dosomething'}, :disable_form => false)
+
+== Note
+
+Last time I checked this plugin was incompatible with the unobtrusive javascript plugin as it overrides one of the same methods this plugin does. I'll work on a fix to this soon hopefully, but in the mean time, watch out for it.

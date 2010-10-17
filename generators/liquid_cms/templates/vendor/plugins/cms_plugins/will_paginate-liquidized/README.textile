@@ -1,0 +1,86 @@
+h1. Will Paginate Liquidized
+
+h2. About
+
+A small plugin allowing you to use pagination from "will_paginate":http://wiki.github.com/mislav/will_paginate inside your "Liquid":http://github.com/tobi/liquid/tree/master templates. This is a new version of the "older plugin":http://www.artweb-design.de/projects/ruby-on-rails-plugin-will_paginate-liquidized at artweb-design.  I've basically re-written parts of it to work with the very latest versions of Liquid and Will-Paginate (see below for the version information). I will try to keep this plugin up to date with ongoing changes in the Liquid and Will-Paginate projects.  Check the latest commit logs and this doc for more information.
+
+h2. Caveats
+
+Ongoing issues with this project include;
+
+* needs better tests, possibly switching to using RSpec
+* currently has only been tested within my own project - needs further testing
+
+h2. Setup / Using
+
+h3. Requirements
+
+What do you need?
+
+* "Rails":http://rubyonrails.org >= 2.2 
+* "Liquid":http://github.com/tobi/liquid/tree/master >= 2.0.0 (as a gem or plugin)
+* "Will-Paginate":http://wiki.github.com/mislav/will_paginate >= 2.3.8 (as a gem or plugin)
+
+h3. Installing
+
+<pre>script/plugin install git://github.com/hiddenloop/will_paginate-liquidized.git</pre>
+
+h2. Using
+
+In your controller you might have something like this;
+
+<pre>
+  class MoviesController < ApplicationController
+    # GET /movies
+    # GET /movies.xml
+    def index
+      @movies = Movie.all.paginate(:page => params[:page], :per_page => 10)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @movies }
+      end
+    end
+  end
+</pre>
+
+In your view put something like this in movies/index.html.erb;
+
+<pre>
+  <%= Liquid::Template.parse("{{ movies | will_paginate_liquid }}").render({'movies' => @movies}, :registers => {:controller => @controller}) %>  
+</pre>
+
+*NOTE:* you must remember to pass the current controller in rendering (:registers). If anyone can think of a way around this let me know.
+
+You won't get any pagination links until you exceed 10 (per_page setting defined in controller action). You can also pass the following other optional arguments to the will_paginate_liquid method.
+
+<pre>
+  {{ movies | will_paginate_liquid : 'anchor', 'prev_label', 'next_label' }}
+  
+  anchor: apply a #anchor to all generated urls in the pagination
+  prev_label: label for the previous page button
+  next_label: label for the next page button
+</pre>
+
+
+h2. What does the code do?
+
+Registers a new filter tag for Liquid to access will_paginate using a custom LinkRenderer so it can reference the @controller from the current liquid context[:registers]. Uses ActionView::Helpers::UrlHelper, ActionView::Helpers::TagHelper for constructing the pagination links.
+
+h2. Credits
+
+Who's who?
+
+* Authored by "Matthew Hutchinson":http://matthewhutchinson.net
+* Modified from the original plugin at "Artweb Design":http://www.artweb-design.de/projects/ruby-on-rails-plugin-will_paginate-liquidized
+* "Will-Paginate":http://wiki.github.com/mislav/will_paginate by "mislav":http://wiki.github.com/mislav/
+* "Liquid":http://github.com/tobi/liquid/tree/master by "tobi":http://github.com/tobi
+
+h2. Get out clause
+
+Right now this script is provided without warranty, or support from the author.
+
+h2. Creative Commons License
+
+<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" /></a>
+
+<span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">Will Paginate Liquidized</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://github.com/hiddenloop/will_paginate-liquidized" property="cc:attributionName" rel="cc:attributionURL">Matthew Hutchinson</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution 2.0 UK: England &amp; Wales License</a>.

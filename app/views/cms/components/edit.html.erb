@@ -1,0 +1,20 @@
+<h2>Edit Component File</h2>
+
+<p>No liquid support currently for editing components.</p>
+
+<% form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'formtastic') do %>
+  <fieldset class="inputs">
+    <ol>
+      <li class="string"><%= label_tag :name %> <%= text_field_tag :name, @component.path, :readonly => true %></li>
+      <li class="text"><%= label_tag :contents %> <%= text_area_tag :contents, @component.read, :rows => 40 %></li>
+    </ol>
+  </fieldset>
+
+  <fieldset class="buttons">
+    <ol>
+      <li><%= submit_tag 'Update' %></li>
+    </ol>
+  </fieldset>
+<% end %>
+
+<%= codemirror_edit Cms::Editable::content_type(@component.path), 'form.formtastic', 'contents' %>

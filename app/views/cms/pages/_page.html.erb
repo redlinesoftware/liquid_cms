@@ -1,0 +1,19 @@
+<% content_tag_for :li, page do %>
+  <%= page_icon page %>
+  <% if page.published? %>
+    <%= cms_icon 'accept.png' %>
+  <% else %>
+    <%= delete_page_link page %>
+  <% end %>
+  <%= link_to truncate(page.to_s, :length => 24), edit_cms_page_path(page), :title => "Edit '#{page}'" %>
+  <%= indicator dom_id(page, 'progress') %>
+
+  <%= cms_icon 'house.png', :title => 'Root/Home Page' if page.root? %>
+  <%= link_to cms_icon('magnifier.png', :title => 'View'), page.url, :class => 'external' if page.published? %>
+
+  <% unless page.content_pages.empty? %>
+    <ul>
+      <%= render :partial => 'cms/pages/page', :collection => page.content_pages %>
+    </ul>
+  <% end %>
+<% end %>

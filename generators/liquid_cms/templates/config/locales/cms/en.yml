@@ -1,0 +1,62 @@
+en:
+  pages:
+    actions:
+      index:
+        title: 'Site Pages'
+        none: 'There are currently no pages.'
+        new_link: 'Create a new page'
+      new:
+        title: 'New Page'
+      edit:
+        title: 'Editing Page'
+    flash:
+      created: 'The page has been saved.'
+      updated: 'The page has been updated.'
+      deleted: 'The page has been deleted.'
+
+  assets:
+    actions:
+      index:
+        title: 'Site Assets'
+        none: 'There are currently no assets.'
+        new_link: 'Upload a new asset'
+      new:
+        title: 'New Asset'
+      edit:
+        title: 'Edit Asset'
+    flash:
+      created: 'The asset has been saved.'
+      updated: 'The asset has been updated.'
+      deleted: 'The asset has been deleted.'
+
+  components:
+    actions:
+      index:
+        title: 'Components'
+
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    buttons:
+      create: 'Create %{model}'
+      update: 'Update %{model}'
+      submit: 'Submit %{model}'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    labels:
+      cms_page:
+        slug: 'Url Path'
+        published: 'Publish'
+        root: 'Home Page'
+      cms_asset:
+        asset_file_name: 'File'
+    hints:
+      cms_page:
+        name: 'The name must contain no whitespace or any other special characters. Letters, numbers, hyphens, underscores and periods are valid.<br/>The extensions <em>.css</em>, <em>.js</em>, <em>.xml</em>, <em>.json</em> and <em>.txt</em> can used to auto-identify the content-type.  If no extension is provided, html is the default type.'
+        content: 'To create a layout page, add the <em>{{ content_for_layout }}</em> tag which will act as a placeholder for the contents of another page.  Use ctrl+s to save.'
+        slug: 'The url path that will be used to access this page.  Defaults to the page name if not provided. ie. /name.<br/> Ex. /home_page'
+        layout_page_id: 'Optional page that will be used as this pages layout.  Ie. This pages content will be inserted into the layout page where the <em>{{ content_for_layout }}</em> tag is specified.'

@@ -1,0 +1,15 @@
+<a name="image_drop"></a>
+<h3>Paperclip Objects</h3>
+<p>If a paperclip attribute is exposed through other drops, it will automatically be usable in templates.</p>
+<p>Any styles defined for the paperclip attribute will be exposed as size attributes in addition to the <strong><em>original</em></strong> size.</p>
+
+<p>Each size field has additional <strong>url</strong>, <strong>width</strong> and <strong>height</strong> attribute as well:</p>
+
+<code>
+<pre>
+{{ image.original.url }}
+{{ image.large.url }}
+{{ image.large.width }}
+{{ image.large.height }}
+</pre>
+</code>

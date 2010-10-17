@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActionView::Helpers::PrototypeHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActionView::Helpers::PrototypeHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/remote_helpers_rb.html">
+                lib/remote_helpers.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">form_remote_tag</a>&nbsp;&nbsp;
+      <a href="#M000001">indicator</a>&nbsp;&nbsp;
+      <a href="#M000002">remote_function</a>&nbsp;&nbsp;
+      <a href="#M000004">submit_to_remote</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">remote_function</td>
+          <td>-></td>
+          <td class="context-item-value">remote_function_old</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">form_remote_tag</td>
+          <td>-></td>
+          <td class="context-item-value">form_remote_tag_old</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">submit_to_remote</td>
+          <td>-></td>
+          <td class="context-item-value">submit_to_remote_old</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="PrototypeHelper.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('PrototypeHelper.src/M000003.html');return false;">
+          <span class="method-name">form_remote_tag</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Additional functionality added to disable the form by default during a
+remote call. This is useful to prevent a user from submitting a form twice
+while a remote call is in progress since the submit button will be disabled
+and therefore not clickable.
+</p>
+<p>
+Additional options:
+</p>
+<ul>
+<li><tt>:disable_form</tt> - Specifies if the form will disable or not during
+the remote call. Defaults to true.
+
+</li>
+</ul>
+<p>
+Set :disable_form to false to keep the form enabled during a remote
+function call.
+</p>
+<h3>Examples</h3>
+<p>
+Automatically disables a form (no additional options)
+</p>
+<pre>
+  &lt;%= form_remote_tag(:url =&gt; {:action =&gt; 'dosomething'}) %&gt;
+</pre>
+<p>
+Prevents the form from being disabled
+</p>
+<pre>
+  &lt;%= form_remote_tag(:url =&gt; {:action =&gt; 'dosomething'}, :disable_form =&gt; false) %&gt;
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="PrototypeHelper.src/M000001.html" target="Code" class="method-signature"
+            onclick="popupCode('PrototypeHelper.src/M000001.html');return false;">
+          <span class="method-name">indicator</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates an indicator image. The options supplied are the same used with
+<tt>image_tag</tt>
+</p>
+<p>
+Current and additional options are:
+</p>
+<ul>
+<li><tt>:id</tt> - The css id of the indicator image. Defaults to
+<tt>RemoteIndicator.default_id</tt>
+
+</li>
+<li><tt>:hide</tt> - Hide the image by default. Defaults to true.
+
+</li>
+</ul>
+<h3>Examples</h3>
+<p>
+Using a custom indicator id
+</p>
+<pre>
+  &lt;%= indicator :id =&gt; 'spinner' %&gt;
+</pre>
+<p>
+Using many indicators on the same page
+</p>
+<pre>
+  &lt;% collection.each do |id| %&gt;
+    &lt;%= link_to_remote :url =&gt; {:action =&gt; 'dosomething'}, :indicator =&gt; &quot;link#{id}&quot; %&gt; &lt;%= indicator :id =&gt; &quot;link#{id}&quot; %&gt;
+  &lt;% end %&gt;
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="PrototypeHelper.src/M000002.html" target="Code" class="method-signature"
+            onclick="popupCode('PrototypeHelper.src/M000002.html');return false;">
+          <span class="method-name">remote_function</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Adds the functionality of using a remote indicator (an image) during the
+execution of all remote functions.
+</p>
+<p>
+Additional options:
+</p>
+<ul>
+<li><tt>:indicator</tt> - The css id of an element to show and hide during a
+remote call.
+
+</li>
+</ul>
+<p>
+Defaults to <tt>RemoteIndicator.default_id</tt>. Set :indicator to false if
+no indicator is to be used.
+</p>
+<h3>Examples</h3>
+<ul>
+<li>To use the default values - <tt>&lt;%= <a
+href="PrototypeHelper.html#M000002">remote_function</a> :url =&gt; {:action
+=&gt; &#8216;dosomething&#8217;} %&gt; &lt;%= indicator %&gt;</tt>
+
+</li>
+<li>To disable the gui indicator - <tt>&lt;%= <a
+href="PrototypeHelper.html#M000002">remote_function</a> :url =&gt; {:action
+=&gt; &#8216;dosomething&#8217;}, :indicator =&gt; false %&gt;</tt>
+
+</li>
+<li>To use a custom :id - <tt>&lt;%= <a
+href="PrototypeHelper.html#M000002">remote_function</a> :url =&gt; {:action
+=&gt; &#8216;dosomething&#8217;}, :indicator =&gt; &#8216;custom&#8217;
+%&gt; &lt;%= indicator :id =&gt; &#8216;custom&#8217; %&gt;</tt>
+
+</li>
+</ul>
+<h4>IMPORTANT GOTCHA</h4>
+<p>
+Don&#8216;t forget to use <tt>&lt;%= indicator %&gt;</tt> on the page with
+remote calls or the javascript will fail and your action won&#8217;t
+complete (In development mode you will be shown an alert if the indicator
+has not been defined). This doesn&#8217;t apply if you set the indicator to
+false&#8230; <tt>:indicator =&gt; false</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="PrototypeHelper.src/M000004.html" target="Code" class="method-signature"
+            onclick="popupCode('PrototypeHelper.src/M000004.html');return false;">
+          <span class="method-name">submit_to_remote</span><span class="method-args">(name, value, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Additional functionality added to disable a form (specified using the
+:submit option) by default during a remote call. This is useful to prevent
+a user from submitting a form twice while a remote call is in progress
+since the submit button will be disabled and therefore not clickable.
+</p>
+<p>
+Additional options:
+</p>
+<ul>
+<li><tt>:disable_form</tt> - Specifies if a form will disable or not during the
+remote call. Defaults to true.
+
+</li>
+</ul>
+<p>
+Set :disable_form to false to keep the form enabled during a remote
+function call.
+</p>
+<h3>Example</h3>
+<p>
+Automatically disables a form (no additional options)
+</p>
+<pre>
+  &lt;%= submit_to_remote('name', 'Submit', :url =&gt; {:action =&gt; 'dosomething'}) %&gt;
+</pre>
+<p>
+Prevents a form from being disabled
+</p>
+<pre>
+  &lt;%= submit_to_remote('name', 'Submit', :submit =&gt; 'myform', :url =&gt; {:action =&gt; 'dosomething'}, :disable_form =&gt; false) %&gt;
+</pre>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

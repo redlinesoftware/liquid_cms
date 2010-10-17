@@ -1,0 +1,53 @@
+<h2>Special values</h2>
+
+<h3><span class="function">site_url</span> - The base url for the website including protocol and port based on the current request.</h3>
+
+<code>
+<pre>
+{{ site_url }} = http://testsite.com
+</pre>
+</code>
+
+<h3><span class="function">content_for_layout</span> - Inserts the contents of a page that defines it as its layout page.</h3>
+
+If there's a page called "layout" that contains the following:
+<code>
+<pre>
+&lt;html&gt;
+  {{ content_for_layout }}
+&lt;/html&gt;
+</pre>
+</code>
+
+And a page called "content" that specifies "layout" as its layout page (done via the CMS UI):
+<code>
+<pre>
+&lt;div&gt;Content&lt;/div&gt;
+</pre>
+</code>
+
+This results in:
+<code>
+<pre>
+&lt;html&gt;
+  &lt;div&gt;Content&lt;/div&gt;
+&lt;/html&gt;
+</pre>
+</code>
+
+<p>{{ content_for_layout }} can be nested in any number of pages to allow for layouts within layouts.</p>
+
+<h3><span class="function">params</span> - The params value is available in all pages and contains all parameters passed to the page via a GET or POST request.</h3>
+
+<p class="example">For a page request of /path/page?test=1</p>
+
+<code>
+<pre>
+{{ params.test }} = 1
+{{ params.url }} = pathpage
+{{ params.url[0] }} = path
+{{ params.url[1] }} = page
+{{ params.url[2] }} = ''
+</pre>
+</code>
+
