@@ -1,0 +1,6 @@
+* Implement a cleaner, more functional UI.
+* Vestal versions is used, but not exposed via the UI currently to go back to previous versions.
+* No functions are currently limited to specific user roles.  All CMS users can perform the same actions.
+* Implement caching and expiration logic.
+* Provide example apache/nginx/etc. conf files that properly scope cms assets for each context.
+* Generate CMS documentation from rdoc comments in source files.

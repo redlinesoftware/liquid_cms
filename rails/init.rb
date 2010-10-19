@@ -1,4 +1,3 @@
-# Include hook code here
 config.to_prepare do
   ApplicationController.helper(Cms::CommonHelper, Cms::AssetsHelper, Cms::ComponentsHelper, Cms::PagesHelper)
 end
@@ -7,19 +6,19 @@ I18n.load_path += Dir[Rails.root.join('config', 'locales', 'cms', '*.{rb,yml}').
 
 require 'liquid_cms'
 
-gem 'paperclip', '~> 2.3.1'
+#gem 'paperclip', '~> 2.3.1'
 require 'paperclip'
 
-gem 'vestal_versions', '~> 1.0.1'
+#gem 'vestal_versions', '~> 1.0.1'
 require 'vestal_versions'
 
-gem 'simple_form', '~> 1.0.4'
+#gem 'simple_form', '~> 1.0.4'
 require 'simple_form'
 
-gem 'rubyzip', '~> 0.9.1'
+#gem 'rubyzip', '~> 0.9.1'
 require 'zip/zip'
 
-gem 'will_paginate', '~> 2.3.12'
+#gem 'will_paginate', '~> 2.3.12'
 require 'will_paginate'
 
 require 'liquid'

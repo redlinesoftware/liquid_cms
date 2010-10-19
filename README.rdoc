@@ -1,0 +1,45 @@
+== Liquid CMS
+
+A context aware CMS Ruby on Rails engine that uses liquid templates.
+
+== Installation
+
+Install the gem:
+
+  gem install liquid_cms
+
+Add it to your config/environment.rb:
+
+  config.gem 'liquid_cms'
+
+Run the generator:
+
+  script/generator liquid_cms
+
+== Configuration
+
+Configure the engine in config/initializers/cms/liquid_cms.rb:
+
+  If you wish to run the cms for multiple "contexts" (ie. a company, business, customer, etc.) then you should set the *context_class* setting to your apps context class.
+
+Add any controller specific tasks and customize the logic in app/controllers/cms/setup_controller.rb
+
+Run the migration:
+
+  rake db:migrate
+
+If you later decide to use the engine under a context, you'll have to re-run the migration.
+
+== Usage
+
+Once the engine is configured, you can view the CMS at the */cms* path in your browser.
+
+== Customization
+
+In order to expose data in your application in the templates, liquid filters, drops, tags and blocks specific to your application can be added to the app/liquid folder.  Knowledge of liquid templates and the liquid library is required to do this.  Examples of custom filters, drops, tags and blocks can be seen in the gem files itself or in additional documentation on this website or related forums.
+
+A set of filters, drops and tags are provided in addition to the defaults provided by liquid.  The documentation link accessible in the CMS provides additional details.
+
+== Contribution
+
+If you experience any issues with this CMS engine, please open a bug report.  Contributionis to improve this engine is extremely welcome.  A 1.0 release will be made when the engine has a bit more *polish* on it.

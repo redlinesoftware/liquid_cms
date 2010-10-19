@@ -1,5 +1,3 @@
-require 'role_authentication'
-
 class Cms::MainController < Cms::SetupController
   unloadable
   extend Cms::RoleAuthentication
