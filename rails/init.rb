@@ -41,9 +41,10 @@ load_liquid_paths = lambda {|base|
 }
 
 # load the cms paths first so that the main app can make use of existing classes
-load_liquid_paths.call File.dirname(__FILE__)
+load_liquid_paths.call File.join(File.dirname(__FILE__), '..')
 # load the main apps paths next
 load_liquid_paths.call Rails.root.to_s
+
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.human 'Cms::Page', 'Page'

@@ -62,6 +62,11 @@ class Cms::PagesController < Cms::MainController
         render :text => @page.rendered_content(self)
       rescue Liquid::SyntaxError, Liquid::ArgumentError, ArgumentError
         render :text => $!.message
+      rescue Exception => e
+        # add the page content to the exception for a debugging aid
+        f = e.class.new(e.message + "\n\n" + @page.content)
+        f.set_backtrace e.backtrace
+        raise f
       end
     else
       raise ActionController::RoutingError, "No route matches #{params.inspect}"
