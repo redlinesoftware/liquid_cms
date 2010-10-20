@@ -1,5 +1,10 @@
 class CreateLiquidCmsSetup < ActiveRecord::Migration
   def self.up
+    create_table :users do |t|
+      t.string :username, :null => false
+      t.references :company, :null => false
+    end
+
     create_table :companies do |t|
       t.string :name, :null => false
       t.string :domain_name

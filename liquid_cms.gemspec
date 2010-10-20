@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Andrew Kaspick', 'Redline Software Inc.']
   s.email       = ['andrew@redlinesoftware.com']
   s.homepage    = "http://rubygems.org/gems/liquid_cms"
-  s.summary     = "A Rails CMS engine using the Liquid template library."
-  s.description = "A Rails CMS engine using the Liquid template library."
+  s.summary     = "A context aware Rails CMS engine using the Liquid template library."
+  s.description = "A context aware Rails CMS engine using the Liquid template library."
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "liquid_cms"
@@ -21,7 +21,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form', '~> 1.0.4'
   s.add_dependency 'rubyzip', '~> 0.9.1'
   s.add_dependency 'will_paginate', '~> 2.3.12'
+  s.add_dependency 'RedCloth'
   s.add_dependency 'liquid', '~> 2.2.2'
+
+  s.add_development_dependency 'factory_girl', "~> 1.2.3"
+  s.add_development_dependency 'shoulda', "~> 2.10.3"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact

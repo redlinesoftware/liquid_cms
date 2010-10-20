@@ -37,10 +37,12 @@ module CmsFilters
   end
 
   def stylesheet_tag(url)
+    return '' if url.blank?
     Protected::stylesheet_link_tag url
   end
 
   def image_tag(url, title = nil, size = nil)
+    return '' if url.blank?
     options = title.present? ? {:title => title, :alt => title} : {}
     options[:size] = size if size.present?
     Protected::image_tag url, options
@@ -64,6 +66,29 @@ module CmsFilters
       'next_page' => res.next_page,
     }
     res
+  end
+
+  def page_url(name)
+    page = @context.registers[:context].pages.find_by_name name
+    if page && page.url.present?
+      page.url
+    else
+      raise Liquid::Error, "'#{name}' page not found."
+    end
+  end
+
+  def asset_url(name)
+    asset = @context.registers[:context].assets.find_by_asset_file_name name
+    if asset
+      asset.asset.url
+    else
+      raise Liquid::Error, "'#{name}' asset not found."
+    end
+  end
+
+  def component_url(path)
+    context = @context.registers[:context]
+    "/" + File.join(Cms::Component.base_path(context), Cms::Component.component_path(context, path))
   end
 end
 

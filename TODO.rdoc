@@ -4,3 +4,4 @@
 * Implement caching and expiration logic.
 * Provide example apache/nginx/etc. conf files that properly scope cms assets for each context.
 * Generate CMS documentation from rdoc comments in source files.
+* Missing tests... add more coverage.

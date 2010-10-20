@@ -146,3 +146,30 @@
 {{ paginate.next_page }}
 </pre>
 </code>
+
+<h3><span class="function">page_url</span> - converts a text value representing a CMS page name to its corresponding url.</h3>
+
+<p class="example">If a page has been created called "test", its associated url is output.</p>
+<code>
+<pre>
+{{ "test" | page_url }} = /path/to/page
+</pre>
+</code>
+
+<h3><span class="function">asset_url</span> - converts a text value representing a CMS asset name to its corresponding url.</h3>
+
+<p class="example">If an asset has been created called "test", its associated path is output.</p>
+<code>
+<pre>
+{{ "test" | asset_url }} = /public/assets/5/original/test.jpg
+</pre>
+</code>
+
+<h3><span class="function">component_url</span> - converts a text value representing a component path to its corresponding url.</h3>
+
+<code>
+<pre>
+{{ "jquery.plugin-1.0/javascript/jquery.plugin-1.0.js" | component_url }} = /components/1/jquery.plugin-1.0/javascript/jquery.plugin-1.0.js
+</pre>
+</code>
+

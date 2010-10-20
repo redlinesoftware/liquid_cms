@@ -5,4 +5,7 @@ Factory.define :company do |c|
   c.after_create do |c|
     Factory(:home_page, :context => c)
   end
+  c.after_create do |c|
+    Factory(:user, :company => c)
+  end
 end

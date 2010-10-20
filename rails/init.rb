@@ -5,30 +5,20 @@ end
 I18n.load_path += Dir[Rails.root.join('config', 'locales', 'cms', '*.{rb,yml}').to_s] 
 
 require 'liquid_cms'
-
-#gem 'paperclip', '~> 2.3.1'
 require 'paperclip'
-
-#gem 'vestal_versions', '~> 1.0.1'
 require 'vestal_versions'
-
-#gem 'simple_form', '~> 1.0.4'
 require 'simple_form'
-
-#gem 'rubyzip', '~> 0.9.1'
 require 'zip/zip'
-
-#gem 'will_paginate', '~> 2.3.12'
 require 'will_paginate'
-
+require 'redcloth'
 require 'liquid'
 
 # adds files to the load path
 add_files_to_load_path = lambda {|dir|
   path = File.expand_path(dir)
   $LOAD_PATH << path
-  ActiveSupport::Dependencies.load_paths << path
-  ActiveSupport::Dependencies.load_once_paths.delete(path)
+  ActiveSupport::Dependencies.autoload_paths << path
+  ActiveSupport::Dependencies.autoload_once_paths.delete(path)
   Dir[File.join(path, '*.rb')].each{|f| require f}
 }
 

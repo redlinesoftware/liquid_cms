@@ -12,6 +12,7 @@ class Cms::SetupController < ApplicationController
   def authorize_role(role)
     authorized = case role
     when :all, :cms_admin, :cms_user
+      #current_user.present?
       true
     else
       false

@@ -1,0 +1,7 @@
+{% user_data %}
+
+<div id="all_users">{{ users | size }}</div>
+
+<div id="paginated_count_page_0">{{ users | paginate_collection: '', '' | size }}</div><div id="paginate0_current_page">{{ paginate.current_page }}</div><div id="paginate0_next_page">{{ paginate.next_page }}</div>
+<div id="paginated_count_page_1">{{ users | paginate_collection: 2, 1 | size }}</div><div id="paginate1_current_page">{{ paginate.current_page }}</div><div id="paginate1_next_page">{{ paginate.next_page }}</div>
+<div id="paginated_count_page_2">{{ users | paginate_collection: 2, 2 | size }}</div><div id="paginate2_current_page">{{ paginate.current_page }}</div><div id="paginate2_next_page">{{ paginate.next_page }}</div>
