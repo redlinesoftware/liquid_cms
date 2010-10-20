@@ -1,0 +1,44 @@
+form.simple_form {
+  padding: 1em;
+  background-color: #F5F5F5;
+  margin-bottom: 1em;
+}
+form.simple_form, #sidebar {
+  border: 1px solid #BBB;
+  -moz-box-shadow: 0.3em 0.3em 9px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.1);
+}
+form.simple_form a.cancel {
+  color: red;
+  line-height: 2em;
+}
+form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, div.select {
+  margin-bottom: 1.3em;
+}
+form.simple_form label {
+  color: #333;
+  float: left;
+  font-size: 10pt;
+  font-weight: bold;
+  width: 10%;
+}
+form.simple_form input.string {
+  width: 89%;
+}
+
+form.simple_form .buttons { margin-left: 10%; margin-top: 1em; }
+form.simple_form span.hint { color: #666; display: block; font-size: 8pt; font-style: italic; margin: 0.5em 0 0 10%;}
+form.simple_form span.hint em { color: #333; font-weight: bold; }
+
+form.simple_form div.fieldWithErrors { background-color: #FBE3E4; padding: 0.5em 0; }
+form.simple_form span.error {
+  background: white;
+  border:1px solid red;
+  color:red;
+  display:block;
+  font-weight:bold;
+  margin-left:10%;
+  margin-top:0.5em;
+  padding:0.5em;
+}
