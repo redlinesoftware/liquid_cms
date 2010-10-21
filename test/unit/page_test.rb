@@ -218,7 +218,7 @@ class Cms::PageTest < ActiveSupport::TestCase
       outer_layout = @company.pages.create :name => "outer_layout", :content => '<html><body>{{ content_for_layout }}</body></html>'
       inner_layout = @company.pages.create :name => "inner_layout", :content => '<div class="content">{{ content_for_layout }}</div>', :layout_page_id => outer_layout.id
       test_page = @company.pages.create :name => "test", :content => 'included content'
-      page = @company.pages.create :name => "page_with_layout", :content => "Test Page {% include test %}", :layout_page_id => inner_layout.id
+      page = @company.pages.create :name => "page_with_layout", :content => "Test Page {% include 'test' %}", :layout_page_id => inner_layout.id
 
       assert_equal '<html><body><div class="content">Test Page included content</div></body></html>', page.rendered_content(@controller)
     end

@@ -20,7 +20,15 @@ Run the generator:
 
 Configure the engine in config/initializers/cms/liquid_cms.rb:
 
-  If you wish to run the cms for multiple "contexts" (ie. a company, business, customer, etc.) then you should set the *context_class* setting to your apps context class.
+  If you wish to run the cms under multiple "contexts" (ie. a cms each for a company, business, customer, etc.) then you need to perform the following steps:
+  
+    Set the *context_class* attribute to your apps context class:
+
+      config.context_class = :Company
+
+    And then set the context object in the Cms::SetupController or any controller up the inheritance chain.
+
+      Cms.set_context @company, self
 
 Add any controller specific tasks and customize the logic in app/controllers/cms/setup_controller.rb
 

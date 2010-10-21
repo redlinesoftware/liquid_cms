@@ -94,15 +94,31 @@ class Cms::PagesTest < ActionController::IntegrationTest
       end
     end
 
-    context "params variable" do
-      should "not allow access to :controller and :action values" do
-        @page = @company.pages.root
-        @page.update_attribute :content, %Q(<span id="action">{{ params.action }}</span> <span id="controller">{{ params.controller }}</span> <span id="test">{{ params.test }}</span>)
+    context "drops" do
+      context "params" do
+        should "not allow access to :controller and :action values" do
+          @page = @company.pages.root
+          @page.update_attribute :content, %Q(<span id="action">{{ params.action }}</span> <span id="controller">{{ params.controller }}</span> <span id="test">{{ params.test }}</span>)
 
-        get '/?test=5'
-        assert_select '#test', :text => '5'
-        assert_select '#action', :text => 'load', :count => 0
-        assert_select '#controller', :text => 'pages', :count => 0
+          get '/?test=5'
+          assert_select '#test', :text => '5'
+
+          # action and controller aren't exposed
+          assert_select '#action', :text => 'load', :count => 0
+          assert_select '#controller', :text => 'pages', :count => 0
+        end
+      end
+    end
+
+    context "tags" do
+      context "include" do
+        should "show the contents of the included page" do
+          @company.pages.create :name => 'content', :content => %Q(<h1>This is content</h1>)
+          @page = @company.pages.root
+          @page.update_attribute :content, %Q(<div id="content">{% include 'content' %}</div>)
+          get @page.url
+          assert_select '#content h1', "This is content"
+        end
       end
     end
     
@@ -223,19 +239,19 @@ class Cms::PagesTest < ActionController::IntegrationTest
           assert_select '#test', ''
         end
       end
-    end
 
-    context "liquified json data" do
-      should "be valid for users" do
-        @company.pages.create :name => 'test', :published => true, :content => "{% user_data %} {{ users | json }}"
-        get '/test'
+      context "liquified json data" do
+        should "be valid for users" do
+          @company.pages.create :name => 'test', :published => true, :content => "{% user_data %} {{ users | json }}"
+          get '/test'
 
-        # decode the json to access the data
-        data = ActiveSupport::JSON.decode(@response.body)
+          # decode the json to access the data
+          data = ActiveSupport::JSON.decode(@response.body)
 
-        assert_equal data.length, @company.users.length
-        assert_equal data[0]['user']['username'], 'user'
-        assert_equal data[0]['user']['company_id'], @company.id
+          assert_equal data.length, @company.users.length
+          assert_equal data[0]['user']['username'], 'user'
+          assert_equal data[0]['user']['company_id'], @company.id
+        end
       end
     end
 

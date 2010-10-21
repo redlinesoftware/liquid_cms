@@ -1,30 +1,32 @@
+# a modified include tag from the default liquid one
+# includes content from oather page neames
+
 module Liquid
   class Include < Liquid::Tag
-    def render(context)
-      raise FileSystemError, "Illegal template name '#{@template_name}'" unless @template_name =~ Cms::Page::NAME_REGEX
+    Syntax = /(#{QuotedFragment}+)?/
 
-      page = context.registers[:context].pages.find_by_name(@template_name)
-      raise FileSystemError, "No such template '#{@template_name}'" if page.nil?
+    def initialize(tag_name, markup, tokens)      
+      if markup =~ Syntax
+        @template_name = $1
+      else
+        raise SyntaxError.new("Error in tag 'include' - Valid syntax: include '[template]'")
+      end
+
+      super
+    end
+
+    def render(context)
+      template = context[@template_name]
+      raise FileSystemError, "Illegal template name '#{template}'" unless template =~ Cms::Page::NAME_REGEX
+
+      page = context.registers[:context].pages.find_by_name(template)
+      raise FileSystemError, "No such template '#{template}'" if page.nil?
       
       source  = page.content
       partial = Liquid::Template.parse(source)
 
-      variable = context[@variable_name || @template_name[1..-2]]
-
       context.stack do
-        @attributes.each do |key, value|
-          context[key] = context[value]
-        end
-
-        if variable.is_a?(Array)
-          variable.collect do |variable|
-            context[@template_name[1..-2]] = variable
-            partial.render(context)
-          end
-        else
-          context[@template_name[1..-2]] = variable
-          partial.render(context)
-        end
+        partial.render(context)
       end
     end
   end

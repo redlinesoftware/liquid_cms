@@ -1,4 +1,5 @@
 pkg/*
 *.gem
+*.swp
 .bundle
 test/rails_app/log
