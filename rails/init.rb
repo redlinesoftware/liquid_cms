@@ -17,8 +17,13 @@ require 'liquid'
 add_files_to_load_path = lambda {|dir|
   path = File.expand_path(dir)
   $LOAD_PATH << path
-  ActiveSupport::Dependencies.autoload_paths << path
-  ActiveSupport::Dependencies.autoload_once_paths.delete(path)
+  if ActiveSupport::Dependencies.respond_to?(:autoload_paths)
+    ActiveSupport::Dependencies.autoload_paths << path
+    ActiveSupport::Dependencies.autoload_once_paths.delete(path)
+  else
+    ActiveSupport::Dependencies.load_paths << path
+    ActiveSupport::Dependencies.load_once_paths.delete(path)
+  end
   Dir[File.join(path, '*.rb')].each{|f| require f}
 }
 

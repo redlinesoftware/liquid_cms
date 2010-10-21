@@ -27,7 +27,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl', "~> 1.2.3"
   s.add_development_dependency 'shoulda', "~> 2.10.3"
 
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
+  test_files = `git ls-files test/`.split("\n")
+  all_files  = `git ls-files`.split("\n")
+
+  s.files        = all_files - test_files
+  s.test_files   = test_files
+  s.executables  = all_files.map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
   s.require_path = 'lib'
 end
