@@ -113,11 +113,12 @@ class Cms::PagesTest < ActionController::IntegrationTest
     context "tags" do
       context "include" do
         should "show the contents of the included page" do
-          @company.pages.create :name => 'content', :content => %Q(<h1>This is content</h1>)
+          @company.pages.create :name => 'content', :content => %Q(<h1>This is content</h1> <span>{{ param }}</span>)
           @page = @company.pages.root
-          @page.update_attribute :content, %Q(<div id="content">{% include 'content' %}</div>)
+          @page.update_attribute :content, %Q(<div id="content">{% include 'content' param:'test' %}</div>)
           get @page.url
           assert_select '#content h1', "This is content"
+          assert_select '#content span', "test"
         end
       end
     end
