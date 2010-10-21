@@ -24,7 +24,7 @@ module TestConfig
   @@paperclip_test_root = File.join(File.dirname(__FILE__), 'paperclip')
 end
 
-require 'helpers/login_methods'
+require 'test_helpers/login_methods'
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
