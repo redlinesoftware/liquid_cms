@@ -1,5 +1,5 @@
 <div class="formContainer form">
-  <% simple_form_for @page do |f| %>
+  <%= simple_form_for @page do |f| %>
     <%= f.input :name %>
     <%= f.input :slug, :required => false %>
     <%= f.input :content, :input_html => {:rows => 30, :spellcheck => false} %>

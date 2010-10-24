@@ -63,5 +63,6 @@ class CreateLiquidCmsSetup < ActiveRecord::Migration
     drop_table :cms_assets
     drop_table :versions
     drop_table :companies
+    drop_table :users
   end
 end

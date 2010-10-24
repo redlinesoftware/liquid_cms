@@ -9,4 +9,6 @@ ActionController::Routing::Routes.draw do |map|
 
     cms.root :controller => :main, :action => :index
   end
+
+  map.connect '*url', :controller => 'cms/pages', :action => 'load'
 end

@@ -9,7 +9,7 @@ module Cms
 
     validates_attachment_presence :asset
 
-    named_scope :ordered, :order => 'asset_file_name ASC'
+    scope :ordered, :order => 'asset_file_name ASC'
 
     before_post_process :process_check
 

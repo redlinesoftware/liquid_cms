@@ -1,5 +1,5 @@
 <div class="formContainer form">
-  <% simple_form_for @asset, :html => {:multipart => true} do |f| %>
+  <%= simple_form_for @asset, :html => {:multipart => true} do |f| %>
     <%= f.input :asset, :as => :file %>
     <%= f.commit_button_or_cancel %>
   <% end %>

@@ -27,10 +27,10 @@ module Cms
       record.errors.add attr, "can't be set for a layout page" if value.present? && record.is_layout_page? 
     end
 
-    named_scope :published, :conditions => {:published => true}
-    named_scope :unpublished, :conditions => {:published => false}
-    named_scope :layouts, :conditions => {:is_layout_page => true}
-    named_scope :ordered, :order => 'name ASC'
+    scope :published, :conditions => {:published => true}
+    scope :unpublished, :conditions => {:published => false}
+    scope :layouts, :conditions => {:is_layout_page => true}
+    scope :ordered, :order => 'name ASC'
 
     def to_s
       name

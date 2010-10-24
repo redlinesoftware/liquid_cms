@@ -2,7 +2,7 @@
 
 <p>No liquid support currently for editing components.</p>
 
-<% form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'formtastic') do %>
+<%= form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'formtastic') do %>
   <fieldset class="inputs">
     <ol>
       <li class="string"><%= label_tag :name %> <%= text_field_tag :name, @component.path, :readonly => true %></li>
