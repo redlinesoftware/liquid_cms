@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "liquid_cms"
 
-  #s.add_development_dependency 'bundler', ">= 1.0.0"
   s.add_dependency 'rails', '~> 2.3.5'
   s.add_dependency 'paperclip', '~> 2.3.1'
   s.add_dependency 'vestal_versions', '~> 1.0.1'
