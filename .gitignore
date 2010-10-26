@@ -2,4 +2,5 @@ pkg/*
 *.gem
 *.swp
 .bundle
+.rvmrc
 test/rails_app/log
