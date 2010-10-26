@@ -16,7 +16,7 @@ module LiquidCms
     end
 
     def add_unreleased_gem_dependencies
-      append_file 'Gemfile', %q(gem 'vestal_versions', '~> 1.2.1', :git => 'http://github.com/adamcooper/vestal_versions.git')
+      append_file 'Gemfile', %q(gem 'vestal_versions', '~> 1.2.1', :git => 'git://github.com/adamcooper/vestal_versions.git')
     end
 
     def copy_setup_controller
