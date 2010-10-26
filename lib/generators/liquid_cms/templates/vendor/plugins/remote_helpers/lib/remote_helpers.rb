@@ -65,7 +65,7 @@ end
 #   Defaults to 'Element.show'.
 # * <tt>:after_effect</tt> - Specifies the after 'effect' for the indicator.
 #   Defaults to 'Element.hide'.
-module ActionView::Helpers::PrototypeHelper
+module RemoteHelpers
 
   # Creates an indicator image.  The options supplied are the same used with +image_tag+
   #
@@ -125,6 +125,7 @@ module ActionView::Helpers::PrototypeHelper
     image_tag RemoteIndicator.default_image, options
   end
 
+=begin
   alias :remote_function_old :remote_function
 
   # === Examples
@@ -241,4 +242,8 @@ private
   def merge_option_values!(options, code, sep = ';')
     code.each_pair {|key,value| options[key] = [value, options[key]].compact.join(sep)}
   end
+=end
 end
+
+# Add the remote indicator helper methods
+ActionController::Base.helper RemoteHelpers

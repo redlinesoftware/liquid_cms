@@ -9,6 +9,7 @@ PATH
   remote: .
   specs:
     liquid_cms (0.3.0)
+      bundler (>= 1.0.0)
       formatize
       paperclip (~> 2.3.1)
       rails (~> 3.0.0)

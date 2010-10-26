@@ -11,6 +11,13 @@ class Cms::PagesTest < ActionController::IntegrationTest
     stub_paperclip!
   end
   
+  context "routes" do
+    should "recognize routes" do
+      assert_routing '/', :controller => 'cms/pages', :action => 'load'
+      assert_routing '', :controller => 'cms/pages', :action => 'load'
+    end
+  end
+
   context "page title" do
     should "show the page title from a child template" do
       layout = Factory(:page, :slug => nil, :published => false, :content => read_fixture('layout.liquid'), :context => @company)
@@ -37,12 +44,12 @@ class Cms::PagesTest < ActionController::IntegrationTest
 
         get '/'
         assert_response :success
-        assert_equal assigns(:page), root
+        assert_equal root, assigns(:page)
         assert_equal 'This is the home page', response.body
 
         get ''
         assert_response :success
-        assert_equal assigns(:page), root
+        assert_equal root, assigns(:page)
         assert_equal 'This is the home page', response.body
       end
 
@@ -67,11 +74,15 @@ class Cms::PagesTest < ActionController::IntegrationTest
         assert_nil @company.pages.root
         assert @company.pages.published.empty?
 
-        get '/'
-        assert_response 404
+        assert_raises(ActionController::RoutingError) do
+          get '/'
+          assert_response 404
+        end
 
-        get ''
-        assert_response 404
+        assert_raises(ActionController::RoutingError) do
+          get ''
+          assert_response 404
+        end
       end
 
       should "load a cms page" do
@@ -87,7 +98,7 @@ class Cms::PagesTest < ActionController::IntegrationTest
         assert_equal 'This is the home page', response.body
 
         # if we create a new page with the previous slug, it gets called instead
-        @company.pages.create :name => 'another_hom', :slug => '/home_page/123', :content => 'Different Home', :published => true
+        @company.pages.create :name => 'another_home', :slug => '/home_page/123', :content => 'Different Home', :published => true
         get 'home_page/123'
         assert_response :success
         assert_equal 'Different Home', response.body
@@ -265,18 +276,24 @@ class Cms::PagesTest < ActionController::IntegrationTest
     end
 
     should "throw an exception if a page isn't found" do
-      get '/home_page_not_found' 
-      assert_response 404
+      assert_raises(ActionController::RoutingError) do
+        get '/home_page_not_found' 
+        assert_response 404
+      end
     end
 
     should "not load reserved paths for namespaced routes" do
-      get '/support'
-      assert_response 404
+      assert_raises(ActionController::RoutingError) do
+        get '/support'
+        assert_response 404
+      end
     end
 
     should "not load an unknown path for reserved namespaces" do
-      get '/cms/pages/unknown'
-      assert_response 404
+      assert_raises(ActionController::RoutingError) do
+        get '/cms/pages/unknown'
+        assert_response 404
+      end
     end
   end
 end
