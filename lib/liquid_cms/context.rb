@@ -1,3 +1,5 @@
+require 'liquid_cms/context_association'
+
 module Cms
   class Context
     attr_reader :object
@@ -7,7 +9,7 @@ module Cms
     end
 
     def pages
-      @object ? @object.pages : Cms::Page.scoped(nil)
+      @object ? @object.pages : Cms::Page.scoped(:extend => PageAssociationMethods)
     end
 
     def assets
