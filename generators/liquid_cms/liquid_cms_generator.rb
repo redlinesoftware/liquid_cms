@@ -44,7 +44,7 @@ class LiquidCmsGenerator < Rails::Generator::Base
       logger.route "Cms.global_route map"
       sentinel = 'end'
       line = "\n\t# This must be the last defined route in order for the cms to load pages properly.\n\tCms.global_route map\n#{sentinel}"
-      unless m.file_contains?('config/routes.rb', line)
+      unless File.read(destination_path('config/routes.rb')).include?(line)
         m.gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
           line
         end

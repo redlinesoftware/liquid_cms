@@ -1,11 +1,5 @@
 require 'fileutils'
 
-Rails::Generator::Commands::Base.class_eval do
-  def file_contains?(relative_destination, line)
-    File.read(destination_path(relative_destination)).include?(line)
-  end
-end
-
 Rails::Generator::Commands::Create.class_eval do
   def copy_files(base, source)
     logger.copy "Copying '#{source}' to '#{base}'"
