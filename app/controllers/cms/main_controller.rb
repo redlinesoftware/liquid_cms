@@ -1,15 +1,16 @@
 class Cms::MainController < Cms::SetupController
-  unloadable
   extend Cms::RoleAuthentication
 
   layout 'cms'
+
+  unloadable
 
   before_filter :load_pages_and_assets
 
   authenticate_user :all, :only => %w(index)
 
   def index
-    render :partial => 'cms/shared/index', :layout => true
+    render :text => render_to_string(:partial => 'cms/shared/index'), :layout => true
   end
 
 protected
