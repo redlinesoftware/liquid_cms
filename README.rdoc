@@ -4,17 +4,21 @@ A context aware CMS Ruby on Rails engine that uses liquid templates.
 
 == Installation
 
+Add the gem to your Gemfile:
+
+  gem 'liquid_cms', '~> 0.3.0'
+
 Install the gem:
 
-  gem install liquid_cms
-
-Add it to your config/environment.rb:
-
-  config.gem 'liquid_cms'
+  bundle install
 
 Run the generator:
 
-  script/generator liquid_cms
+  rails g liquid_cms:install
+
+The generator adds an additional dependency to your application, so bundler should be run once more:
+
+  bundle install
 
 == Configuration
 
