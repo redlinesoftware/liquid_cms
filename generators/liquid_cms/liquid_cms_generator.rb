@@ -42,22 +42,30 @@ class LiquidCmsGenerator < Rails::Generator::Base
 
       # add the global cms route to the apps main route file... this must be the last route in the file (lowest priority)
       logger.route "Cms.global_route map"
-      sentinel = 'end'
-      line = "\n\t# This must be the last defined route in order for the cms to load pages properly.\n\tCms.global_route map\n#{sentinel}"
-      unless File.read(destination_path('config/routes.rb')).include?(line)
-        m.gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
-          line
-        end
-      end
+      add_route m
 
       # add paperclip to the applications environment.rb file due to some loading issues
       logger.gem "config.gem 'paperclip'"
-      line = "end"
-      line = "config.gem 'paperclip'"
-      unless File.read(destination_path('config/environment.rb')).include?(line)
-        m.gsub_file 'config/environment.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
-          "\n\t# liquid_cms dependency\n\t#{line}, '~> 2.3.1'\n#{sentinel}"
-        end
+      add_gem m
+    end
+  end
+
+  def add_route(m)
+    sentinel = 'end'
+    line = "\n\t# This must be the last defined route in order for the cms to load pages properly.\n\tCms.global_route map\n#{sentinel}"
+    unless File.read(destination_path('config/routes.rb')).include?(line)
+      m.gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
+        line
+      end
+    end
+  end
+
+  def add_gem(m)
+    sentinel = "end"
+    line = "config.gem 'paperclip'"
+    unless File.read(destination_path('config/environment.rb')).include?(line)
+      m.gsub_file 'config/environment.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
+        "\n\t# liquid_cms dependency\n\t#{line}, '~> 2.3.1'\n#{sentinel}"
       end
     end
   end
