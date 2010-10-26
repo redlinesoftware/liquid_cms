@@ -41,8 +41,9 @@ class CreateLiquidCmsSetup < ActiveRecord::Migration
       t.belongs_to :versioned, :polymorphic => true
       t.belongs_to :user, :polymorphic => true
       t.string :user_name
-      t.text :changes
+      t.text :modifications
       t.integer :number
+      t.integer :reverted_from
       t.string :tag
 
       t.timestamps
@@ -62,7 +63,7 @@ class CreateLiquidCmsSetup < ActiveRecord::Migration
     drop_table :cms_pages
     drop_table :cms_assets
     drop_table :versions
-    drop_table :companies
     drop_table :users
+    drop_table :companies
   end
 end

@@ -46,12 +46,12 @@ RailsApp::Application.routes.draw do
   #     resources :products
   #   end
 
-  map.namespace :admin do |admin|
-    admin.resources :companies
+  namespace :admin do
+    resources :companies
   end
 
-  map.namespace :support do |support|
-    support.resources :companies
+  namespace :support do
+    resources :companies
   end
 
 

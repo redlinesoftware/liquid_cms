@@ -39,20 +39,18 @@ module Cms
     def reserved_slug?
       return false if self.slug.blank?
 
-      begin
-        # reserved paths
-        return true if self.slug =~ /\A\/(stylesheets|scripts|images)\b/
+      # reserved paths
+      return true if self.slug =~ /\A\/(stylesheets|scripts|images)\b/
 
-        path_options = ActionController::Routing::Routes.recognize_path(slug, {:method => :get})
-        # if the :url option is nil, then one of the existing routes matched the slug
-        return true if path_options[:url].nil?
- 
-        # if "root path" of any of the existing routes match the "root path" of requested url, then the slug is reserved
-        ActionController::Routing::Routes.routes.any? do |r|
-          r.segments.collect{|s| s.to_s}.reject{|s| s == '/'}.first == path_options[:url].first
-        end
-      rescue ActionController::RoutingError
-        false
+      path_options = Rails.application.routes.recognize_path(slug)
+      # if the :url option is nil, then one of the existing routes matched the slug
+      return true if path_options[:url].nil?
+
+      first_segment = (path_options[:url] || '/').split('/')[0]
+
+      # if part of the path matches and of the route "controllers" then we have a route conflict
+      Rails.application.routes.routes.any? do |r|
+        r.path.split('/')[1] == first_segment
       end
     end
 

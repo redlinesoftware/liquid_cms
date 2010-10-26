@@ -15,6 +15,10 @@ module LiquidCms
       ActiveRecord::Generators::Base.next_migration_number migration_dir
     end
 
+    def add_unreleased_gem_dependencies
+      append_file 'Gemfile', %q(gem 'vestal_versions', '~> 1.2.1', :git => 'http://github.com/adamcooper/vestal_versions.git')
+    end
+
     def copy_setup_controller
       copy_file 'setup_controller.rb', File.join('app', 'controllers', 'cms', 'setup_controller.rb')
     end

@@ -1,3 +1,5 @@
+require 'vestal_versions'
+
 VestalVersions.configure do |config|
   # Place any global options here. For example, in order to specify your own version model to use
   # throughout the application, simply specify:

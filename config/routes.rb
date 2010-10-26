@@ -1,14 +1,18 @@
-ActionController::Routing::Routes.draw do |map|
-  map.namespace :cms do |cms|
-    cms.resources :components, :only => [], :collection => {:upload => :post}
-    cms.connect 'components/:action/*url', :controller => 'components'
-    cms.resources :assets, :except => :index
-    cms.resources :pages, :except => [:index, :show]
-    cms.documentation 'documentation', :controller => 'documentation', :action => 'index'
-    cms.connect ':path/:id.:format', :controller => 'pages', :action => 'page_asset', :requirements => {:path => /javascripts|stylesheets/}
+Rails.application.routes.draw do
+  namespace :cms do
+    post 'components/upload'
 
-    cms.root :controller => :main, :action => :index
+    controller :components do
+      match '/components/:action/*url'
+    end
+
+    resources :assets, :except => :index
+    resources :pages, :except => [:index, :show]
+    resources :documentation, :only => :index
+    match ':path/:id.:format', :to => 'pages#page_asset', :requirements => {:path => /javascripts|stylesheets/}
+
+    root :to => 'main#index'
   end
 
-  map.connect '*url', :controller => 'cms/pages', :action => 'load'
+  match '(*url)', :to => 'cms/pages#load'
 end

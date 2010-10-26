@@ -29,21 +29,21 @@ class Cms::PageTest < ActiveSupport::TestCase
     should "return blank errors" do
       page = @company.pages.create
       assert_equal 2, page.errors.length
-      assert_equal "is invalid", page.errors[:name]
-      assert_equal "can't be blank", page.errors[:content]
+      assert_equal "is invalid", page.errors[:name].first
+      assert_equal "can't be blank", page.errors[:content].first
 
       page = @company.pages.create :published => true
       assert_equal 2, page.errors.length
-      assert_equal "is invalid", page.errors[:name]
-      assert_equal "can't be blank", page.errors[:content]
+      assert_equal "is invalid", page.errors[:name].first
+      assert_equal "can't be blank", page.errors[:content].first
     end
     
     should "not allow duplicates" do
       # same company, duplicate fails
       page = @company.pages.create :name => @company.pages.first.name, :content => 'Test', :slug => @company.pages.first.slug
       assert_equal 2, page.errors.length
-      assert_equal "has already been taken", page.errors[:name]
-      assert_equal "has already been taken", page.errors[:slug]
+      assert_equal "has already been taken", page.errors[:name].first
+      assert_equal "has already been taken", page.errors[:slug].first
 
       # multiple blank slugs can be saved
       page = @company.pages.create :name => 'new_name_1', :content => 'Test'
@@ -61,13 +61,13 @@ class Cms::PageTest < ActiveSupport::TestCase
       should "check valid formats" do
         page = Factory(:page, :context => @company) 
         page.update_attributes :name => 'test_123'
-        assert_nil page.errors.on(:name)
+        assert page.errors[:name].empty?
         page.update_attributes :name => 'test_123-test'
-        assert_nil page.errors.on(:name)
+        assert page.errors[:name].empty?
         page.update_attributes :name => 'test_123-test/test'
-        assert_not_nil page.errors.on(:name)
+        assert !page.errors[:name].empty?
         page.update_attributes :name => 'test_123-test.test'
-        assert_nil page.errors.on(:name)
+        assert page.errors[:name].empty?
       end
     end
 
@@ -114,17 +114,17 @@ class Cms::PageTest < ActiveSupport::TestCase
       should "reject any slugs that match namespaced controllers" do
         page = @company.pages.create @options.merge(:slug => '/cms')
         assert_equal 1, page.errors.length
-        assert_equal "is reserved and can't be used for this page", page.errors[:slug]
+        assert_equal "is reserved and can't be used for this page", page.errors[:slug].first
 
         page = @company.pages.create @options.merge(:slug => '/cms')
         assert_equal 1, page.errors.length
-        assert_equal "is reserved and can't be used for this page", page.errors[:slug]
+        assert_equal "is reserved and can't be used for this page", page.errors[:slug].first
       end
       
       should "reject a reserved name" do
         page = @company.pages.create @options.merge(:slug => '/cms/assets')
         assert_equal 1, page.errors.length
-        assert_equal "is reserved and can't be used for this page", page.errors[:slug]
+        assert_equal "is reserved and can't be used for this page", page.errors[:slug].first
       end
 
       should "confirm reserved paths" do
@@ -183,7 +183,7 @@ class Cms::PageTest < ActiveSupport::TestCase
       page = Factory.build(:page, :context => @company, :slug => '/testpage', :published => true, :root => true, :content => "{{ content_for_layout }}")
       page.save
       %w(slug published root).each do |attr|
-        assert_equal "can't be set for a layout page", page.errors.on(attr)
+        assert_equal "can't be set for a layout page", page.errors[attr].first
       end
     end
   end

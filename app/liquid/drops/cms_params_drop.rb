@@ -8,7 +8,7 @@ module Cms
     end
     
     def url
-      @record[:url]
+      (@record[:url] || '').split('/')
     end
   end
 end

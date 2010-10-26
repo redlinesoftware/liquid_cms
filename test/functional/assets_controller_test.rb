@@ -34,7 +34,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       new_asset_file = 'new_test.pdf'
       setup_asset new_asset_file
 
-      put :update, :id => asset, :cms_asset => {:asset => ActionController::TestUploadedFile.new(asset_file(new_asset_file))}
+      put :update, :id => asset, :cms_asset => {:asset => fixture_file_upload(File.join(ASSET_PATH, new_asset_file))}
       assert_response :redirect
       assert_redirected_to cms_root_path
 
@@ -70,11 +70,13 @@ protected
     FileUtils.touch asset_file(file_name)
   end
 
+  ASSET_PATH = 'assets'
+
   def asset_path
-    TestConfig.paperclip_test_root + '/assets'
+    File.join(TestConfig.paperclip_test_root, ASSET_PATH)
   end
 
   def asset_file(file_name)
-    asset_path + "/" + file_name
+    File.join(asset_path, file_name)
   end
 end

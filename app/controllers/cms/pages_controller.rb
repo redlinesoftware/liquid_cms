@@ -47,13 +47,16 @@ class Cms::PagesController < Cms::MainController
     # forces removal of any flash values used during this request
     flash.discard
 
-    path = '/'+params[:url].join('/')
+    params[:url] ||= ''
+
+    path = '/'+params[:url]
+    url_parts = params[:url].split('/')
 
     @page = if path == '/'
       # if the root path is requested, find the root page or if a root page doesn't exist, get the first published page
       @context.pages.root || @context.pages.published.first
     else
-      @context.pages.published.first(:conditions => {:slug => path}) || @context.pages.published.first(:conditions => {:name => params[:url].first}) || @context.pages.published.first(:conditions => {:slug => wildcard_path}) 
+      @context.pages.published.first(:conditions => {:slug => path}) || @context.pages.published.first(:conditions => {:name => url_parts.first}) || @context.pages.published.first(:conditions => {:slug => wildcard_path}) 
     end
 
     if @page
@@ -87,6 +90,6 @@ class Cms::PagesController < Cms::MainController
 
 protected
   def wildcard_path
-    '/'+params[:url].slice(0..-2).join('/')
+    '/'+params[:url].split('/').slice(0..-2).join('/')
   end
 end
