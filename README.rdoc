@@ -2,6 +2,10 @@
 
 A context aware CMS Ruby on Rails engine that uses liquid templates.
 
+If you're using rails 2, use the 0.2.x series of this gem.
+
+If you're using rails 3, use the 0.3.x series of this gem.
+
 = Installation
 
 Install the gem:
