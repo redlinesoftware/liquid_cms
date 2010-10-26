@@ -49,6 +49,16 @@ class LiquidCmsGenerator < Rails::Generator::Base
           line
         end
       end
+
+      # add paperclip to the applications environment.rb file due to some loading issues
+      logger.gem "config.gem 'paperclip'"
+      line = "end"
+      line = "config.gem 'paperclip'"
+      unless File.read(destination_path('config/environment.rb')).include?(line)
+        m.gsub_file 'config/environment.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
+          "\n\t# liquid_cms dependency\n\t#{line}, '~> 2.3.1'\n#{sentinel}"
+        end
+      end
     end
   end
 end
