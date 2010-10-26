@@ -10,7 +10,7 @@ Install the gem:
 
 Add it to your config/environment.rb:
 
-  config.gem 'liquid_cms'
+  config.gem 'liquid_cms', '~> 0.2.0'
 
 Run the generator:
 
