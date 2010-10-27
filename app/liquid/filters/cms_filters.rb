@@ -28,7 +28,7 @@ module CmsFilters
   end
 
   def money(value, precision = 0)
-    Protected::number_to_currency value, :precision => precision
+    Protected.number_to_currency value, :precision => precision
   end
 
   def json(value)
@@ -45,36 +45,36 @@ module CmsFilters
 
   def textilize(text, with_paragraphs = true)
     if with_paragraphs
-      Protected::textilize text
+      Protected.textilize text
     else
-      Protected::textilize_without_paragraph text
+      Protected.textilize_without_paragraph text
     end
   end
 
   def script_tag(url)
-    Protected::config = @context.registers[:controller]
-    Protected::javascript_include_tag url
+    Protected.config = @context.registers[:controller]
+    Protected.javascript_include_tag url
   end
 
   def stylesheet_tag(url)
     return '' if url.blank?
 
-    Protected::config = @context.registers[:controller]
-    Protected::stylesheet_link_tag url
+    Protected.config = @context.registers[:controller]
+    Protected.stylesheet_link_tag url
   end
 
   def image_tag(url, title = nil, size = nil)
     return '' if url.blank?
 
-    Protected::config = @context.registers[:controller]
+    Protected.config = @context.registers[:controller]
 
     options = title.present? ? {:title => title, :alt => title} : {}
     options[:size] = size if size.present?
-    Protected::image_tag url, options
+    Protected.image_tag url, options
   end
 
   def link_to(url, text = nil)
-    Protected::link_to text, url
+    Protected.link_to text, url
   end
 
   def assign_to(value, name)
