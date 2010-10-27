@@ -41,7 +41,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       # check that the file name updated
       assert_equal new_asset_file, asset.reload.asset_file_name
 
-      FileUtils.rm_rf TestConfig.paperclip_test_root
+      cleanup_assets
     end
 
     should "destroy asset via HTML :DELETE" do
@@ -68,6 +68,11 @@ protected
   def setup_asset(file_name)
     FileUtils.mkdir_p asset_path
     FileUtils.touch asset_file(file_name)
+  end
+
+  def cleanup_assets
+    FileUtils.rm_rf TestConfig.paperclip_test_root
+    FileUtils.rm_rf Rails.root.join('public', 'cms', 'assets')
   end
 
   ASSET_PATH = 'assets'
