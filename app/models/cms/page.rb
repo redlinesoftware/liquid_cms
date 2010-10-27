@@ -58,7 +58,7 @@ module Cms
       render_options = {} #{:filters => [CmsFilters, AppFilters]}
       common_assigns = {'params' => ParamsDrop.new((controller.params || {}).except(:controller, :action)), 'site_url' => controller.request.protocol + controller.request.raw_host_with_port}
 
-      context_obj = Cms.context_class ? Cms::Context.new(context) : nil
+      context_obj = Cms::Context.new(Cms.context_class ? context : nil)
 
       # render the current page
       page = self
