@@ -6,6 +6,8 @@ If you're using rails 2, use the 0.2.x series of this gem.
 
 If you're using rails 3, use the 0.3.x series of this gem.
 
+See the {wiki page}[http://github.com/redlinesoftware/liquid_cms/wiki] for additional documentation on usage and customizations... currently a work in progress.
+
 = Installation
 
 Add the gem to your Gemfile:
