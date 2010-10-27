@@ -4,7 +4,6 @@ $:.unshift File.dirname(__FILE__)
 
 require "rails_app/config/environment"
 require 'test_help'
-require 'ostruct'
 
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Base.logger = Logger.new(nil)
@@ -13,6 +12,7 @@ ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":me
 ActiveRecord::Migrator.migrate(File.join(File.dirname(__FILE__), "rails_app/db/migrate/"), nil)
 
 require 'rubygems'
+require 'ostruct'
 require 'shoulda'
 require 'factory_girl'
 
