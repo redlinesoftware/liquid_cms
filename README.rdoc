@@ -52,6 +52,8 @@ Once the engine is configured, you can view the CMS at the <b>/cms</b> path in y
 
 = Customization
 
+All CMS templates and the layout can be overridden in the main application.  Simply create the partial or template at the same path as the engine and your applications template will take priority.
+
 In order to expose data in your application in the templates, liquid filters, drops, tags and blocks specific to your application can be added to the <b>app/liquid</b> folder.  Knowledge of liquid templates and the liquid library is required to do this.  Examples of custom filters, drops, tags and blocks can be found in the liquid_cms gem files or in additional documentation on this website or related forums.
 
 A set of filters, drops and tags are provided in addition to the defaults provided by liquid.  The documentation link accessible in the CMS provides additional details.
