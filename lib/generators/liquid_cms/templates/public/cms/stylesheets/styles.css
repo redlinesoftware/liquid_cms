@@ -76,12 +76,6 @@ a img {
   margin: 0;
   padding: 0;
 }
-#sidebar ul.tree, #sidebar #assets ul {
-  margin-bottom: 1em;
-}
-#sidebar ul.tree ul {
-  margin-left: 15px;
-}
 #sidebar #assets li {
   border: 1px solid #AAA;
   padding: 0.3em 0.4em;
@@ -134,6 +128,13 @@ h2 p.message {
 #cms ul.tree ul { margin-left: 10px; }
 #cms ul.tree li { margin: 0; padding: 0 12px; line-height: 20px; background: url(/cms/images/tree/node.png) no-repeat; color: #369; font-weight: bold; } 
 #cms ul.tree li:last-child { background: url(/cms/images/tree/lastnode.png) no-repeat; }
+
+#cms ul.tree, #sidebar #assets ul {
+  margin-bottom: 1em;
+}
+#cms ul.tree ul {
+  margin-left: 15px;
+}
 
 .left {
   float: left;
