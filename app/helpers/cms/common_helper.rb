@@ -38,6 +38,7 @@ module Cms::CommonHelper
         path: "/cms/codemirror/js/",
         textWrapping: false,
         height: '600px',
+        width: '89%',
         saveFunction: function() {
           var form = $$('#{form}').first();
           $('#{content_id}').setValue(editor.getCode());
