@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubyzip', '~> 0.9.1'
   s.add_dependency 'will_paginate', '~> 2.3.12'
   s.add_dependency 'RedCloth'
-  s.add_dependency 'liquid', '~> 2.2.2'
+  #s.add_dependency 'liquid', '~> 2.2.2'
 
   s.add_development_dependency 'factory_girl', "~> 1.2.3"
   s.add_development_dependency 'shoulda', "~> 2.10.3"
