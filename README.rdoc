@@ -58,4 +58,4 @@ A set of filters, drops and tags are provided in addition to the defaults provid
 
 = Contribution
 
-If you experience any issues with this CMS engine, please open a bug report.  Contributionis to improve this engine is extremely welcome.  A 1.0 release will be made when the engine has a bit more _polish_ on it.
+If you experience any issues with this CMS engine, please open a bug report.  Contributions to improve this engine are extremely welcome.  A 1.0 release will be made when the engine has a bit more _polish_ on it.
