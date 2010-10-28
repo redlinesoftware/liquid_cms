@@ -1,22 +1,23 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
   <head>
-    <title>CodeMirror user manual</title>
+    <title>CodeMirror: User Manual</title>
     <link rel="stylesheet" type="text/css" href="css/docs.css"/>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono|Droid+Sans:bold"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   </head>
   <body>
-    <h1 class="underline">CodeMirror user manual</h1>
 
-    <h2>Contents</h2>
+<h1><span class="logo-braces">{ }</span> CodeMirror</h1>
 
-    <ul>
-      <li><a href="#useage">Basic Useage</a></li>
-      <li><a href="#configuration">Configuration</a></li>
-      <li><a href="#parsers">Parsers</a></li>
-      <li><a href="#programming">Programming Interface</a></li>
-      <li><a href="#writeparser">Writing a Parser</a></li>
-    </ul>
+<pre class="grey">
+/* User manual and
+   reference guide */
+</pre>
 
-    <h2 id="useage">Basic Usage</h2>
+<div class="clear"><div class="leftbig blk">
+
+    <h2 id="usage">Basic Usage</h2>
 
     <p>Inside the editor, the tab key is used to re-indent the current
     selection (or the current line when nothing is selected), and
@@ -112,6 +113,10 @@
   stylesheet: "lib/codemirror/css/jscolors.css"
 });</pre>
 
+    <p>Instances created like this will have a
+    <code>toTextArea()</code> method which removes them and restores
+    the text area they were based on.</p>
+
     <p>The reason that the script path has to be configured is that
     CodeMirror will load in a bunch of extra files when an editor is
     created (the parser script, among others). To be able to do this,
@@ -145,7 +150,7 @@
     when you are trying to figure out how they work, but wastes a lot
     of bandwidth in a production system. Take a look at the
     description of the <code>basefiles</code> option below if you want
-    to concatenate and minimise the library.</p>
+    to concatenate and minimise the library (see the <a href="compress.html">compression API</a>).</p>
 
     <p>Apart from these, there are files that implement the various
     parsers. These all start with either <code>parse</code> or
@@ -177,10 +182,14 @@
 
     <dl>
 
-      <dt><code>stylesheet</code></dt><dd>The file name of the style-sheet
-      that should be used to colour the code in the editor frame. See <a
+      <dt><code>stylesheet</code></dt><dd>The file name of the
+      style-sheet, or style-sheets, that should be used to colour the
+      code in the editor frame. Can be a string or an array of
+      strings. See <a
       href="css/jscolors.css"><code>jscolors.css</code></a> for an
-      example.</dd>
+      example. The set of active stylesheets can be changed in a
+      running editor with the <code>setStylesheet</code> method, which
+      also takes a string or array of strings as argument.</dd>
 
       <dt><code>path</code></dt><dd>The path that is prefixed to
       script file names when they are loaded into an IFRAME. (Note that
@@ -257,7 +266,11 @@
 
       <dt><code>width</code>, <code>height</code></dt><dd>The size of
       the editor frame, given as a style-sheet quantities (for example
-      <code>"600px"</code> or <code>"100%"</code>).</dd>
+      <code>"600px"</code> or <code>"100%"</code>). When
+      <code>height</code> is set to <code>dynamic</code>, the editor
+      will automatically resize to fit its contents. In this case, the
+      <code>minHeight</code> option (an integer) is used to determine
+      the minimum height in pixels.</dd>
 
       <dt><code>disableSpellcheck</code></dt><dd>Should the editor
       disable spell-checking on browsers that support it (Firefox 2+).
@@ -280,6 +293,10 @@
       an absolute ('pt' or 'px') font size. This option defaults to
       <code>false</code>. Changeable with the
       <code>setLineNumbers(on)</code> method.</dd>
+
+      <dt><code>firstLineNumber</code></dt><dd>When
+      <code>lineNumbers</code> is enabled, this determines the number
+      given to the first line. Defualt is <code>1</code>.</dd>
 
       <dt><code>lineNumberDelay</code>,
       <code>lineNumberTime</code></dt><dd>When both line numbers are
@@ -312,6 +329,24 @@
       This option can be changed at run-time using the
       <code>setTabMode(mode)</code> method.</dd>
 
+      <dt><code>enterMode</code></dt><dd>Determines how a new line
+      created by pressing enter is indented. Supported modes are:
+      <dl>
+        <dt><code>"indent"</code></dt><dd>The default. Causes the new
+        line to be intented by the rules of the parser.</dd>
+        <dt><code>"keep"</code></dt><dd>Keeps the indentation of the
+        previous line.</dd>
+        <dt><code>"flat"</code></dt><dd>Never indents new lines.</dd>
+      </dl>
+      The <code>setEnterMode</code> method can be used to change this
+      option in a running editor.</dd>
+
+      <dt><code>electricChars</code></dt><dd>A boolean that can be
+      used to turn "electric chars" (characters that cause the current
+      line to be reindented when typed, such as <code>{</code> and
+      <code>}</code> in C-like languages) on and off. Default is
+      on.</dd>
+
       <dt><code>reindentOnLoad</code></dt><dd>When <code>true</code>,
       this causes the content of the editor to be reindented
       immediately when the editor loads. Defaults to
@@ -319,6 +354,11 @@
 
       <dt><code>readOnly</code></dt><dd>When set to <code>true</code>,
       the document is not editable.</dd>
+
+      <dt><code>domain</code></dt><dd>Can be set to the value
+      <code>document.domain</code> should have inside of the iframe.
+      Used to prevent access issues in IE, where this value isn't
+      automatically inherited by iframes.</dd>
 
       <dt><code>initCallback</code></dt><dd>If set to a function, this
       will be called (with the editor object as its argument) after
@@ -409,8 +449,15 @@
 
       <dt><code><a
       href="contrib/php/js/parsephp.js">contrib/php/js/parsephp.js</a></code>
-      (<a href="contrib/php/index.html">demo</a>)</dt><dd>PHP
-      parser.</dd>
+      (<a href="contrib/php/index.html">demo</a>)</dt><dd>PHP parser.
+      There is also <code><a
+      href="contrib/php/js/parsephphtmlmixed.js">contrib/php/js/parsephphtmlmixed.js</a></code>,
+      which wraps this parser to allow mixed-mode HTML + PHP parsing.
+      This one takes a configuration parameter <code>opening</code>,
+      which should contain an array of XML processing instruction
+      openings (<code>&lt;?php</code>, <code>&lt;?</code> etc) which
+      can be used to open a PHP block. Default is
+      <code>["&lt;?php"]</code>.</dd>
 
       <dt><code><a
       href="contrib/python/js/parsepython.js">contrib/python/js/parsepython.js</a></code>
@@ -433,7 +480,7 @@
     href="js/mirrorframe.js"><code>mirrorframe.js</code></a> provides
     a basic example of their usage.</p>
 
-    <h3>Properties</h3>
+    <h3 id="properties">Properties</h3>
 
     <dl>
       <dt><code>frame</code></dt><dd>The editable frame.</dd>
@@ -444,7 +491,7 @@
       <code>CodeMirror-wrapping</code>.</dd>
     </dl>
 
-    <h3>Methods</h3>
+    <h3 id="methods">Methods</h3>
 
     <dl>
       <dt><code>getCode()</code> &#8594;
@@ -456,15 +503,6 @@
 
       <dt><code>focus()</code></dt><dd>Gives focus to the editor
       frame.</dd>
-
-      <dt><code>currentLine()</code> &#8594;
-      <code>number</code></dt><dd>Returns the line on which the cursor
-      is currently sitting. <span class="warn">(Deprecated, see the
-      line-based interface below)</span></dd>
-
-      <dt><code>jumpToLine(number)</code></dt><dd>Moves the cursor to
-      the start of the given line. <span
-      class="warn">(Deprecated)</span></dd>
 
       <dt><code>selection()</code> &#8594;
       <code>string</code></dt><dd>Returns the text that is currently
@@ -480,23 +518,32 @@
       <dt><code>reindentSelection()</code></dt><dd>Automatically
       re-indent the selected lines.</dd>
 
-      <dt><code>getSearchCursor(string, atCursor, caseFold)</code>
-      &#8594; <code>cursor</code></dt><dd>The first argument indicates
-      the string that should be searched for, and the second indicates
-      whether searching should start at the cursor (<code>true</code>)
-      or at the start of the document (<code>false</code>). When
-      <code>caseFold</code> is true, the search will be
-      case-insensivive. Returns an object that provides an interface
-      for searching. Call its <code>findNext()</code> method to search
-      for an occurrence of the given string. This returns
-      <code>true</code> if something is found, or <code>false</code>
-      if the end of document is reached. When an occurrence has been
-      found, you can call <code>select()</code> to select it, or
+      <dt><code>getSearchCursor(string, startPos, caseFold)</code>
+      &#8594; <code>cursor</code></dt><dd>The first argument provides
+      the string that should be searched for. The second determines
+      where to start searching. It can be <code>false</code> (or left
+      off) for the start of the document, <code>true</code> for the
+      current cursor position, or a <code>{line, character}</code>
+      object (as returned by <code>cursorPosition</code>, or created
+      yourself using a line handle and a number) to set a random
+      position. The third argument, a boolean, determines whether the
+      search will be case-sensitive. If it is not provided, the search
+      will only be case-sensitive if the search string contains
+      uppercase characters. Returns an object that provides an
+      interface for searching. Call its <code>findNext()</code> and
+      <code>findPrevious()</code> methods to search for an occurrence.
+      This returns <code>true</code> if something is found, or
+      <code>false</code> if the end or start of the document was
+      reached. When an occurrence has been found, you can call
+      <code>select()</code> to select it, or
       <code>replace(string)</code> to replace it with a given string.
-      Note that letting the user change the document, or
-      programmatically changing it in any way except for calling
-      <code>replace</code> on the cursor itself, might cause a cursor
-      object to skip back to the beginning of the document.</dd>
+      To find out where the match was found, call the
+      <code>position()</code> method, which returns a <code>{line,
+      character}</code> object. Note that letting the user change the
+      document, or programmatically changing it in any way except for
+      calling <code>replace</code> on the cursor itself, might cause a
+      cursor object to skip back to the beginning of the
+      document.</dd>
 
       <dt><code>undo()</code></dt><dd>Undo one changeset, if available.</dd>
       <dt><code>redo()</code></dt><dd>Redo one changeset, if available.</dd>
@@ -520,13 +567,25 @@
       <dt><code>ungrabKeys()</code></dt><dd>Revert the effect of
       <code>grabKeys</code>.</dd>
 
-      <dt><code>setParser(name)</code></dt><dd>Change the active
-      parser. To use this you'll have to load more than one parser
-      (put the one you want to use as default at the end of the list).
-      Then call this function with a string containing the name of the
-      parser you want to switch to (see the parser script file to find
-      the name, it'll be something like <code>CSSParser</code>).</dd>
+      <dt><code>setParser(name, parserConfig)</code></dt><dd>Change
+      the active parser. To use this you'll have to load more than one
+      parser (put the one you want to use as default at the end of the
+      list). Then call this function with a string containing the name
+      of the parser you want to switch to (see the parser script file
+      to find the name, it'll be something like
+      <code>CSSParser</code>). The second argument is optional, and
+      can be used to pass a new parser configuration object.</dd>
+
+      <dt><code>cursorCoords(start)</code></dt><dd>Get the coordinates
+      of the cursor in the editor, relative to the top-left corner of
+      the outer document. Normally returns an object with
+      <code>x</code>, <code>y</code>, and <code>yBot</code> (the
+      bottom of the cursor) properties. May return <code>null</code>
+      if the cursor position could not be determined (for example, if
+      the editor is not focused).</dd>
     </dl>
+
+    <h3 id="lines">Line Manipulation</h3>
 
     <p>For detailed interaction with the content of the editor,
     CodeMirror exposes a line-oriented interface, which allows you to
@@ -546,6 +605,9 @@
       character}</code> object representing the cursor position.
       <code>start</code> defaults to <code>true</code> and determines
       if the startpoint or the endpoint of the selection is used.</dd>
+      <dt><code>cursorLine()</code> &#8594;
+      <code>handle</code></dt><dd>Returns the line on which the cursor
+      is currently sitting.</dd>
       <dt><code>firstLine()</code> &#8594;
       <code>handle</code></dt><dd>Get the first line of the
       document.</dd>
@@ -572,6 +634,8 @@
       <dt><code>lineNumber(handle)</code> &#8594;
       <code>number</code></dt><dd>Ask which line of the document
       (1-based) the given line is.</dd>
+      <dt><code>jumpToLine(handle)</code></dt><dd>Moves the cursor to
+      the start of the given line.</dd>
       <dt><code>selectLines(startHandle, startOffset,
       endHandle, endOffset)</code></dt><dd>Move the selection to a
       specific point. <code>endHandle</code> and
@@ -658,6 +722,38 @@
     href="js/parsejavascript.js"><code>parsejavascript.js</code></a>,
     <a href="js/parsexml.js"><code>parsexml.js</code></a>, and <a
     href="js/parsecss.js"><code>parsecss.js</code></a>.</p>
+
+</div><div class="rightsmall blk">
+
+  <h2>Contents</h2>
+
+  <ul>
+    <li><a href="#usage">Basic Usage</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#parsers">Parsers</a></li>
+    <li><a href="#programming">Programming Interface</a>
+    <ul>
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#lines">Line Manipulation</a></li>
+    </ul>
+    </li>
+    <li><a href="#writeparser">Writing a Parser</a></li>
+  </ul>
+
+  <h2>Site</h2>
+
+  <ul>
+    <li><a href="index.html">Front Page</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="http://groups.google.com/group/codemirror">Google Group</a></li>
+    <li><a href="compress.html">Compression Helper</a></li>
+    <li><a href="story.html">War Story</a></li>
+  </ul>
+
+</div></div>
+
+<div style="height: 2em">&nbsp;</div>
 
   </body>
 </html>
