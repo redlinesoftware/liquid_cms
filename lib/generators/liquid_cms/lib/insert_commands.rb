@@ -5,6 +5,14 @@ Rails::Generator::Commands::Create.class_eval do
     logger.copy "Copying '#{source}' to '#{base}'"
     FileUtils.cp_r File.join(source_root, base, source), File.join(destination_root, base)
   end
+
+  # override the migration template method so that we can continue the generation and not fail if the migration already exists
+  def migration_template(relative_source, relative_destination, template_options = {})
+    migration_directory relative_destination
+    migration_file_name = template_options[:migration_file_name] || file_name
+    puts "Another migration is already named #{migration_file_name}: #{existing_migrations(migration_file_name).first}... skipping" and return if migration_exists?(migration_file_name)
+    template(relative_source, "#{relative_destination}/#{next_migration_string}_#{migration_file_name}.rb", template_options)
+  end
 end
 
 Rails::Generator::Commands::Destroy.class_eval do
