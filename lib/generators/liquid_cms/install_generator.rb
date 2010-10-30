@@ -8,7 +8,12 @@ module LiquidCms
     source_root File.expand_path('templates', File.dirname(__FILE__))
 
     def copy_migration_file
-      migration_template 'migration.rb', File.join('db', 'migrate', 'create_liquid_cms_setup')
+      name = 'create_liquid_cms_setup'
+      if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
+        migration_template 'migration.rb', File.join('db', 'migrate', name) if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
+      else
+        puts "Migration '#{name}' already exists... skipping"
+      end
     end
 
     def self.next_migration_number(migration_dir)
