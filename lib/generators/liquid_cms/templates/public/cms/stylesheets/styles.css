@@ -45,9 +45,8 @@ a img {
 }
 
 #content {
-  float: left;
-  margin-left: 2em;
-  width: 70%;
+  margin-left: 23em;
+  margin-right: 1em;
 }
 #content h2 {
   border-bottom: 1px solid #AAA;
@@ -59,8 +58,8 @@ a img {
   background-color: #CFCFCF;
   float: left;
   padding: 0 1em;
-  margin-left: 2em;
-  width: 250px;
+  margin-left: 1em;
+  width: 18em;
 }
 #sidebar h2 {
   font-size: 12pt;
