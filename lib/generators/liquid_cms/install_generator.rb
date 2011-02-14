@@ -10,7 +10,7 @@ module LiquidCms
     def copy_migration_file
       name = 'create_liquid_cms_setup'
       if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
-        migration_template 'migration.rb', File.join('db', 'migrate', name) if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
+        migration_template 'migration.rb', File.join('db', 'migrate', name)
       else
         puts "Migration '#{name}' already exists... skipping"
       end
