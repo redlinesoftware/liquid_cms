@@ -2,9 +2,9 @@
 
 A context aware CMS Ruby on Rails engine that uses liquid templates.
 
-If you're using rails 2, use the 0.2.x series of this gem. https://github.com/redlinesoftware/liquid_cms/tree/rails2
+If you're using rails 2, use the 0.2.x series of this gem (tested with ruby 1.8.7). https://github.com/redlinesoftware/liquid_cms/tree/rails2
 
-If you're using rails 3, use the 0.3.x series of this gem. https://github.com/redlinesoftware/liquid_cms
+If you're using rails 3, use the 0.3.x series of this gem (tested with ruby 1.9.2). https://github.com/redlinesoftware/liquid_cms
 
 {rubygems page}[https://rubygems.org/gems/liquid_cms]
 
