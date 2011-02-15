@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background-color: #EEE;
+  background-color: #EDEDED;
   font-family: Arial;
   font-size: 10pt;
 }
@@ -168,6 +168,9 @@ h2 p.message {
   float: right;
 }
 
+.CodeMirror-wrapping {
+  display: inline-block;
+}
 .CodeMirror-wrapping iframe {
   background-color: white;
   border: 1px solid #BBBBBB !important;
