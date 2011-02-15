@@ -14,7 +14,7 @@ See the {wiki page}[http://github.com/redlinesoftware/liquid_cms/wiki] for addit
 
 Add it to your config/environment.rb:
 
-  config.gem 'liquid_cms', '~> 0.2.0'
+  config.gem 'liquid_cms', :version => '~> 0.2.0'
 
 Install the gem:
 
@@ -22,7 +22,7 @@ Install the gem:
 
 Run the generator:
 
-  script/generator liquid_cms
+  script/generate liquid_cms
 
 = Configuration
 
