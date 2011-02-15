@@ -9,19 +9,20 @@
   <%= javascript_include_tag '/cms/codemirror/js/codemirror' %>
   <%= stylesheet_link_tag '/cms/stylesheets/simple_form' %>
   <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles' %>
+  <%= stylesheet_link_tag '/cms/stylesheets/themes/dark' %>
   <%= yield :cms_styles %>
   <!--[if lte IE 8]>
   <%= stylesheet_link_tag '/cms/stylesheets/ie' %>
   <![endif]-->
   <%= csrf_meta_tag %>
 </head>
-<body id="cms">
+<body id="cms" class="cms_<%= params[:controller].camelize.demodulize.downcase %>">
   <div id="header">
     <h1><%= link_to 'Liquid CMS', cms_root_path %></h1>
   </div>
 
-  <div class="clearfix">
-    <div id="sidebar">
+  <div id="outer-container" class="clearfix">
+    <div id="sidebar" class="shadow curved">
       <%= render 'cms/shared/sidebar' %>
     </div> 
 

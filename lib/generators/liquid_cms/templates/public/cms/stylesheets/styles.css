@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background-color: #EDEDED;
+  background-color: #EEE;
   font-family: Arial;
   font-size: 10pt;
 }
@@ -12,10 +12,15 @@ a img {
   border: none;
 }
 
+.curved {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+}
+
 #header {
   position: relative;
   padding: 2em 0;
-  margin: 0 0 1em 0;
 }
 #header h1 {
   font-size: 18pt;
@@ -44,14 +49,35 @@ a img {
   font-weight: bold;
 }
 
+#outer-container {
+  height: 100%;
+  padding-top: 1em;
+}
+
 #content {
   margin-left: 23em;
   margin-right: 1em;
+  padding-bottom: 0.5em;
+}
+#content h1 {
+  padding-top: 0.5em;
+  margin-top: 0;
 }
 #content h2 {
   border-bottom: 1px solid #AAA;
   margin-top: 0;
   padding-bottom: 0.3em;
+}
+#content .message {
+  padding: 0.5em;
+  text-align: center;
+  background: none repeat scroll 0 0 #CCCCCC;
+  color: #333333;
+  font-weight: bold;
+  line-height: 5em;
+  padding: 0.5em;
+  text-align: center;
+  text-shadow: 1px 1px 4px #FFFFFF;
 }
 
 #sidebar {
