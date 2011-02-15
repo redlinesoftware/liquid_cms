@@ -5,7 +5,7 @@ class SimpleForm::FormBuilder
         html << button(:submit)
         html << " or "
         html << template.link_to('Cancel', :back, :class => 'cancel')
-      end
+      end.html_safe
     end
   end
 end

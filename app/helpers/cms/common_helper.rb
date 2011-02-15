@@ -32,7 +32,7 @@ module Cms::CommonHelper
     end
 
     javascript_tag do
-      <<-JS
+      js = <<-JS
       var editor = CodeMirror.fromTextArea("#{content_id}", {
         #{js_options}
         path: "/cms/codemirror/js/",
@@ -46,6 +46,7 @@ module Cms::CommonHelper
         }
       });
       JS
+      js.html_safe
     end
   end
 
