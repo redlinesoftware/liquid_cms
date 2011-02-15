@@ -3,7 +3,7 @@ form.simple_form {
   background-color: #F5F5F5;
   margin-bottom: 1em;
 }
-form.simple_form, #sidebar {
+form.simple_form, .shadow {
   border: 1px solid #BBB;
   -moz-box-shadow: 0.3em 0.3em 9px 1px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.1);
