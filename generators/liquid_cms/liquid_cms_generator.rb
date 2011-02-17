@@ -1,4 +1,4 @@
-require File.join(File.dirname(File.expand_path(__FILE__)), 'lib', 'insert_commands')
+require File.expand_path('../lib/insert_commands', __FILE__)
 
 class LiquidCmsGenerator < Rails::Generator::Base
   def manifest
@@ -46,7 +46,9 @@ class LiquidCmsGenerator < Rails::Generator::Base
 
       # add paperclip to the applications environment.rb file due to some loading issues
       logger.gem "config.gem 'paperclip'"
-      add_gem m
+      add_gem m, 'paperclip', '~> 2.3.1'
+      logger.gem "config.gem 'simple_form'"
+      add_gem m, 'simple_form', '1.0.4'
     end
   end
 
@@ -60,12 +62,12 @@ class LiquidCmsGenerator < Rails::Generator::Base
     end
   end
 
-  def add_gem(m)
+  def add_gem(m, gem, version)
     sentinel = "end"
-    line = "config.gem 'paperclip'"
+    line = "config.gem '#{gem}'"
     unless File.read(destination_path('config/environment.rb')).include?(line)
       m.gsub_file 'config/environment.rb', /(#{Regexp.escape(sentinel)}\Z)/mi do |match|
-        "\n\t# liquid_cms dependency\n\t#{line}, '~> 2.3.1'\n#{sentinel}"
+        "\n\t# liquid_cms dependency\n\t#{line}, :version => '#{version}'\n#{sentinel}"
       end
     end
   end
