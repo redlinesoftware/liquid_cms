@@ -68,7 +68,7 @@ a img {
   margin-top: 0;
   padding-bottom: 0.3em;
 }
-#content .message {
+#content #intro {
   padding: 0.5em;
   text-align: center;
   background: none repeat scroll 0 0 #CCCCCC;
@@ -159,6 +159,9 @@ h2 p.message {
 }
 #cms ul.tree ul {
   margin-left: 15px;
+}
+#cms ul.tree li img.folder:hover {
+  cursor: pointer;
 }
 
 .left {
