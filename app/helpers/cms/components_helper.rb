@@ -6,7 +6,7 @@ module Cms::ComponentsHelper
 
   def component_delete_link(path)
     full_path = Cms::Component.component_path(@context, path)
-    link_to(delete_icon, {:controller => 'cms/components', :action => 'destroy', :url => CGI::escape(full_path)}, :confirm => "Are you sure you want to remove '#{full_path}'?")
+    link_to(cms_icon('delete.png', :title => 'Delete'), {:controller => 'cms/components', :action => 'destroy', :url => CGI::escape(full_path)}, :confirm => "Are you sure you want to remove '#{full_path}'?")
   end
 
   def list_files(path, hidden = false)
