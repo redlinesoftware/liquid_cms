@@ -15,6 +15,9 @@ body {
 .cms_documentation #content a {
   color: #FFE900;
 }
+.cms_components #content p {
+  color: white;
+}
 .cms_documentation span.function {
   color: #49FF3F;
 }

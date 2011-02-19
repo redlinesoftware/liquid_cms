@@ -79,6 +79,9 @@ a img {
   text-align: center;
   text-shadow: 1px 1px 4px #FFFFFF;
 }
+.cms_components #content p {
+  font-style: italic;
+}
 
 #sidebar {
   background-color: #CFCFCF;
