@@ -6,6 +6,8 @@ module Cms
   mattr_reader :context_class
   def self.context_class=(klass)
     @@context_class = klass
+    return if klass.nil?
+
     eval(klass.to_s).extend Cms::ContextAssociation
 
     Cms::Page.belongs_to  :context, :class_name => klass.to_s
@@ -14,6 +16,7 @@ module Cms
   @@context_class = nil
 
   def self.set_context(context, bind_to)
+    return if @@context_class.nil?
     bind_to.instance_variable_set :@cms_context, context
   end
 
