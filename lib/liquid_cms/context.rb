@@ -5,7 +5,7 @@ module Cms
     attr_reader :object
 
     def initialize(context = nil)
-      @object = context
+      @object = Cms.context_class ? context : nil
     end
 
     def pages
