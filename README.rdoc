@@ -62,6 +62,12 @@ In order to expose data in your application in the templates, liquid filters, dr
 
 A set of filters, drops and tags are provided in addition to the defaults provided by liquid.  The documentation link accessible in the CMS provides additional details.
 
+= Upgrading
+
+To upgrade the liquid_cms engine once you've installed a newer gem, simply re-run the liquid_cms generator. If any differences are found in files, you'll be prompted to overwrite or compare versions.
+
+If you're upgrading to the rails 3 version of the gem from the rails 2 version of the gem, it's recommended that you run the generator with the previous CMS generated files removed from your app and then integrate any customizations back into the application.
+
 = Contribution
 
 If you experience any issues with this CMS engine, please open a bug report.  Contributions to improve this engine are extremely welcome.  A 1.0 release will be made when the engine has a bit more _polish_ on it.
