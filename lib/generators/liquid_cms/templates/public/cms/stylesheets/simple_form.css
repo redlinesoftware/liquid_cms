@@ -9,10 +9,40 @@ form.simple_form, .shadow {
   -webkit-box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.1);
   box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.1);
 }
+
+form.simple_form .buttons input,
 form.simple_form a.cancel {
-  color: red;
+  font-family: Arial;
+  font-weight: bold;
   line-height: 2em;
+  padding: 0.5em 1em;
 }
+form.simple_form .buttons input {
+  color: #444;
+  margin-right: 0.3em;
+  text-shadow: 0 1px #FFF;
+}
+form.simple_form .buttons input:hover {
+  cursor: pointer;
+}
+form.simple_form a.cancel {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background: #D00;
+  background: -moz-linear-gradient(90deg, #BB0000 0%, #EE4444 100%) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#E44), color-stop(1.0,#B00));
+  color: white;
+  margin-left: 0.3em;
+  text-decoration: none;
+  text-shadow: 0 1px #555;
+}
+form.simple_form a.cancel:hover {
+  background: #E00;
+  background: -moz-linear-gradient(90deg, #C11 0%, #F55 100%) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#F55), color-stop(1.0,#C11));
+}
+
 form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, div.select {
   margin-bottom: 1.3em;
 }
@@ -20,25 +50,30 @@ form.simple_form label {
   color: #333;
   float: left;
   font-size: 10pt;
+  font-family: Verdana;
   font-weight: bold;
-  width: 10%;
+  line-height: 1.8em;
+  width: 9%;
 }
 form.simple_form input.string {
+  display: block;
+  padding: 0.3em;
+  margin-left: 9%;
   width: 89%;
 }
 
-form.simple_form .buttons { margin-left: 10%; margin-top: 1em; }
-form.simple_form span.hint { color: #666; display: block; font-size: 8pt; font-style: italic; margin: 0.5em 0 0 10%;}
+form.simple_form .buttons { margin-left: 9%; margin-top: 1.5em; }
+form.simple_form span.hint { color: #666; display: block; font-size: 8pt; font-style: italic; margin: 0.5em 0 0 9%;}
 form.simple_form span.hint em { color: #333; font-weight: bold; }
 
 form.simple_form div.fieldWithErrors { background-color: #FBE3E4; padding: 0.5em 0; }
 form.simple_form span.error {
   background: white;
-  border:1px solid red;
-  color:red;
-  display:block;
-  font-weight:bold;
-  margin-left:10%;
-  margin-top:0.5em;
-  padding:0.5em;
+  border: 1px solid red;
+  color: red;
+  display: block;
+  font-weight: bold;
+  margin-left: 9%;
+  margin-top: 0.5em;
+  padding: 0.5em;
 }

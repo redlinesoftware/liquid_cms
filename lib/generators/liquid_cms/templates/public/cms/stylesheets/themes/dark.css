@@ -24,3 +24,9 @@ body {
 .cms_documentation .cms_info {
   color: #333;
 }
+
+form.simple_form, .shadow {
+  -moz-box-shadow: 0.3em 0.3em 9px 1px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0.3em 0.3em 9px rgba(0, 0, 0, 0.5);
+}
