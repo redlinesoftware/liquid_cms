@@ -5,6 +5,12 @@ $:.unshift File.dirname(__FILE__)
 require "rails_app/config/environment"
 require 'test_help'
 
+if ENV['NO_CONTEXT'] == 'true'
+  Cms.setup do |config|
+    config.context_class = nil
+  end
+end
+
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Base.logger = Logger.new(nil)
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
