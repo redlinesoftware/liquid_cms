@@ -6,7 +6,7 @@ module Cms
   mattr_reader :context_class
   def self.context_class=(klass)
     @@context_class = klass
-    return if klass.nil?
+    return if klass.nil? || ENV['NO_CONTEXT'] == 'true'
 
     eval(klass.to_s).extend Cms::ContextAssociation
 
