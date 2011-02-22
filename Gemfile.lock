@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    liquid_cms (0.3.0.6)
+    liquid_cms (0.3.0.7)
       bundler (>= 1.0.0)
       formatize
       paperclip (~> 2.3.1)
