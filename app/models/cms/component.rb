@@ -42,9 +42,9 @@ class Cms::Component
   def read
     return '' if @path.blank? || !self.class.editable?(@path)
 
-    base = self.class.full_path(@context).join(@path).to_s
-    if File.exist?(base)
-      File.open(base).readlines
+    fname = self.class.full_path(@context).join(@path).to_s
+    if File.exist?(fname)
+      File.open(fname).read
     else
       ''
     end
@@ -53,22 +53,22 @@ class Cms::Component
   def write(content)
     return false if content.blank? || @path.blank? || !self.class.editable?(@path)
 
-    base = self.class.full_path(@context).join(@path).to_s
-    if File.exist?(base)
-      File.open(base, 'w') do |f|
+    fname = self.class.full_path(@context).join(@path).to_s
+    if File.exist?(fname)
+      File.open(fname, 'w') do |f|
         f.puts content
       end
     else
-      ''
+      false
     end
   end
   
   def delete
     return false if @path.blank?
 
-    base = self.class.full_path(@context).join(@path)
-    if File.exist?(base)
-      FileUtils.rm_rf base
+    fname = self.class.full_path(@context).join(@path)
+    if File.exist?(fname)
+      FileUtils.rm_rf fname
       true
     else
       false

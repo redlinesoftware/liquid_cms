@@ -31,6 +31,15 @@ module TestConfig
 end
 
 require 'test_helpers/login_methods'
+require 'test_helpers/asset_helpers'
+
+class ActionController::TestCase
+  include AssetHelpers
+end
+class ActiveSupport::TestCase
+  include AssetHelpers
+end
+
 
 class ActiveSupport::TestCase
   include ActionDispatch::TestProcess

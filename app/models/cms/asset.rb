@@ -22,7 +22,30 @@ module Cms
     end
 
     def icon?
-      !(asset_content_type =~ /icon$/).nil?
+      # accepts ico or icon
+      !(asset_content_type =~ /icon?$/).nil?
+    end
+
+    def editable?
+      !(asset_content_type =~ /(javascript|css|xml|html)$/).nil?
+    end
+
+    def read
+      return '' if !editable?
+      asset.to_file(:original).read
+    end
+
+    def write(content)
+      return false if content.blank? || !editable?
+
+      fname = asset.path(:original)
+      if File.exist?(fname)
+        File.open(fname, 'w') do |f|
+          f.puts content
+        end
+      else
+        false
+      end
     end
 
   protected

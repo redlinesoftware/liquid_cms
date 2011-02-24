@@ -4,7 +4,7 @@ class SimpleForm::FormBuilder
       String.new.tap do |html|
         html << button(:submit)
         html << " or "
-        html << template.link_to('Cancel', :back, :class => 'cancel')
+        html << template.link_to(t('simple_form.buttons.cancel'), :back, :class => 'cancel')
       end.html_safe
     end
   end
