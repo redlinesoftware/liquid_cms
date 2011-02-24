@@ -27,21 +27,26 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       assert_select 'p', /Last Updated/
     end
 
-    should "edit asset" do
-      asset = Factory(:pdf_asset, :context => @company)
-      assert_equal 'test.pdf', asset.asset_file_name
+    context "edit" do
+      should "upload a new asset file" do
+        asset = Factory(:pdf_asset, :context => @company)
+        assert_equal 'test.pdf', asset.asset_file_name
 
-      new_asset_file = 'new_test.pdf'
-      setup_asset new_asset_file
+        new_asset_file = asset_file('new_test.pdf')
+        setup_asset new_asset_file
 
-      put :update, :id => asset, :cms_asset => {:asset => ActionController::TestUploadedFile.new(asset_file(new_asset_file))}
-      assert_response :redirect
-      assert_redirected_to cms_root_path
+        put :update, :id => asset, :cms_asset => {:asset => ActionController::TestUploadedFile.new(new_asset_file)}
+        assert_response :redirect
+        assert_redirected_to cms_root_path
 
-      # check that the file name updated
-      assert_equal new_asset_file, asset.reload.asset_file_name
+        # check that the file name updated
+        assert_equal File.basename(new_asset_file), asset.reload.asset_file_name
 
-      cleanup_assets
+        cleanup_assets
+      end
+
+      should "modify the contents of an editable asset file"
+      should "modify the contents of an non-editable asset file"
     end
 
     should "destroy asset via HTML :DELETE" do
@@ -62,24 +67,5 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       assert_response :success
       assert_nil @company.assets.find_by_id(asset.id)
     end
-  end
-
-protected
-  def setup_asset(file_name)
-    FileUtils.mkdir_p asset_path
-    FileUtils.touch asset_file(file_name)
-  end
-
-  def cleanup_assets
-    FileUtils.rm_rf TestConfig.paperclip_test_root
-    FileUtils.rm_rf Rails.root.join('public', 'cms', 'assets')
-  end
-
-  def asset_path
-    TestConfig.paperclip_test_root + '/assets'
-  end
-
-  def asset_file(file_name)
-    asset_path + "/" + file_name
   end
 end

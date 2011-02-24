@@ -1,6 +1,6 @@
 <h2>Edit Component File</h2>
 
-<p>No liquid support currently for editing components.</p>
+<p>No liquid support for editing components.</p>
 
 <% form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'simple_form') do %>
   <div class="string required">
@@ -11,7 +11,7 @@
   </div>
 
   <div class="buttons">
-    <%= submit_tag 'Update', :class => 'update' %> or <%= link_to 'Cancel', :back, :class => 'cancel' %>
+    <%= submit_tag 'Update', :class => 'update' %> or <%= link_to t('simple_form.buttons.cancel'), :back, :class => 'cancel' %>
   </div>
 <% end %>
 

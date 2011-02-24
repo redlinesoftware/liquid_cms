@@ -38,6 +38,7 @@ en:
     "yes": 'Yes'
     "no": 'No'
     buttons:
+      cancel: 'Cancel'
       create: 'Create %{model}'
       update: 'Update %{model}'
       submit: 'Submit %{model}'
