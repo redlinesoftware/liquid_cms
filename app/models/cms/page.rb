@@ -98,7 +98,7 @@ module Cms
 
     def content=(text)
       write_attribute :content, text
-      self.is_layout_page = !(text =~ /\{\{\s?content_for_layout\s?\}\}/).nil?
+      self.is_layout_page = !(text =~ /\{\{\s?content_for_layout\s?\}\}/).blank?
     end
 
   protected
