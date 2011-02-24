@@ -35,7 +35,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         new_asset_file = asset_file('new_test.pdf')
         setup_asset new_asset_file
 
-        put :update, :id => asset, :cms_asset => {:asset => fixture_file_upload(File.join(ASSET_PATH, new_asset_file))}
+        put :update, :id => asset, :cms_asset => {:asset => fixture_file_upload(File.join('assets', File.basename(new_asset_file)))}
         assert_response :redirect
         assert_redirected_to cms_root_path
 

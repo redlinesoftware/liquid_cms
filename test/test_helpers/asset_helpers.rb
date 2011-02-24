@@ -14,6 +14,6 @@ module AssetHelpers
   end
 
   def asset_file(file_name)
-    File.expand_path asset_path + "/" + file_name
+    asset_path + "/" + file_name
   end
 end
