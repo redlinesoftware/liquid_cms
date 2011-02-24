@@ -54,12 +54,10 @@ class Cms::Component
     return false if content.blank? || @path.blank? || !self.class.editable?(@path)
 
     fname = self.class.full_path(@context).join(@path).to_s
-    if File.exist?(fname)
+    File.exist?(fname).tap do |exist|
       File.open(fname, 'w') do |f|
         f.puts content
-      end
-    else
-      false
+      end if exist
     end
   end
   
@@ -67,16 +65,13 @@ class Cms::Component
     return false if @path.blank?
 
     fname = self.class.full_path(@context).join(@path)
-    if File.exist?(fname)
-      FileUtils.rm_rf fname
-      true
-    else
-      false
+    File.exist?(fname).tap do |exist|
+      FileUtils.rm_rf fname if exist
     end
   end
 
   def self.editable?(file)
-    !(file =~ /\.(js|css|html|xml)$/).nil?
+    !(file =~ /\.(js|css|html|xml)$/).blank?
   end
 
 protected

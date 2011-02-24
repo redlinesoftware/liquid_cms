@@ -14,6 +14,26 @@ class Cms::AssetTest < ActiveSupport::TestCase
       @asset = Factory(:image_asset, :context => @context)
     end
 
+    context "new image" do
+      setup do
+        @asset = Cms::Asset.new
+      end
+
+      should "not be an image" do
+        assert !@asset.image?
+      end
+      should "not be an icon" do
+        assert !@asset.icon?
+      end
+      should "not be editable" do
+        assert !@asset.editable?
+      end
+      should "not be able to read or write" do
+        assert_equal '', @asset.read
+        assert_equal false, @asset.write('test')
+      end
+    end
+
     context "image" do
       should "be an image" do
         assert @asset.image?
@@ -65,7 +85,7 @@ class Cms::AssetTest < ActiveSupport::TestCase
         assert @asset.editable?
       end
       should "be able to read or write" do
-        assert_equal nil, @asset.write("alert('test')")
+        assert_equal true, @asset.write("alert('test')")
         assert_equal "alert('test')\n", @asset.read
       end
     end

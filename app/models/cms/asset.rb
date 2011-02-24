@@ -18,16 +18,16 @@ module Cms
     end
 
     def image?
-      !(asset_content_type =~ /^image.*/).nil?
+      !(asset_content_type =~ /^image.*/).blank?
     end
 
     def icon?
       # accepts ico or icon
-      !(asset_content_type =~ /icon?$/).nil?
+      !(asset_content_type =~ /icon?$/).blank?
     end
 
     def editable?
-      !(asset_content_type =~ /(javascript|css|xml|html)$/).nil?
+      !(asset_content_type =~ /(javascript|css|xml|html)$/).blank?
     end
 
     def read
@@ -39,12 +39,10 @@ module Cms
       return false if content.blank? || !editable?
 
       fname = asset.path(:original)
-      if File.exist?(fname)
+      File.exist?(fname).tap do |exist|
         File.open(fname, 'w') do |f|
           f.puts content
-        end
-      else
-        false
+        end if exist
       end
     end
 
