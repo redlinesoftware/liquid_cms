@@ -12,10 +12,10 @@ body {
 .cms_documentation #content {
   color: #EEE;
 }
-.cms_documentation #content a {
+#content .basic a, .cms_documentation #content a {
   color: #FFE900;
 }
-.cms_components #content p {
+#content .basic p, .cms_components #content p {
   color: white;
 }
 .cms_documentation span.function {
