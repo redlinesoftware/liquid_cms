@@ -9,3 +9,9 @@ class SimpleForm::FormBuilder
     end
   end
 end
+
+module SimpleForm::Components::Hints
+  def hint_text
+    @hint_text ||= (options[:hint] || translate(:hints)).html_safe
+  end
+end

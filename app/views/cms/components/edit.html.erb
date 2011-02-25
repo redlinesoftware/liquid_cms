@@ -10,7 +10,7 @@
   </div>
 
   <div class="buttons">
-    <%= submit_tag 'Update', :class => 'update' %> or <%= link_to t('simple_form.buttons.cancel'), :back, :class => 'cancel' %>
+    <%= submit_tag 'Update', :class => 'update' %> or <%= link_to t('simple_form.buttons.cancel').html_safe, :back, :class => 'cancel' %>
   </div>
 <% end %>
 

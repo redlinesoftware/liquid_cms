@@ -8,7 +8,7 @@
 
     <div class="text required">
       <%= label_tag :file_content, 'Content', :class => 'text required' %> <%= text_area_tag :file_content, f.object.read, :rows => 40, :class => 'text required' %>
-      <span class="hint"><%= t('simple_form.hints.cms_asset.file_content') %></span>
+      <span class="hint"><%= t('simple_form.hints.cms_asset.file_content').html_safe %></span>
     </div>
 
     <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'file_content' %>
