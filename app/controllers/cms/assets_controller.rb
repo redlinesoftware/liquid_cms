@@ -25,7 +25,14 @@ class Cms::AssetsController < Cms::MainController
 
   def update
     @asset = @context.assets.find params[:id]
-    if @asset.update_attributes params[:cms_asset]
+
+    success = if params[:file_content].present?
+      @asset.write params[:file_content]
+    else
+      @asset.update_attributes params[:cms_asset]
+    end
+
+    if success
       flash[:notice] = t('assets.flash.updated')
       redirect_to cms_root_path
     else

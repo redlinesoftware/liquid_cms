@@ -1,13 +1,12 @@
 <h2>Edit Component File</h2>
 
-<p>No liquid support for editing components.</p>
-
 <% form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'simple_form') do %>
   <div class="string required">
     <%= label_tag :name, nil, :class => 'string required' %> <%= text_field_tag :name, @component.path, :readonly => true, :class => 'string required' %>
   </div>
   <div class="text required">
-    <%= label_tag :contents, nil, :class => 'text required' %> <%= text_area_tag :contents, @component.read, :rows => 40, :class => 'text required' %>
+    <%= label_tag :file_content, 'Content', :class => 'text required' %> <%= text_area_tag :file_content, @component.read, :rows => 40, :class => 'text required' %>
+    <span class="hint"><%= t('simple_form.hints.cms_component.file_content') %></span>
   </div>
 
   <div class="buttons">
@@ -15,4 +14,4 @@
   </div>
 <% end %>
 
-<%= codemirror_edit Cms::Editable::content_type(@component.path), 'form.simple_form', 'contents' %>
+<%= codemirror_edit Cms::Editable::content_type(@component.path), 'form.simple_form', 'file_content' %>
