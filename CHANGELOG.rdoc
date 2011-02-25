@@ -1,3 +1,8 @@
+== Master
+
+* Enhancements
+  * Allow text based assets to be editable inline.
+
 == 0.2.0.3
 
 Updated codemirror to 0.9
