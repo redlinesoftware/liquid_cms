@@ -50,7 +50,7 @@ class Cms::ComponentsController < Cms::MainController
 
 protected
   def load_component_path
-    @path = params[:url].first
+    @path = params[:url]
     @path = CGI::unescape(@path) if @path.present?
   end
 end
