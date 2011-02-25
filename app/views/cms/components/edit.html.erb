@@ -6,7 +6,7 @@
   </div>
   <div class="text required">
     <%= label_tag :file_content, 'Content', :class => 'text required' %> <%= text_area_tag :file_content, @component.read, :rows => 40, :class => 'text required' %>
-    <span class="hint"><%= t('simple_form.hints.cms_component.file_content') %></span>
+    <span class="hint"><%= t('simple_form.hints.cms_component.file_content').html_safe %></span>
   </div>
 
   <div class="buttons">
