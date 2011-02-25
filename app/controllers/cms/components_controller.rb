@@ -15,13 +15,13 @@ class Cms::ComponentsController < Cms::MainController
   def update
     if Cms::Component.editable?(@path)
       @component = Cms::Component.new(@context, @path)
-      @component.write params[:contents]
+      @component.write params[:file_content]
 
       flash[:notice] = "Component file updated."
-      redirect_to :controller => 'cms/components', :action => 'edit', :url => @path
+      redirect_to cms_root_path
     else
       flash[:error] = "Not an editable file."
-      redirect_to cms_root_path
+      redirect_to :controller => 'cms/components', :action => 'edit', :url => @path
     end
   end
 

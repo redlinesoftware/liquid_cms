@@ -61,3 +61,10 @@ en:
         content: 'To create a layout page, add the <em>{{ content_for_layout }}</em> tag which will act as a placeholder for the contents of another page.  Use ctrl+s to save.'
         slug: 'The url path that will be used to access this page.  Defaults to the page name if not provided. ie. /name.<br/> Ex. /home_page'
         layout_page_id: 'Optional page that will be used as this pages layout.  Ie. This pages content will be inserted into the layout page where the <em>{{ content_for_layout }}</em> tag is specified.'
+      cms_component:
+        file_content: '<em>No liquid support for editing components.</em> Use ctrl+s to save.'
+      cms_asset:
+        asset: 'Upload an asset file.'
+        file_content: '<em>No liquid support for editing assets.</em> Use ctrl+s to save.'
+        edit:
+          asset: 'An existing file has been uploaded.  Upload a new file to replace it.'

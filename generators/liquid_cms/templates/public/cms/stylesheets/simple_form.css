@@ -43,7 +43,7 @@ form.simple_form a.cancel:hover {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#F55), color-stop(1.0,#C11));
 }
 
-form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, div.select {
+form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, form.simple_form div.select, form.simple_form div.file {
   margin-bottom: 1.3em;
 }
 form.simple_form label {

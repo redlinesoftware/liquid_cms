@@ -1,6 +1,18 @@
-<div class="formContainer form">
-  <% simple_form_for @asset, :html => {:multipart => true} do |f| %>
-    <%= f.input :asset, :as => :file %>
-    <%= f.commit_button_or_cancel %>
+<% simple_form_for @asset, :html => {:multipart => true} do |f| %>
+  <%= f.input :asset, :as => :file %>
+
+  <% if f.object.editable? %>
+    <p class="break">
+      <em>or edit the contents...</em>
+    </p>
+
+    <div class="text required">
+      <%= label_tag :file_content, 'Content', :class => 'text required' %> <%= text_area_tag :file_content, f.object.read, :rows => 40, :class => 'text required' %>
+      <span class="hint"><%= t('simple_form.hints.cms_asset.file_content') %></span>
+    </div>
+
+    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'file_content' %>
   <% end %>
-</div>
+
+  <%= f.commit_button_or_cancel %>
+<% end %>
