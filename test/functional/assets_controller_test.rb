@@ -11,7 +11,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       should "show the new form" do
         get :new
         assert_select 'div.text', false
-        #assert_select 'div.file .hint', 'Upload an asset file.'
+        assert_select 'div.file .hint', 'Upload an asset file.'
       end
     end
 
@@ -45,7 +45,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         get :edit, :id => asset.id
         assert_select 'div.text', true
         assert_select 'p.break', :text => 'or edit the contents...', :count => 1
-        #assert_select 'div.file .hint', 'An existing file has been uploaded.  Upload a new file to replace it.'
+        assert_select 'div.file .hint', 'An existing file has been uploaded.  Upload a new file to replace it.'
       end
 
       should "show form for an editable asset without a textarea" do
@@ -54,7 +54,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         get :edit, :id => asset.id
         assert_select 'div.text', false
         assert_select 'p.break', :text => 'or edit the contents...', :count => 0
-        #assert_select 'div.file .hint', 'An existing file has been uploaded.  Upload a new file to replace it.'
+        assert_select 'div.file .hint', 'An existing file has been uploaded.  Upload a new file to replace it.'
       end
     end
 
