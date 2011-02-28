@@ -1,4 +1,8 @@
 <div id="assets">
+  <p>
+    <%= cms_icon 'picture_add.png' %> <%= link_to t('assets.actions.index.new_link'), new_cms_asset_path %>
+  </p>
+
   <% if @assets.empty? %>
     <p><%= t 'assets.actions.index.none' %></p>
   <% else %>
@@ -7,8 +11,4 @@
       <%= render :partial => 'cms/assets/asset', :collection => @assets %>
     </ul>
   <% end %>
-
-  <p>
-    <%= cms_icon 'picture_add.png' %> <%= link_to t('assets.actions.index.new_link'), new_cms_asset_path %>
-  </p>
 </div>

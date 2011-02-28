@@ -83,64 +83,6 @@ a img {
   font-style: italic;
 }
 
-#sidebar {
-  background-color: #CFCFCF;
-  float: left;
-  padding: 0 1em;
-  margin-left: 1em;
-  width: 18em;
-}
-#sidebar h2 {
-  font-size: 12pt;
-  padding: 0.2em;
-  margin-top: 0.5em;
-  text-align: center;
-}
-#sidebar #pages {
-  margin-bottom: 1.5em;
-}
-#sidebar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-#sidebar #assets li {
-  border: 1px solid #AAA;
-  padding: 0.3em 0.4em;
-  margin-bottom: 0.3em;
-}
-#sidebar #assets li:hover {
-  background-color: #BFD6FF !important;
-}
-#sidebar #assets li.light {
-  background-color: #DDD;
-}
-#sidebar .preview {
-  margin-bottom: 0.5em;
-}
-#sidebar .preview a {
-  font-size: 8pt;
-}
-#sidebar .asset_details {
-  margin-top: 0.5em;
-}
-#sidebar .asset_image {
-  margin: 0 1.5em 0;
-}
-#sidebar .asset_image {
-  float: left;
-}
-#sidebar .asset_size {
-  font-size: 8pt;
-  float: right;
-}
-#sidebar #components form {
-  margin-bottom: 0.5em;
-}
-#sidebar #components ul ul {
-  margin-left: 0.5em;
-}
-
 #content p .notice {
   background-color: yellow;
   font-size: 12pt;
@@ -150,21 +92,6 @@ a img {
 h2 p.message {
   float: right;
   margin: 0;
-}
-
-#cms ul.tree { list-style-type: none; background: url(/cms/images/tree/vline.png) repeat-y; margin: 0; padding: 0; }
-#cms ul.tree ul { margin-left: 10px; }
-#cms ul.tree li { margin: 0; padding: 0 12px; line-height: 20px; background: url(/cms/images/tree/node.png) no-repeat; color: #369; font-weight: bold; } 
-#cms ul.tree li:last-child { background: url(/cms/images/tree/lastnode.png) no-repeat; }
-
-#cms ul.tree, #sidebar #assets ul {
-  margin-bottom: 1em;
-}
-#cms ul.tree ul {
-  margin-left: 15px;
-}
-#cms ul.tree li img.folder:hover {
-  cursor: pointer;
 }
 
 .left {

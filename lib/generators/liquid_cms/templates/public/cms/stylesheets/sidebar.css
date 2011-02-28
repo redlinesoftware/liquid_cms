@@ -1,0 +1,118 @@
+#sidebar {
+  background-color: #CFCFCF;
+  float: left;
+  padding: 0 0.5em 0.5em;
+  margin-left: 1em;
+  width: 19em;
+}
+#sidebar h2 {
+  font-size: 12pt;
+  padding: 0.2em;
+  margin: 0;
+  text-align: center;
+}
+#sidebar form {
+  margin-top: 0.5em;
+}
+#sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#sidebar #assets li {
+  border: 1px solid #AAA;
+  padding: 0.3em 0.4em;
+  margin-bottom: 0.3em;
+}
+#sidebar #assets li:hover {
+  background-color: #BFD6FF !important;
+}
+#sidebar #assets li.light {
+  background-color: #DDD;
+}
+#sidebar .asset_details {
+  margin-top: 0.5em;
+}
+#sidebar .asset_image {
+  margin: 0 1.5em 0;
+}
+#sidebar .asset_image {
+  float: left;
+}
+#sidebar .asset_size {
+  font-size: 8pt;
+  float: right;
+}
+#sidebar #components form {
+  margin-bottom: 0.5em;
+}
+#sidebar #components ul ul {
+  margin-left: 0.5em;
+}
+#sidebar .documentation {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#sidebar ul.tabs {
+  display: block;
+  margin: 1em 0 0.5em 0;
+  padding: 0;
+  text-align: center;
+}
+#sidebar ul.tabs li {
+  display: inline;
+}
+#sidebar ul.tabs a {
+  -moz-border-radius: 0.4em 0.4em 0 0;
+  -webkit-border-radius: 0.4em 0.4em 0 0;
+  border-radius: 0.4em 0.4em 0 0;
+  background-color: #333;
+  color: #CCC;
+  font-size: 9pt;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.5em 0.5em;
+  padding-right: 0.5em;
+  text-align: center;
+  text-shadow: -1px -1px 1px #000000;
+  text-decoration: none;
+}
+#sidebar ul.tabs a.active,
+#sidebar ul.tabs a:hover {
+  text-shadow: none;
+}
+#sidebar ul.tabs a:hover {
+  background-color: #777;
+}
+#sidebar ul.tabs a.active {
+  background-color: #666;
+}
+
+#tab_container {
+  border: 2px groove #CCC;
+  padding: 0.2em 0.5em;
+}
+#tab_container p {
+  background: none repeat scroll 0 0 #E5E5E5;
+  font-size: 8pt;
+  margin: 0 0 0.5em;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+#cms ul.tree { list-style-type: none; background: url(/cms/images/tree/vline.png) repeat-y; margin: 0; padding: 0; }
+#cms ul.tree ul { margin-left: 10px; }
+#cms ul.tree li { margin: 0; padding: 0 0px 0 12px; line-height: 20px; background: url(/cms/images/tree/node.png) no-repeat; color: #369; font-weight: bold; } 
+#cms ul.tree li:last-child { background: url(/cms/images/tree/lastnode.png) no-repeat; }
+
+#cms ul.tree, #sidebar #assets ul {
+  margin-bottom: 0.5em;
+}
+#cms ul.tree ul {
+  margin-left: 15px;
+}
+#cms ul.tree li img.folder:hover {
+  cursor: pointer;
+}
+

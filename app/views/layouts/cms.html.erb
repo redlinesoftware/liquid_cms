@@ -5,10 +5,10 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <title>Liquid CMS</title>
   <%= javascript_include_tag 'prototype', 'effects', 'rails' %>
-  <%= javascript_include_tag '/cms/javascripts/humanmsg', '/cms/javascripts/cookiejar', '/cms/javascripts/remote_helpers', '/cms/javascripts/cms' %>
+  <%= javascript_include_tag '/cms/javascripts/humanmsg', '/cms/javascripts/cookiejar', '/cms/javascripts/remote_helpers', '/cms/javascripts/cms', '/cms/javascripts/livepipe', '/cms/javascripts/tabs', :cache => 'cms_scripts' %>
   <%= javascript_include_tag '/cms/codemirror/js/codemirror' %>
   <%= stylesheet_link_tag '/cms/stylesheets/simple_form' %>
-  <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles' %>
+  <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles', '/cms/stylesheets/sidebar', :cache => 'cms_styles' %>
   <%= stylesheet_link_tag '/cms/stylesheets/themes/dark' %>
   <%= yield :cms_styles %>
   <!--[if lte IE 8]>
