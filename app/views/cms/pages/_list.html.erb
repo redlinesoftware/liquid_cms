@@ -1,4 +1,8 @@
 <div id="pages">
+  <p>
+    <%= cms_icon 'page_add.png' %> <%= link_to t('pages.actions.index.new_link'), new_cms_page_path %>
+  </p>
+
   <% if @pages.empty? %>
     <p><%= t 'pages.actions.index.none' %></p>
   <% else %>
@@ -6,8 +10,4 @@
       <%= render :partial => 'cms/pages/page', :collection => @pages %>
     </ul>
   <% end %>
-
-  <p>
-    <%= cms_icon 'page_add.png' %> <%= link_to t('pages.actions.index.new_link'), new_cms_page_path %>
-  </p>
 </div>

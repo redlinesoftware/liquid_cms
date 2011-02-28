@@ -8,6 +8,7 @@ body {
 }
 #content h2 {
   color: #AAA;
+  text-shadow: -1px -1px 2px #000000;
 }
 .cms_documentation #content {
   color: #EEE;

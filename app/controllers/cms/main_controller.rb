@@ -4,7 +4,7 @@ class Cms::MainController < Cms::SetupController
 
   layout 'cms'
 
-  before_filter :load_pages_and_assets
+  before_filter :load_resources
 
   authenticate_user :all, :only => %w(index)
 
@@ -13,7 +13,7 @@ class Cms::MainController < Cms::SetupController
   end
 
 protected
-  def load_pages_and_assets
+  def load_resources
     @context = Cms::Context.new(@cms_context)
 
     @pages = @context.pages.ordered.all(:conditions => {:layout_page_id => nil})
