@@ -2,6 +2,7 @@
 
 * Enhancements
   * Upgrade codemirror syntax highlighting to 0.94
+  * Remember component folders view state.
 
 == 0.2.0.11
 

@@ -1,4 +1,12 @@
 module Cms::CommonHelper
+  # js cookie accessor
+  def cookie_jar(key)
+    # if the cookie hasn't been set, need to return '{}' to return a proper hash
+    # and if the cookie has been set, but is 'null', we need to then return a ruby hash
+    # __CJ_ is the cookiejar js lib postfix value for cookies
+    ActiveSupport::JSON.decode(cookies["__CJ_#{key}".to_sym] || '{}') || {}
+  end
+
   def cms_icon(name, options = {})
     image_tag "/cms/images/icons/#{name}", options.merge(:size => '16x16')
   end
@@ -94,7 +102,6 @@ module Cms::CommonHelper
   end
 
   def asset_preview_option
-    # __CJ_ is the cookiejar js lib postfix value for cookies
-    ActiveSupport::JSON.decode(cookies[:__CJ_toggle] || '{}')['on'] == false ? 'style="display:none"' : ''
+    cookie_jar('toggle')['on'] == false ? 'style="display:none"' : ''
   end
 end
