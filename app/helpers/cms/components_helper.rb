@@ -1,4 +1,8 @@
 module Cms::ComponentsHelper
+  def component_folder_open?(folder_id)
+    cookie_jar('component_folders')[folder_id].present?
+  end
+
   def component_edit_link(path)
     full_path = Cms::Component.component_path(@context, path)
     link_to(truncate(File.basename(path), :length => 15), {:controller => 'cms/components', :action => 'edit', :url => CGI::escape(full_path)})
@@ -15,9 +19,11 @@ module Cms::ComponentsHelper
     for file in Dir[File.expand_path(path)+"/*"] do
       html += "<li>"
       if File.directory?(file)
-        html += cms_icon('folder.png', :class => 'folder') + ' ' + component_delete_link(file) + ' '
+        folder_id = "folder_#{Digest::MD5.hexdigest(file)}"
+
+        html += cms_icon('folder.png', :class => 'folder', :id => folder_id) + ' ' + component_delete_link(file) + ' '
         html += content_tag(:span, File.basename(file), :title => Cms::Component.component_path(@context, file))
-        html += list_files(file, true)
+        html += list_files(file, !component_folder_open?(folder_id))
       else
         html += file_type_icon(File.basename(file)) + ' '
         html += component_delete_link(file) + ' '
