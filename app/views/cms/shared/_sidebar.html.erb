@@ -21,7 +21,7 @@
   </div>
 </div>
 
-<% javascript_tag do %>
+<%= javascript_tag do %>
   new Control.Tabs('cms_menus', {
     defaultTab: jar.get('active_tab') || 'first',
     afterChange: function(new_container) {

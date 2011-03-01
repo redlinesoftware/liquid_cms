@@ -1,4 +1,5 @@
 require 'formatize/helper'
+require 'will_paginate'
 
 class Module
   # for the tezeilze method to work
