@@ -2,7 +2,7 @@ body {
   background: url("/cms/images/trentacinque.gif") repeat scroll 0 0 transparent;
 }
 #header, #sidebar h2 {
-  background: #111;
+  background: #222;
   background: -moz-linear-gradient(270deg, #555555 0%, #222 40%, #000 100%) repeat scroll 0 0 transparent;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#555), color-stop(0.40,#222), color-stop(1.0,#000));
 }

@@ -100,6 +100,20 @@
   padding: 0.5em 0;
   text-align: center;
 }
+#tab_container p:first-child {
+  background: #777;
+  background: -moz-linear-gradient(270deg, #666 0%, #888 100%) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#666), color-stop(1.0,#888));
+}
+#tab_container p:first-child a {
+  color: #EEE;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: -1px -1px 1px #333;
+}
+#tab_container p:first-child a:hover {
+  text-decoration: underline;
+}
 
 #cms ul.tree { list-style-type: none; background: url(/cms/images/tree/vline.png) repeat-y; margin: 0; padding: 0; }
 #cms ul.tree ul { margin-left: 10px; }
