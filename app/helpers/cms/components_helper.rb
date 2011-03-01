@@ -13,17 +13,17 @@ module Cms::ComponentsHelper
     link_to(cms_icon('delete.png', :title => 'Delete'), {:controller => 'cms/components', :action => 'destroy', :url => CGI::escape(full_path)}, :confirm => "Are you sure you want to remove '#{full_path}'?")
   end
 
-  def list_files(path, hidden = false)
+  def list_files(files, hidden = false)
     html = ''
     html += hidden ? %[<ul class="tree" style="display:none">] : %[<ul class="tree">]
-    for file in Dir[File.expand_path(path)+"/*"] do
+    for file in files do
       html += "<li>"
       if File.directory?(file)
         folder_id = "folder_#{Digest::MD5.hexdigest(file)}"
 
         html += cms_icon('folder.png', :class => 'folder', :id => folder_id) + ' ' + component_delete_link(file) + ' '
         html += content_tag(:span, File.basename(file), :title => Cms::Component.component_path(@context, file))
-        html += list_files(file, !component_folder_open?(folder_id))
+        html += list_files(Cms::Component.files(file), !component_folder_open?(folder_id))
       else
         html += file_type_icon(File.basename(file)) + ' '
         html += component_delete_link(file) + ' '

@@ -15,5 +15,9 @@ module Cms
     def assets
       @object ? @object.assets : Cms::Asset.scoped(nil)
     end
+
+    def components
+      Cms::Component.files(Cms::Component.full_path(self))
+    end
   end
 end

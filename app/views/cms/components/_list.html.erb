@@ -4,5 +4,9 @@
     <%= submit_tag 'Upload' %> <em>.zip files only</em>
   <% end %>
 
-  <%= list_files Cms::Component.full_path(@context) %>
+  <% if @components.empty? %>
+    <p><%= t 'components.actions.index.none' %></p>
+  <% else %>
+    <%= list_files @components %>
+  <% end %>
 </div>

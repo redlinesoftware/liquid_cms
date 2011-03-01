@@ -21,6 +21,10 @@ class Cms::Component
     path.sub(full_path(context).to_s + "/", '')
   end
 
+  def self.files(path)
+    Dir[File.expand_path(path) + "/*"]
+  end
+
   def self.valid_type?(file)
     %w(.css .js .png .jpg .jpeg .gif .json .xml .fla .ico).include?(File.extname(file).downcase)
   end
