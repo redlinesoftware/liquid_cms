@@ -1,0 +1,4 @@
+form.simple_form .buttons input,
+form.simple_form a.cancel {
+  line-height: 1.5em;
+}
