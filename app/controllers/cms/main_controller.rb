@@ -19,5 +19,6 @@ protected
 
     @pages = @context.pages.ordered.all(:conditions => {:layout_page_id => nil})
     @assets = @context.assets.ordered
+    @components = @context.components
   end
 end

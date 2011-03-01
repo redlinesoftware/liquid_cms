@@ -33,6 +33,7 @@ en:
     actions:
       index:
         title: 'Components'
+        none: 'There are currently no components.'
 
   simple_form:
     "yes": 'Yes'
