@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "A context aware Rails CMS engine using the Liquid template library."
   s.description = <<-TXT
   A context aware Rails CMS engine using the Liquid template library.
-  Use the 0.3.x series for Rails 3 compatibility and the 0.2.x version for Rails 2 compatibility.
+  Use the 0.3.x version for Rails 3 compatibility and the 0.2.x version for Rails 2 compatibility.
   TXT
 
   s.required_rubygems_version = ">= 1.3.6"
