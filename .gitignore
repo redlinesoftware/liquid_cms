@@ -3,4 +3,5 @@ pkg/*
 *.swp
 .bundle
 .rvmrc
+Gemfile.lock
 test/rails_app/log
