@@ -1,4 +1,4 @@
-== Master
+== 0.2.0.11
 
 * Enhancements
   * Upgrade codemirror syntax highlighting to 0.94
