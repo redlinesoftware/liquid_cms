@@ -1,6 +1,6 @@
 <h2>Edit Component File</h2>
 
-<% form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'simple_form') do %>
+<%= form_tag({:controller => 'cms/components', :action => 'update', :url => CGI::escape(@component.path)}, :class => 'simple_form') do %>
   <div class="string required">
     <%= label_tag :name, nil, :class => 'string required' %> <%= text_field_tag :name, @component.path, :readonly => true, :class => 'string required' %>
   </div>
