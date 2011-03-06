@@ -1,3 +1,8 @@
+== Master
+
+* Enhancements
+  * Integrate basic page search capabilities.
+
 == 0.3.0.9
 
 * Enhancements
