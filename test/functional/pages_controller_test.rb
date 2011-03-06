@@ -88,5 +88,50 @@ class Cms::PagesControllerTest < ActionController::TestCase
       xhr :delete, :destroy, :id => @company.pages.first.id
       assert_response :success
     end
+
+    context "search" do
+      setup do
+        # the company already has a home page created
+        @page1 = @company.pages.first
+        # so we'll create a second page
+        @page2 = Factory.create :page, :context => @company, :content => 'add search keywords - page page page'
+      end
+
+      should "show no results via :GET" do
+        get :search
+        assert_response :success
+        assert_select '#content form'
+        assert_select '#search_results p', false
+        assert_select '#search_results ul', false
+      end
+
+      should "show a message with an empty search via :POST" do
+        post :search, :search => ''
+        assert_response :success
+        assert_select '#content form'
+        assert_select '#search_results p', 'No matching pages were found.'
+        assert_select '#search_results ul', false
+      end
+
+      should "show results via :POST" do
+        post :search, :search => 'page'
+        assert_response :success
+        assert_select '#search_results p', '2 pages found.'
+        assert_select '#search_results ul', true
+        assert_select '#search_results li', 2
+        assert_select '#search_results li', "#{@page2} - 3 matches"
+        assert_select '#search_results li', "#{@page1} - 1 match"
+      end
+
+      should "show search limit" do
+        (1..40).each do |i|
+          Factory.create :page, :context => @company, :name => "test#{i}", :slug => "/test#{i}", :content => 'page'
+        end
+
+        post :search, :search => 'page'
+        assert_response :success
+        assert_select '#search_results p', 'Search results have been limited to 40 pages. &nbsp;Use a more exact search term to refine your results.'
+      end
+    end
   end
 end

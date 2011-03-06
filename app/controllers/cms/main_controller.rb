@@ -16,8 +16,8 @@ protected
   def load_resources
     @context = Cms::Context.new(@cms_context)
 
-    @pages = @context.pages.ordered.all(:conditions => {:layout_page_id => nil})
-    @assets = @context.assets.ordered
-    @components = @context.components
+    @cms_pages = @context.pages.ordered.all(:conditions => {:layout_page_id => nil})
+    @cms_assets = @context.assets.ordered
+    @cms_components = @context.components
   end
 end

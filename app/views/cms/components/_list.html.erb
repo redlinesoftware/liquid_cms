@@ -4,9 +4,9 @@
     <%= submit_tag 'Upload' %> <em>.zip files only</em>
   <% end %>
 
-  <% if @components.empty? %>
+  <% if @cms_components.empty? %>
     <p><%= t 'components.actions.index.none' %></p>
   <% else %>
-    <%= list_files @components %>
+    <%= list_files @cms_components %>
   <% end %>
 </div>

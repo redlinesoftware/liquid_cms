@@ -1,0 +1,24 @@
+<h2><%= t 'pages.actions.search.title' %></h2>
+
+<% form_tag search_cms_pages_path, {:class => 'simple_form'} do %>
+  <%= text_field_tag 'search', @search_term, :size => 45, :placeholder => 'enter your search term' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<div id="search_results">
+<% if @pages.empty? && request.post? %>
+  <p>No matching pages were found.</p>
+<% elsif !@pages.empty? %>
+  <% if @pages.length >= Cms::PagesController::SEARCH_LIMIT %>
+    <p>Search results have been limited to <%= Cms::PagesController::SEARCH_LIMIT %> pages. &nbsp;Use a more exact search term to refine your results.</p>
+  <% else %>
+    <p><%= pluralize @pages.length, 'page' %> found.</p>
+  <% end %>
+
+  <ul class="shadow">
+  <% for page, matches in page_match_order(@pages, @search_term) %>
+    <li><span class="page"><%= link_to page.to_s, edit_cms_page_path(page) %></span> - <span class="count"><%= pluralize matches, 'match' %></span></li>
+  <% end %>
+  </ul>
+<% end %>
+</div>

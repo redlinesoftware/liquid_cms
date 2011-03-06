@@ -1,14 +1,19 @@
 en:
   pages:
+    layout:
+      title: 'Liquid CMS'
     actions:
       index:
         title: 'Pages'
         none: 'There are currently no pages.'
-        new_link: 'Create a new page'
+        new: 'Create a new page'
+        search: 'Search'
       new:
         title: 'New Page'
       edit:
         title: 'Editing Page'
+      search:
+        title: 'Page Search'
     flash:
       created: 'The page has been saved.'
       updated: 'The page has been updated.'
@@ -19,7 +24,7 @@ en:
       index:
         title: 'Assets'
         none: 'There are currently no assets.'
-        new_link: 'Upload a new asset'
+        new: 'Upload a new asset'
       new:
         title: 'New Asset'
       edit:

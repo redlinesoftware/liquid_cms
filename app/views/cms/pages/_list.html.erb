@@ -1,13 +1,13 @@
 <div id="pages">
-  <p>
-    <%= cms_icon 'page_add.png' %> <%= link_to t('pages.actions.index.new_link'), new_cms_page_path %>
-  </p>
+  <p><%= cms_icon 'page_add.png' %> <%= link_to t('pages.actions.index.new'), new_cms_page_path %></p>
 
-  <% if @pages.empty? %>
+  <% if @cms_pages.empty? %>
     <p><%= t 'pages.actions.index.none' %></p>
   <% else %>
+    <p><%= cms_icon 'page_find.png' %> <%= link_to t('pages.actions.index.search'), search_cms_pages_path %></p>
+
     <ul class="tree">
-      <%= render :partial => 'cms/pages/page', :collection => @pages %>
+      <%= render :partial => 'cms/pages/page', :collection => @cms_pages %>
     </ul>
   <% end %>
 </div>

@@ -1,14 +1,12 @@
-<div class="basic">
-  <h2><%= @asset.asset_file_name %></h2>
+<h2><%= @asset.asset_file_name %></h2>
 
-  <% if @asset.image? %>
-    <%= image_tag @asset.asset.url %>
-  <% else %>
-    <p>Open: <%= link_to @asset.asset_file_name, @asset.asset.url %></p>
-  <% end %>
+<% if @asset.image? %>
+  <%= image_tag @asset.asset.url %>
+<% else %>
+  <p>Open: <%= link_to @asset.asset_file_name, @asset.asset.url %></p>
+<% end %>
 
-  <p>Filesize: <%= number_to_human_size(@asset.asset_file_size) %></p>
-  <p>Last Updated: <%= @asset.asset_updated_at.to_formatted_s(:long) %></p>
+<p>Filesize: <%= number_to_human_size(@asset.asset_file_size) %></p>
+<p>Last Updated: <%= @asset.asset_updated_at.to_formatted_s(:long) %></p>
 
-  <p><%= link_to 'Edit Asset', edit_cms_asset_path(@asset) %></p>
-</div>
+<p><%= link_to 'Edit Asset', edit_cms_asset_path(@asset) %></p>
