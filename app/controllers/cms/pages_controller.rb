@@ -3,6 +3,8 @@ class Cms::PagesController < Cms::MainController
 
   authenticate_user :all, :except => %w(load page_asset)
 
+  SEARCH_LIMIT = 40
+
   def new
     @page = Cms::Page.new
   end
@@ -88,7 +90,15 @@ class Cms::PagesController < Cms::MainController
     end
   end
 
+  def search
+    @search_term = (params[:search] || '').strip
+    # use upper which should be compatible with mysql, postgresql and sqlite
+    @pages = @search_term.blank? ? [] : @context.pages.all(:conditions => ["upper(content) like ?", "%#{@search_term.upcase}%"])
+  end
+
 protected
+  # the current url with the last level of the path removed which essentially allows a page to be loaded with anything (wildcard) one level deeper
+  # ex. normal page at /page will also accept /page/test, /page/abcd, etc.
   def wildcard_path
     '/'+params[:url].split('/').slice(0..-2).join('/')
   end
