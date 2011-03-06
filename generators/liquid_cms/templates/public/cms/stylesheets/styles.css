@@ -61,6 +61,9 @@ a img {
   margin-right: 1em;
   padding-bottom: 0.5em;
 }
+#content .panel, #content form {
+  color: #333;
+}
 #content h1 {
   padding-top: 0.5em;
   margin-top: 0;

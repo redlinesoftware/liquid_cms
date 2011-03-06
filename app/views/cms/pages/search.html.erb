@@ -15,7 +15,7 @@
     <p><%= pluralize @pages.length, 'page' %> found.</p>
   <% end %>
 
-  <ul class="shadow">
+  <ul class="panel shadow">
   <% for page, matches in page_match_order(@pages, @search_term) %>
     <li><span class="page"><%= link_to page.to_s, edit_cms_page_path(page) %></span> - <span class="count"><%= pluralize matches, 'match' %></span></li>
   <% end %>
