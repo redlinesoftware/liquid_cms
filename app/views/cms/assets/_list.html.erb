@@ -1,14 +1,17 @@
 <div id="assets">
   <p>
-    <%= cms_icon 'picture_add.png' %> <%= link_to t('assets.actions.index.new_link'), new_cms_asset_path %>
+    <%= cms_icon 'picture_add.png' %> <%= link_to t('assets.actions.index.new'), new_cms_asset_path %>
   </p>
 
-  <% if @assets.empty? %>
+  <% if @cms_assets.empty? %>
     <p><%= t 'assets.actions.index.none' %></p>
   <% else %>
+    <% if @cms_assets.any?(&:image?) %>
     <p class="preview"><%= link_to_function 'Toggle image previews', "asset_preview_toggle()" %></p>
+    <% end %>
+
     <ul>
-      <%= render :partial => 'cms/assets/asset', :collection => @assets %>
+      <%= render :partial => 'cms/assets/asset', :collection => @cms_assets %>
     </ul>
   <% end %>
 </div>

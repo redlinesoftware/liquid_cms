@@ -4,12 +4,6 @@ h4 {
 .cms_documentation #content h2 {
   margin-top: 1em;
 }
-.cms_documentation #content a {
-  text-decoration: none;
-}
-.cms_documentation #content a:hover {
-  text-decoration: underline;
-}
 #content pre {
   margin: 0;
 }
@@ -25,6 +19,7 @@ span.function {
 }
 .required {
   background-color: #FFF15F;
+  padding: 0 2px;
 }
 .example {
   font-style: italic;

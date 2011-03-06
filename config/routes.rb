@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     end
 
     resources :assets, :except => :index
-    resources :pages, :except => [:index, :show]
+    resources :pages, :except => [:index, :show] do
+      collection do
+        match :search, :via => [:get, :post]
+      end
+    end
     resources :documentation, :only => :index
     match ':path/:id.:format', :to => 'pages#page_asset', :requirements => {:path => /javascripts|stylesheets/}
 

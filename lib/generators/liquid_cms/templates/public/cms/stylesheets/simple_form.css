@@ -32,7 +32,7 @@ form.simple_form a.cancel {
   background: #D00;
   background: -moz-linear-gradient(90deg, #BB0000 0%, #EE4444 100%) repeat scroll 0 0 transparent;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#E44), color-stop(1.0,#B00));
-  color: white;
+  color: white !important;
   margin-left: 0.3em;
   text-decoration: none;
   text-shadow: 0 1px #555;
