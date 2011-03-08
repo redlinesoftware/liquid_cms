@@ -3,6 +3,9 @@
 * Enhancements
   * Integrate basic page search capabilities.
 
+* Fixes
+  * Fix generation of duplicate migration files if they already exist.
+
 == 0.2.0.12
 
 * Enhancements
