@@ -1,7 +1,9 @@
 <div id="components">
   <% form_tag upload_cms_components_path, :multipart => true do %>
-    <%= file_field_tag :zip_file %>
-    <%= submit_tag 'Upload' %> <em>.zip files only</em>
+    <div>
+      <%= file_field_tag :zip_file %>
+      <%= submit_tag 'Upload' %> <em>.zip files only</em>
+    </div>
   <% end %>
 
   <% if @cms_components.empty? %>
