@@ -13,10 +13,19 @@ class Cms::MainControllerTest < ActionController::TestCase
 
       get :index
       assert_response :success
+      assert_select "#assets p.preview", true
       assert_select "li#cms_asset_#{img_asset.id} a", img_asset.asset_file_name
       assert_select "li#cms_asset_#{img_asset.id} div.asset_image"
       assert_select "li#cms_asset_#{pdf_asset.id} a", pdf_asset.asset_file_name
       assert_select "li#cms_asset_#{pdf_asset.id} div.asset_image", false
+    end
+
+    should "not should the preview link if no images have been uploaded" do
+      pdf_asset = Factory(:pdf_asset, :context => @company)
+
+      get :index
+      assert_response :success
+      assert_select "#assets p.preview", false
     end
   end
 
