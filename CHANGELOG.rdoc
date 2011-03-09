@@ -1,7 +1,8 @@
-== Master
+== 0.2.0.13
 
 * Enhancements
   * Integrate basic page search capabilities.
+  * locale file now allows you to change the CMS title
 
 * Fixes
   * Fix generation of duplicate migration files if they already exist.
