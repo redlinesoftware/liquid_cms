@@ -1,7 +1,8 @@
-== Master
+== 0.3.0.10
 
 * Enhancements
   * Integrate basic page search capabilities.
+  * locale file now allows you to change the CMS title
 
 == 0.3.0.9
 
