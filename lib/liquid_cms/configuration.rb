@@ -29,6 +29,18 @@ module Cms
     route_map.connect '*url', :controller => 'cms/pages', :action => 'load'
   end
 
+  mattr_reader :valid_component_exts
+  def self.valid_component_exts=(exts)
+    @@valid_component_exts = exts.to_a
+  end
+  @@valid_component_exts = %w(.css .js .png .jpg .jpeg .gif .json .xml .fla .ico .txt)
+
+  mattr_reader :editable_component_exts
+  def self.editable_component_exts=(exts)
+    @@editable_component_exts = exts.to_a
+  end
+  @@editable_component_exts = %w(.js .css .html .xml .txt)
+
   def self.setup
     yield self
   end
