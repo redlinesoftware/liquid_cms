@@ -39,7 +39,7 @@ class Cms::ComponentsController < Cms::MainController
     component_zip = params[:zip_file]
 
     if component_zip.present? && File.extname(component_zip.original_filename) == '.zip'
-      Cms::Component.new(@context).expand component_zip.path
+      Cms::Component.expand @context, component_zip.path
       flash[:notice] = 'The component has been uploaded.'
     else
       flash[:error] = 'The component file must be a zip archive.'

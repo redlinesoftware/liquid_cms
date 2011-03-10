@@ -32,12 +32,14 @@ end
 
 require 'test_helpers/login_methods'
 require 'test_helpers/asset_helpers'
+require 'test_helpers/component_helpers'
 
 class ActionController::TestCase
   include AssetHelpers
 end
 class ActiveSupport::TestCase
   include AssetHelpers
+  include ComponentHelpers
 end
 
 

@@ -114,7 +114,7 @@ module CmsFilters
 
   def component_url(path)
     context = @context.registers[:context]
-    "/" + File.join(Cms::Component.base_path(context), Cms::Component.component_path(context, path))
+    "/" + Cms::Component.base_path(context).join(Cms::Component.component_path(context, path)).to_s
   end
 end
 

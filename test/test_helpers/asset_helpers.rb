@@ -1,12 +1,14 @@
+require File.expand_path('../file_helpers', __FILE__)
+
 module AssetHelpers
+  include FileHelpers
+
   def setup_asset(file_name)
-    FileUtils.mkdir_p File.dirname(file_name)
-    FileUtils.touch file_name
+    setup_file file_name
   end
 
   def cleanup_assets
-    FileUtils.rm_rf TestConfig.paperclip_test_root
-    FileUtils.rm_rf Rails.root.join('public', 'cms', 'assets')
+    cleanup_files 'assets'
   end
 
   def asset_path
