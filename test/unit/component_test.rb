@@ -68,27 +68,4 @@ class Cms::ComponentTest < ActiveSupport::TestCase
       end
     end
   end
-
-protected
-  def create_zip(name)
-    fname = Rails.root.join('public', 'cms', 'temp').join(name)
-    FileUtils.mkdir_p File.dirname(fname)
-
-    begin
-      Zip::ZipFile.open(fname, Zip::ZipFile::CREATE) do |zipfile|
-        zipfile.get_output_stream("test.txt") {}
-        zipfile.get_output_stream("test.exe") {} # invalid file ext will be ignored
-        zipfile.mkdir("dir")
-        zipfile.get_output_stream("dir/test.exe") {}
-        zipfile.get_output_stream("dir/test.txt") {}
-        zipfile.get_output_stream("../../dir/test.exe") {} # relative path file will be ignored
-        zipfile.get_output_stream("../../dir/test.txt") {} # relative path file will be ignored 
-      end
-
-      yield fname
-
-    ensure
-      cleanup_files 'temp'
-    end
-  end
 end

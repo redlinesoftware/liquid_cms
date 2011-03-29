@@ -17,10 +17,10 @@ class Cms::ComponentsController < Cms::MainController
       @component = Cms::Component.new(@context, @path)
       @component.write params[:file_content]
 
-      flash[:notice] = "Component file updated."
+      flash[:notice] = "The component file has been updated."
       redirect_to cms_root_path
     else
-      flash[:error] = "Not an editable file."
+      flash[:error] = "Not an editable component."
       redirect_to :controller => 'cms/components', :action => 'edit', :url => @path
     end
   end
