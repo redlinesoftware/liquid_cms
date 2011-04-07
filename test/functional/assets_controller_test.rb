@@ -15,7 +15,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
       end
 
       should "populate the new asset with tag and meta details" do
-        asset = Factory(:image_asset, :context => @company, :tag_list => 'test', :meta_data => [{:name => 'field1', :value => 'test1'}, {:name => 'field2', :value => 'test2'}])
+        asset = Factory(:image_asset, :context => @company, :tag_list => 'test', :meta_data => [{:name => 'field1', :value => 'test1'}, {:name => 'field2', :value => 'test2'}], :custom_width => 200, :custom_height => 100)
         get :new, :tag => asset.tag_list.to_s
         assert_response :success
 
@@ -27,6 +27,8 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         assert_equal '', new_asset.meta_data[0][:value]
         assert_equal 'field2', new_asset.meta_data[1][:name]
         assert_equal '', new_asset.meta_data[1][:value]
+        assert_equal 200, new_asset.custom_width
+        assert_equal 100, new_asset.custom_height
 
         assert_select '#meta_fields li', new_asset.meta_data.length
       end

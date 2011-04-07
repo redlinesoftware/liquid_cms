@@ -60,6 +60,10 @@ protected
         # remove meta values since we only want the key names
         # new values will be provided for the new asset
         asset.meta_data = meta_asset.meta_data.collect{|m| {:name => m[:name], :value => ''}}
+
+        # assign custom dims
+        asset.custom_width = meta_asset.custom_width
+        asset.custom_height = meta_asset.custom_height
       end
 
       asset
