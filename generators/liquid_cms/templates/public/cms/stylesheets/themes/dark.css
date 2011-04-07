@@ -13,6 +13,9 @@ body {
 #content a {
   color: #FFE900;
 }
+#content form.simple_form a {
+  color: #170;
+}
 #content h2 {
   color: #AAA;
   text-shadow: -1px -1px 2px #000000;
