@@ -1,3 +1,11 @@
+== Master
+
+* Enhancements
+  * Many improvements to assets including the addition of meta data fields, tags and the ability to specify custom image sizes.
+  * Assets can now be searched for using the liquid 'asset_data' tag.  {% asset_data tag:'test' %}
+    See the built-in docs for more details on how to use "asset_data" and asset drops.
+  * Asset drops (accessible via the asset_data tag) give you access to the meta data and custom image information.
+
 == 0.3.0.10
 
 * Enhancements

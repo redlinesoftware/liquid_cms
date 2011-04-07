@@ -1,34 +1,36 @@
-<ul id="cms_menus" class="tabs clearfix">
-  <li><%= link_to t('pages.actions.index.title'), '#cms_pages' %></li>
-  <li><%= link_to t('assets.actions.index.title'), '#cms_assets' %></li>
-  <li><%= link_to t('components.actions.index.title'), '#cms_components' %></li>
-</ul>
+<div id="sidebar_container">
+  <ul id="cms_menus" class="tabs clearfix">
+    <li><%= link_to t('pages.actions.index.title'), '#cms_pages' %></li>
+    <li><%= link_to t('assets.actions.index.title'), '#cms_assets' %></li>
+    <li><%= link_to t('components.actions.index.title'), '#cms_components' %></li>
+  </ul>
 
-<div id="tab_container">
-  <div id="cms_pages">
-    <h2><%= t 'pages.actions.index.title' %></h2>
-    <%= render 'cms/pages/list' %>
+  <div id="tab_container">
+    <div id="cms_pages">
+      <h2><%= t 'pages.actions.index.title' %></h2>
+      <%= render 'cms/pages/list' %>
+    </div>
+
+    <div id="cms_assets">
+      <h2><%= t 'assets.actions.index.title' %></h2>
+      <%= render 'cms/assets/list' %>
+    </div>
+
+    <div id="cms_components">
+      <h2><%= t 'components.actions.index.title' %></h2>
+      <%= render 'cms/components/list' %>
+    </div>
   </div>
 
-  <div id="cms_assets">
-    <h2><%= t 'assets.actions.index.title' %></h2>
-    <%= render 'cms/assets/list' %>
-  </div>
+  <%= javascript_tag do %>
+    new Control.Tabs('cms_menus', {
+      defaultTab: jar.get('active_tab') || 'first',
+      afterChange: function(new_container) {
+        // save the active tab
+        jar.put('active_tab', new_container.getAttribute('id'));
+      }
+    });
+  <% end %>
 
-  <div id="cms_components">
-    <h2><%= t 'components.actions.index.title' %></h2>
-    <%= render 'cms/components/list' %>
-  </div>
+  <p class="documentation"><%= cms_icon 'page.png' %> <%= link_to 'Documentation', cms_documentation_index_path %></p>
 </div>
-
-<%= javascript_tag do %>
-  new Control.Tabs('cms_menus', {
-    defaultTab: jar.get('active_tab') || 'first',
-    afterChange: function(new_container) {
-      // save the active tab
-      jar.put('active_tab', new_container.getAttribute('id'));
-    }
-  });
-<% end %>
-
-<p class="documentation"><%= cms_icon 'page.png' %> <%= link_to 'Documentation', cms_documentation_index_path %></p>

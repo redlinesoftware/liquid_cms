@@ -20,5 +20,7 @@ protected
     @cms_pages = @context.pages.ordered.all(:conditions => {:layout_page_id => nil})
     @cms_assets = @context.assets.ordered
     @cms_components = @context.components
+
+    @context_asset_tags = Cms::Asset.tags_for_context(@context)
   end
 end

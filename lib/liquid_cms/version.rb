@@ -1,3 +1,3 @@
 module Cms
-  VERSION = "0.3.0.10"
+  VERSION = "0.3.1.0"
 end

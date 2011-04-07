@@ -11,3 +11,21 @@
 {{ image.large.width }}
 {{ image.large.height }}
 </pre>
+
+<a name="asset_drop"></a>
+<h3>Asset</h3>
+<ul>
+  <li><span class="attribute">meta</span> - Meta fields can be accessed from the meta attribute. Meta data is associated with an asset when creating or editing them.</li>
+  <li>
+    <span class="attribute">image</span> - Gives you access to the image fields if the asset an image.  See the <a href="#image_drop">paperclip objects</a> drop for available fields.</a><br/>
+    The image attribute only contains the <em>'original'</em> size in addition to a <em>'custom'</em> size if custom dimensions were specified for the image.
+  </li>
+</ul>
+
+<pre>
+{{ asset.meta.field_name }}
+{{ asset.meta.location }}
+
+{{ asset.image.custom.url }}
+{{ asset.image.original.url }}
+</pre>

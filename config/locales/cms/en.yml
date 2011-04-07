@@ -61,6 +61,7 @@ en:
         root: 'Home Page'
       cms_asset:
         asset_file_name: 'File'
+        tag_list: 'Tags'
     hints:
       cms_page:
         name: 'The name must contain no whitespace or any other special characters. Letters, numbers, hyphens, underscores and periods are valid.<br/>The extensions <em>.css</em>, <em>.js</em>, <em>.xml</em>, <em>.json</em> and <em>.txt</em> can used to auto-identify the content-type.  If no extension is provided, html is the default type.'
@@ -71,6 +72,10 @@ en:
         file_content: '<em>No liquid support for editing components.</em> Use ctrl+s to save.'
       cms_asset:
         asset: 'Upload an asset file.'
+        tag_list: 'Seperate tags with commas.'
+        dimensions: 'Specify custom dimensions in pixels as width x height.  The aspect ratio will be maintained, so actual dimensions may differ.  Applies to image assets only.'
+        meta:
+          name: 'The name must begin with a letter and consist only of lowercase letters, numbers and underscores.'
         file_content: '<em>No liquid support for editing assets.</em> Use ctrl+s to save.'
         edit:
           asset: 'An existing file has been uploaded.  Upload a new file to replace it.'

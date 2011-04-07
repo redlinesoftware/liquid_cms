@@ -6,7 +6,7 @@ class Cms::AssetsController < Cms::MainController
   end
 
   def new
-    @asset = Cms::Asset.new
+    @asset = create_tagged_asset
   end
 
   def create
@@ -26,13 +26,7 @@ class Cms::AssetsController < Cms::MainController
   def update
     @asset = @context.assets.find params[:id]
 
-    success = if params[:file_content].present?
-      @asset.write params[:file_content]
-    else
-      @asset.update_attributes params[:cms_asset]
-    end
-
-    if success
+    if @asset.update_attributes params[:cms_asset]
       flash[:notice] = t('assets.flash.updated')
       redirect_to cms_root_path
     else
@@ -49,6 +43,28 @@ class Cms::AssetsController < Cms::MainController
     respond_to do |format|
       format.html { redirect_to cms_root_path }
       format.js
+    end
+  end
+
+protected
+  # pre-populate an asset with tagged data and meta fields if a tag param is present
+  def create_tagged_asset
+    asset = Cms::Asset.new
+    curr_tag = (params[:tag] || '').strip
+
+    if curr_tag.present?
+      asset.tag_list = curr_tag
+    
+      meta_asset = @context.assets.tagged_with(curr_tag).first :conditions => 'meta_data is not null'
+      if meta_asset
+        # remove meta values since we only want the key names
+        # new values will be provided for the new asset
+        asset.meta_data = meta_asset.meta_data.collect{|m| {:name => m[:name], :value => ''}}
+      end
+
+      asset
+    else
+      asset
     end
   end
 end

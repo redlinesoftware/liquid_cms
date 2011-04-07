@@ -11,7 +11,22 @@
     <% end %>
 
     <ul>
-      <%= render :partial => 'cms/assets/asset', :collection => @cms_assets %>
+      <% @context_asset_tags.each do |tag| %>
+        <li class="group tagged">
+          <h4><%= tag.to_s %> <%= link_to cms_icon('picture_add.png', :title => 'Add a new asset with this tag'), new_cms_asset_path(:tag => tag.to_s) %></h4>
+          <ul>
+            <%= render :partial => 'cms/assets/asset', :collection => @context.assets.tagged_with(tag).ordered %>
+          </ul>
+        </li>
+      <% end %>
+      <li class="group untagged">
+        <% unless @context_asset_tags.blank? %>
+        <h4>Untagged</h4>
+        <% end %>
+        <ul>
+          <%= render :partial => 'cms/assets/asset', :collection => @context.assets.untagged.ordered %>
+        </ul>
+      </li>
     </ul>
   <% end %>
 </div>

@@ -105,14 +105,6 @@ h2 p.message {
   float: right;
 }
 
-.CodeMirror-wrapping {
-  display: inline-block;
-}
-.CodeMirror-wrapping iframe {
-  background-color: white;
-  border: 1px solid #BBBBBB !important;
-}
-
 .cms_pages #content h2 {
   background: url("/cms/images/icons/page.png") no-repeat scroll right 50% transparent;
 }

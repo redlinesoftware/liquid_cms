@@ -43,17 +43,18 @@ form.simple_form a.cancel:hover {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#F55), color-stop(1.0,#C11));
 }
 
-form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, form.simple_form div.select, form.simple_form div.file {
+form.simple_form div.string, form.simple_form div.text, form.simple_form div.boolean, form.simple_form div.select, form.simple_form div.file, form.simple_form div.integer {
   margin-bottom: 1.3em;
 }
-form.simple_form label {
-  color: #333;
+form.simple_form label, form.simple_form .label {
   float: left;
+  width: 9%;
+  color: #333;
   font-size: 10pt;
   font-family: Verdana;
   font-weight: bold;
   line-height: 1.8em;
-  width: 9%;
+  text-shadow: 1px 1px 1px #DDD;
 }
 form.simple_form input.string {
   display: block;
@@ -66,6 +67,13 @@ form.simple_form .buttons { margin-left: 9%; margin-top: 1.5em; }
 form.simple_form span.hint { color: #666; display: block; font-size: 8pt; font-style: italic; margin: 0.5em 0 0 9%;}
 form.simple_form span.hint em { color: #333; font-weight: bold; }
 
+form.simple_form div.fieldWithErrors:first-child {
+  width: 9%;
+  float: left;
+}
+form.simple_form div.fieldWithErrors:first-child label {
+  float: none;
+}
 form.simple_form div.fieldWithErrors { background-color: #FBE3E4; padding: 0.5em 0; }
 form.simple_form span.error {
   background: white;
@@ -76,4 +84,71 @@ form.simple_form span.error {
   margin-left: 9%;
   margin-top: 0.5em;
   padding: 0.5em;
+}
+
+form.simple_form .preview {
+  margin-bottom: 1em;
+}
+form.simple_form .preview h4 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+form.simple_form .preview img {
+  border: 1px solid #CCC;
+}
+form.simple_form .details p:first-child {
+  margin-top: 0;
+}
+form.simple_form .details .label {
+  display: inline-block;
+  float: none;
+}
+
+.CodeMirror-wrapping {
+  display: inline-block;
+}
+.CodeMirror-wrapping iframe {
+  background-color: white;
+  border: 1px solid #BBBBBB !important;
+}
+
+div.dimensions {
+  margin-bottom: 1.3em;
+}
+div.dimensions div.integer {
+  display: inline;
+}
+
+fieldset legend {
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #DDD;
+}
+ul#meta_fields {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.5em 0 0;
+}
+ul#meta_fields li {
+  position: relative;
+  background: #EEE;
+  background: -moz-linear-gradient(0deg, #EEEEEE 0%, #F3F3F3 100%) repeat scroll 0 0 transparent;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#EEE), color-stop(1.0,#F3F3F3));
+  border: 1px solid #999;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  padding-bottom: 0;
+}
+ul#meta_fields li div.field {
+  margin-top: 0.5em;
+}
+ul#meta_fields li div.field input.string {
+  width: auto;
+}
+ul#meta_fields li .delete {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+}
+form.simple_form ul div.string, form.simple_form ul div.text {
+  margin-bottom: 0.5em;
 }

@@ -27,6 +27,27 @@ class Cms::MainControllerTest < ActionController::TestCase
       assert_response :success
       assert_select "#assets p.preview", false
     end
+
+    should "show no tags" do
+      Factory(:image_asset, :context => @company)
+
+      get :index
+      assert_response :success
+      assert_select 'li.group.tagged', false
+      assert_select 'li.group.untagged', true
+      assert_select 'li.group.untagged h4', false
+    end
+    
+    should "show tags" do
+      tagged = Factory(:image_asset, :context => @company, :tag_list => 'test, this')
+      Factory(:image_asset, :context => @company)
+
+      get :index
+      assert_response :success
+      assert_select 'li.group.tagged', tagged.tags.count
+      assert_select 'li.group.untagged'
+      assert_select 'li.group.untagged h4', 'Untagged'
+    end
   end
 
   context "permission access" do
