@@ -1,4 +1,4 @@
-<% f.simple_fields_for :meta, obj ? obj : nil, :index => obj ? idx : 'new_0' do |m| %>
+<%= f.simple_fields_for :meta, obj ? obj : nil, :index => obj ? idx : 'new_0' do |m| %>
 <li>
   <div class="field">
     <%= m.input :name, :placeholder => 'field name', :size => 40 %>
