@@ -5,11 +5,21 @@ class AssetDataTag < Cms::DataTag
   def get_data
     raise Liquid::ArgumentError.new("The required 'tag' parameter is missing.") if options[:tag].blank?
 
-    assets = context_object.assets.tagged_with(options[:tag]).scoped(:order => 'cms_assets.created_at DESC')
-    #assets = assets.scoped(:order => 'rand()') if options[:random] == true
-    #assets = assets.scoped(:limit => options[:limit]) if options[:limit]
+    collection = uses_random do |random_func|
+      assets = context_object.assets.tagged_with(options[:tag])
 
-    yield 'assets', assets.all
+      assets = if options[:random] == true
+        assets.scoped(:order => random_func)
+      else
+        assets.scoped(:order => 'cms_assets.created_at DESC')
+      end
+
+      assets = assets.scoped(:limit => options[:limit]) if options[:limit]
+
+      assets.all
+    end
+
+    yield 'assets', collection
   end
 end
 

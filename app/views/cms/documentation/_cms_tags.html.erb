@@ -11,9 +11,12 @@
 <h3><span class="function">asset_data</span> - Retrieves assets as a collection of asset drops.</h3>
 <ul>
   <li><span class="param required">tag</span> - The tag string used to search for the assets.  Tags are associated with the asset when creating or editing them.</li>
+  <li><span class="param">random</span> - Return assets in a random order or most recent first. (true/false).  false by default.</li>
+  <li><span class="param">limit</span> - The maximum number of records to return.  Returns all by default.</li>
   <li><span class="param">as</span> - Specify the name of the variable that the asset data will be saved in.  The name is 'assets' by default.</li>
 </ul>
 
 <pre>
-{% asset_data tag:'customer' %}
+{% asset_data tag:'gallery' %}
+{% asset_data tag:'customer' random:true %}
 </pre>

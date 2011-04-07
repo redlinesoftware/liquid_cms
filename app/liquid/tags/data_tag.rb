@@ -28,4 +28,32 @@ class Cms::DataTag < Liquid::Tag
     end
     ''
   end 
+
+  def uses_random(&block)
+    collection = []
+
+    # random sql func supported by postgresql and sqlite (perhaps others)
+    random_func = "random()"
+
+    begin
+      collection = yield random_func
+    rescue ActiveRecord::StatementInvalid => e
+      if options[:random] == true
+        # the random function used was invalid, so we'll try an alternative syntax for mysql (perhaps others)
+        mysql_func = "rand()"
+
+        if random_func != mysql_func
+          random_func = mysql_func
+        else
+          # set random to false and just use the default order since the alt didn't work either
+          options[:random] = false
+        end
+
+        # retry the query
+        retry
+      end
+    end
+
+    collection
+  end
 end

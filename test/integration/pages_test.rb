@@ -148,7 +148,7 @@ class Cms::PagesTest < ActionController::IntegrationTest
           @asset.save
 
           @page.content = <<-LIQUID
-          {% asset_data tag:'test' %}
+          {% asset_data tag:'test' random:true %}
           <span id="count">{{ assets | size }}</span>
           {{ assets | first | assign_to: 'meta_asset' }}
           <span class="o_dims">{{ meta_asset.image.original.width }}</span>
@@ -172,7 +172,7 @@ class Cms::PagesTest < ActionController::IntegrationTest
           @asset.save
 
           @page.content = <<-LIQUID
-          {% asset_data tag:'test', as:'meta_assets' %}
+          {% asset_data tag:'test' as:'meta_assets' %}
           <span id="count">{{ meta_assets | size }}</span>
           {{ meta_assets | first | assign_to: 'meta_asset' }}
           <span class="name">{{ meta_asset.meta.name_test }}</span>
@@ -186,6 +186,16 @@ class Cms::PagesTest < ActionController::IntegrationTest
           assert_select '.name', 'value test'
           assert_select '.location', 'earth'
           assert_select '.none', ''
+
+          # specify the limit as 0
+          @page.content = <<-LIQUID
+          {% asset_data tag:'test' as:'meta_assets' random:true limit:0 %}
+          <span id="count">{{ meta_assets | size }}</span>
+          LIQUID
+          @page.save
+
+          get @page.url
+          assert_select '#count', '0'
         end
       end
     end
@@ -358,6 +368,7 @@ class Cms::PagesTest < ActionController::IntegrationTest
       ActionController::Base.perform_caching = false
     end
 
+=begin
     should "expire the cache when the page is updated" do
       assert_cache_empty
 
@@ -391,4 +402,5 @@ class Cms::PagesTest < ActionController::IntegrationTest
       assert_cache_key "views/CONTEXT_PATH_#{@company.id}/page/page=1&test=abcde"
     end
   end
+=end
 end
