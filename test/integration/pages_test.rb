@@ -401,6 +401,6 @@ class Cms::PagesTest < ActionController::IntegrationTest
       get @page.url+'?test=abcde&page=1'
       assert_cache_key "views/CONTEXT_PATH_#{@company.id}/page/page=1&test=abcde"
     end
-  end
 =end
+  end
 end
