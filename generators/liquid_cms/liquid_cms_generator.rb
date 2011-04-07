@@ -5,12 +5,16 @@ class LiquidCmsGenerator < Rails::Generator::Base
     record do |m|
       # migrations
       m.migration_template 'migration.rb', File.join('db', 'migrate'), :migration_file_name => 'create_liquid_cms_setup'
+      m.migration_template 'migration_rev1.rb', File.join('db', 'migrate'), :migration_file_name => 'create_liquid_cms_upgrade_rev1'
 
       # initializers
       m.directory File.join('config', 'initializers', 'cms')
-      %w(liquid_cms.rb simple_form.rb simple_form_updates.rb vestal_versions.rb remote_indicator.rb).each do |file|
+      %w(liquid_cms.rb simple_form.rb simple_form_updates.rb remote_indicator.rb).each do |file|
         m.file File.join('config', 'initializers', 'cms', file), File.join('config', 'initializers', 'cms', file)
       end
+
+      # old files that need to be removed so that the app can run properly
+      m.delete File.join('config', 'initializers', 'cms', 'vestal_versions.rb')
 
       # cms controllers
       m.directory File.join('app', 'controllers', 'cms')

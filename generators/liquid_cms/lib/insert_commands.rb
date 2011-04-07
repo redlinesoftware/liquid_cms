@@ -1,6 +1,11 @@
 require 'fileutils'
 
 Rails::Generator::Commands::Create.class_eval do
+  def delete(file)
+    logger.delete "Deleting '#{file}'"
+    FileUtils.rm_f file
+  end
+
   def copy_files(base, source, template_path = nil)
     logger.copy "Copying '#{source}' to '#{base}'"
     FileUtils.cp_r File.join(source_root, template_path || '', base, source), File.join(destination_root, base)
@@ -22,6 +27,11 @@ Rails::Generator::Commands::Create.class_eval do
 end
 
 Rails::Generator::Commands::Destroy.class_eval do
+  def delete(file)
+    logger.delete "Deleting '#{file}'"
+    FileUtils.rm_f file
+  end
+
   def copy_files(base, source)
     logger.copy "Removing '#{source}' from '#{base}'"
     FileUtils.rm_rf File.join(destination_root, base, source)
@@ -29,6 +39,10 @@ Rails::Generator::Commands::Destroy.class_eval do
 end
 
 Rails::Generator::Commands::List.class_eval do
+  def delete(file)
+    logger.delete "Deleting '#{file}'"
+  end
+
   def copy_files(base, source)
     logger.copy "Copying '#{source}' to '#{base}'"
   end
