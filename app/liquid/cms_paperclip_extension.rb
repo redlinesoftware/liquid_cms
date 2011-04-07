@@ -7,7 +7,7 @@ module Paperclip
         all_styles = self.styles.keys + ['original']
         all_styles.each do |style|
           g = Paperclip::Geometry.from_file(self.path(style)) rescue nil
-          h[style] = {'width' => g.width.to_i, 'height' => g.height.to_i, 'url' => self.url(style)} unless g.nil?
+          h[style.to_s] = {'width' => g.width.to_i, 'height' => g.height.to_i, 'url' => self.url(style)} unless g.nil?
         end
       end
     end

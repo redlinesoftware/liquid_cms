@@ -13,6 +13,51 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         assert_select 'div.text', false
         assert_select 'div.file .hint', 'Upload an asset file.'
       end
+
+      should "populate the new asset with tag and meta details" do
+        asset = Factory(:image_asset, :context => @company, :tag_list => 'test', :meta_data => [{:name => 'field1', :value => 'test1'}, {:name => 'field2', :value => 'test2'}])
+        get :new, :tag => asset.tag_list.to_s
+        assert_response :success
+
+        new_asset = assigns(:asset)
+        assert_equal 'test', new_asset.tag_list.to_s
+        assert_equal 2, new_asset.meta_data.length
+        # values are removed from new assets
+        assert_equal 'field1', new_asset.meta_data[0][:name]
+        assert_equal '', new_asset.meta_data[0][:value]
+        assert_equal 'field2', new_asset.meta_data[1][:name]
+        assert_equal '', new_asset.meta_data[1][:value]
+
+        assert_select '#meta_fields li', new_asset.meta_data.length
+      end
+
+      should "not populate the new asset with tag and meta details" do
+        asset = Factory(:image_asset, :context => @company, :tag_list => 'test', :meta_data => [{:name => 'field1', :value => 'test1'}, {:name => 'field2', :value => 'test2'}])
+        get :new, :tag => 'unknown'
+        assert_response :success
+
+        new_asset = assigns(:asset)
+        assert_equal 'unknown', new_asset.tag_list.to_s
+        assert_nil new_asset.meta_data
+      end
+    end
+
+    context "create" do
+      teardown do
+        cleanup_assets
+      end
+
+      should "create an asset" do
+        asset_file = asset_file('new_test.pdf')
+        setup_asset asset_file
+
+        post :create, :cms_asset => {:asset => ActionController::TestUploadedFile.new(asset_file), :meta => {'new_0' => {:name => 'key_a', :value => 'test'}, 'new_1' => {:name => 'key_b', :value => 'test'}} }
+        assert_response :redirect
+        assert_redirected_to cms_root_path
+
+        asset = assigns(:asset)
+        assert_equal 2, asset.meta_data.length
+      end
     end
 
     context "show" do
@@ -39,7 +84,7 @@ class Cms::AssetsControllerTest < ActionController::TestCase
 
     context "edit" do
       should "show form for an editable asset with a textarea" do
-        Cms::Asset.any_instance.stubs(:asset).returns(stub(:to_file => stub(:read => 'test contents')))
+        Cms::Asset.any_instance.stubs(:asset).returns(stub(:url => 'test.com', :to_file => stub(:read => 'test contents')))
         asset = Factory(:js_asset, :context => @company)
 
         get :edit, :id => asset.id
@@ -78,24 +123,33 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         assert_equal File.basename(new_asset_file), asset.reload.asset_file_name
       end
 
-      should "modify the contents of an editable asset file" do
+      should "modify the contents of a non-editable asset file" do
         asset = Factory(:pdf_asset, :context => @company)
-        put :update, :id => asset, :file_content => 'new content'
-        assert_response :success
-        assert_template 'edit'
+
+        # file contents are ignored for non-editable assets
+        put :update, :id => asset, :cms_asset => {:file_content => 'new content'}
+        assert_response :redirect
+        assert_redirected_to cms_root_path
       end
 
-      should "modify the contents of an non-editable asset file" do
+      should "modify the contents of an editable asset file and it's meta data" do
         asset = Factory(:js_asset, :context => @company)
+        assert_nil asset.meta_data
+        assert_equal 0, asset.meta.length
 
         asset_file = asset_file(asset.asset_file_name)
         setup_asset asset_file
 
         Cms::Asset.any_instance.stubs(:asset => stub(:path => asset_file))
-        Cms::Asset.any_instance.expects(:write).with('new content').returns(true)
+        Cms::Asset.any_instance.expects(:file_content=).with('new content').returns('new content')
 
-        put :update, :id => asset, :file_content => 'new content'
+        put :update, :id => asset, :cms_asset => {:file_content => 'new content', :meta => {'new_0' => {:name => 'key_a', :value => 'test'}, 'new_1' => {:name => 'key_b', :value => 'test'}}}
         assert_response :redirect
+        assert_redirected_to cms_root_path
+
+        asset.reload
+        assert_not_nil asset.meta_data
+        assert_equal 2, asset.meta.length
       end
     end
 

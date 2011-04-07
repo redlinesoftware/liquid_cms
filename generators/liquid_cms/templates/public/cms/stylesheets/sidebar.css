@@ -19,15 +19,32 @@
   margin: 0;
   padding: 0;
 }
-#sidebar #assets li {
+#sidebar #assets li.group.tagged {
+  margin-bottom: 0.5em;
+}
+#sidebar #assets li.group li {
   border: 1px solid #AAA;
   padding: 0.3em 0.4em;
   margin-bottom: 0.3em;
 }
-#sidebar #assets li:hover {
+#sidebar #assets li.group h4 {
+  background-color: #BBB;
+  border: 1px solid #999;
+  margin: 0.2em 0;
+  padding: 0.4em;
+  text-shadow: -1px -1px 1px #CCCCCC;
+}
+#sidebar #assets li.group.tagged h4 {
+  background: url("/cms/images/icons/tag_blue.png") no-repeat scroll 5px center #BBB;
+  padding: 0.4em 0.4em 0.4em 25px;
+}
+#sidebar #assets li.group h4 a {
+  float: right;
+}
+#sidebar #assets li.group li:hover {
   background-color: #BFD6FF !important;
 }
-#sidebar #assets li.light {
+#sidebar #assets li.group li.light {
   background-color: #DDD;
 }
 #sidebar .asset_details {
@@ -120,9 +137,6 @@
 #cms ul.tree li { margin: 0; padding: 0 0px 0 12px; line-height: 20px; background: url(/cms/images/tree/node.png) no-repeat; color: #369; font-weight: bold; } 
 #cms ul.tree li:last-child { background: url(/cms/images/tree/lastnode.png) no-repeat; }
 
-#cms ul.tree, #sidebar #assets ul {
-  margin-bottom: 0.5em;
-}
 #cms ul.tree ul {
   margin-left: 15px;
 }

@@ -1,7 +1,7 @@
 <% content_tag_for :li, asset, :class => cms_row_class do %>
   <%= file_type_icon asset.asset_file_name %>
   <%= link_to_remote cms_icon('delete.png', :title => 'Delete'), :url => cms_asset_path(asset), :indicator => dom_id(asset, 'progress'), :method => :delete, :confirm => "Are you sure you want to delete the \"#{asset}\" asset?" %>
-  <%= link_to truncate(asset.asset_file_name, :length => 22), cms_asset_path(asset), :title => asset.asset_file_name %>
+  <%= link_to truncate(asset.asset_file_name, :length => 22), edit_cms_asset_path(asset), :title => asset.asset_file_name %>
   <%= indicator dom_id(asset, 'progress') %>
 
   <span class="asset_size"><%= number_to_human_size asset.asset_file_size %></span>

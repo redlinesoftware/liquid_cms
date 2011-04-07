@@ -1,4 +1,19 @@
 <% simple_form_for @asset, :html => {:multipart => true} do |f| %>
+  <% unless f.object.new_record? %>
+  <div class="details">
+    <p><span class="label">Original</span> <%= link_to @asset.asset_file_name, @asset.asset.url %></p>
+    <p><span class="label">Filesize</span> <%= number_to_human_size(@asset.asset_file_size) %></p>
+    <p><span class="label">Last Updated</span> <%= @asset.asset_updated_at.to_formatted_s(:long) %></p>
+  </div>
+  <% end %>
+
+  <% if f.object.image? %>
+  <div class="preview">
+    <span class="label">Preview</span>
+    <%= image_tag @asset.asset.url(:large) %>
+  </div>
+  <% end %>
+
   <%= f.input :asset, :as => :file %>
 
   <% if f.object.editable? %>
@@ -7,12 +22,47 @@
     </p>
 
     <div class="text required">
-      <%= label_tag :file_content, 'Content', :class => 'text required' %> <%= text_area_tag :file_content, f.object.read, :rows => 40, :class => 'text required' %>
-      <span class="hint"><%= t('simple_form.hints.cms_asset.file_content') %></span>
+      <%= f.input :file_content, :as => :text, :input_html => {:rows => 40, :cols => nil} %>
     </div>
 
-    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'file_content' %>
+    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content' %>
+  <% end %>
+
+  <div class="dimensions">
+    <%= f.label :custom_size, :required => false %>
+    <%= f.input :custom_width, :label => false, :required => false, :input_html => {:size => 4} %> x
+    <%= f.input :custom_height, :label => false, :required => false, :input_html => {:size => 4} %>
+    <span class="hint"><%= t('simple_form.hints.cms_asset.dimensions') %></span>
+  </div>
+
+  <%= f.input :tag_list, :as => :string, :required => false %>
+
+  <% field_set_tag 'Meta Data' do %>
+    <ul id="meta_fields">
+      <% f.object.meta.each_with_index do |meta,idx| %>
+        <%= render 'meta_field', :f => f, :obj => meta, :idx => idx %>
+      <% end %>
+    </ul>
+    <%= cms_icon 'table_add.png' %> <%= link_to 'Add meta data', nil, :id => 'add_meta', :title => 'Add new meta data' %>
   <% end %>
 
   <%= f.commit_button_or_cancel %>
+
+  <% javascript_tag do %>
+    function remove_element(evt) {
+      this.up('li').remove();
+      evt.stop();
+    }
+
+    $('add_meta').observe('click', function(evt) {
+      var new_field_id = "new_" + new Date().getTime();
+      $('meta_fields').insert({
+        bottom:
+        "<%= escape_javascript(render('meta_field', :f => f, :obj => nil)) %>".replace(/new_\d+/g, new_field_id)
+      }).select('.remove_meta').last().observe('click', remove_element);
+      evt.stop();
+    });
+
+    $$('.remove_meta').invoke('observe', 'click', remove_element);
+  <% end %>
 <% end %>

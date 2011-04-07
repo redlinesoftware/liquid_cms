@@ -7,3 +7,13 @@
   {% include 'test' %}
 &lt;/div&gt;
 </pre>
+
+<h3><span class="function">asset_data</span> - Retrieves assets as a collection of asset drops.</h3>
+<ul>
+  <li><span class="param required">tag</span> - The tag string used to search for the assets.  Tags are associated with the asset when creating or editing them.</li>
+  <li><span class="param">as</span> - Specify the name of the variable that the asset data will be saved in.  The name is 'assets' by default.</li>
+</ul>
+
+<pre>
+{% asset_data tag:'customer' %}
+</pre>

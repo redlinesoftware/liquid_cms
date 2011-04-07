@@ -6,8 +6,6 @@ module Cms
 
     NAME_REGEX = /^[^\/][a-zA-Z0-9_\-\.]+$/
 
-    versioned
-
     belongs_to :layout_page, :class_name => self.to_s
     has_many :content_pages, :class_name => self.to_s, :foreign_key => 'layout_page_id', :dependent => :nullify, :order => 'name ASC'
 

@@ -1,5 +1,4 @@
 require 'liquid_cms'
-require 'vestal_versions'
 require 'simple_form'
 require 'zip/zip'
 require 'will_paginate'

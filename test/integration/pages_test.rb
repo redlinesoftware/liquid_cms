@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../test_helpers/cache_helper'
 
 class Cms::PagesTest < ActionController::IntegrationTest
 
@@ -119,6 +120,72 @@ class Cms::PagesTest < ActionController::IntegrationTest
           get @page.url
           assert_select '#content h1', "This is content"
           assert_select '#content span', "test"
+        end
+      end
+
+      context "asset_data" do
+        should "find assets" do
+          @asset = Factory(:image_asset, :context => @company, :custom_height => 200, :custom_width => 200)
+
+          @page = @company.pages.create :name => 'content', :published => true, :content => <<-LIQUID
+          {% asset_data %}
+          LIQUID
+
+          get @page.url
+          assert response.body.include?("The required 'tag' parameter is missing.")
+
+          @page.content = <<-LIQUID
+          {% asset_data tag:'test' %}
+          <span id="count">{{ assets | size }}</span>
+          LIQUID
+          @page.save
+
+          get @page.url
+          assert_select '#count', '0'
+
+          # update the tags
+          @asset.tag_list = "test"
+          @asset.save
+
+          @page.content = <<-LIQUID
+          {% asset_data tag:'test' %}
+          <span id="count">{{ assets | size }}</span>
+          {{ assets | first | assign_to: 'meta_asset' }}
+          <span class="o_dims">{{ meta_asset.image.original.width }}</span>
+          <span class="c_dims">{{ meta_asset.image.custom.width }}</span>
+          <span class="name">{{ meta_asset.meta.name_test }}</span>
+          <span class="location">{{ meta_asset.meta.location }}</span>
+          <span class="none">{{ meta_asset.meta.none }}</span>
+          LIQUID
+          @page.save
+
+          get @page.url
+          assert_select '#count', '1'
+          assert_select '.o_dims', '20'
+          assert_select '.c_dims', '20'
+          assert_select '.name', ''
+          assert_select '.location', ''
+          assert_select '.none', ''
+
+          # update the meta data
+          @asset.meta_data = [{:name => 'name_test', :value => 'value test'}, {:name => 'location', :value => 'earth'}]
+          @asset.save
+
+          @page.content = <<-LIQUID
+          {% asset_data tag:'test', as:'meta_assets' %}
+          <span id="count">{{ meta_assets | size }}</span>
+          {{ meta_assets | first | assign_to: 'meta_asset' }}
+          <span class="name">{{ meta_asset.meta.name_test }}</span>
+          <span class="location">{{ meta_asset.meta.location }}</span>
+          <span class="none">{{ meta_asset.meta.none }}</span>
+          LIQUID
+          @page.save
+
+          get @page.url
+          assert_select '#count', '1'
+          assert_select '.name', 'value test'
+          assert_select '.location', 'earth'
+          assert_select '.none', ''
         end
       end
     end
@@ -277,6 +344,51 @@ class Cms::PagesTest < ActionController::IntegrationTest
     should "not load an unknown path for reserved namespaces" do
       get '/cms/pages/unknown'
       assert_response 404
+    end
+  end
+
+  context "caching" do
+    setup do
+      ActionController::Base.perform_caching = true
+      Rails.cache.clear
+      @page = Factory(:page, :context => @company)
+    end
+
+    teardown do
+      ActionController::Base.perform_caching = false
+    end
+
+    should "expire the cache when the page is updated" do
+      assert_cache_empty
+
+      get @page.url
+      assert_cache_present
+
+      # updating the page will remove the cache
+      put cms_page_path(@page), :content => 'new content'
+      assert_cache_empty
+
+      get @page.url
+      assert_cache_present
+
+      # destroying the page will remove the cache
+      delete cms_page_path(@page)
+      assert_cache_empty
+    end
+
+    should "generate a cache key" do
+      get '/'
+      assert_cache_key "views/CONTEXT_PATH_#{@company.id}"
+
+      get @page.url
+      assert_cache_key "views/CONTEXT_PATH_#{@company.id}/page"
+
+      get @page.url+'?page=1&test=abcde'
+      assert_cache_key "views/CONTEXT_PATH_#{@company.id}/page/page=1&test=abcde"
+
+      # different order sent via url, but the path params will be sorted in the path
+      get @page.url+'?test=abcde&page=1'
+      assert_cache_key "views/CONTEXT_PATH_#{@company.id}/page/page=1&test=abcde"
     end
   end
 end

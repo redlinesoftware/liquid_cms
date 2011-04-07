@@ -10,7 +10,7 @@ class Cms::PagesController < Cms::MainController
   end
 
   def create
-    @page = @context.pages.build({:updated_by => current_user}.merge(params[:cms_page] || {}))
+    @page = @context.pages.build(params[:cms_page])
     if @page.save
       flash[:notice] = t('pages.flash.created')
       redirect_to cms_root_path
@@ -25,7 +25,7 @@ class Cms::PagesController < Cms::MainController
 
   def update
     @page = @context.pages.find params[:id]
-    if @page.update_attributes({:updated_by => current_user}.merge(params[:cms_page] || {}))
+    if @page.update_attributes(params[:cms_page])
       flash[:notice] = t('pages.flash.updated')
       redirect_to edit_cms_page_path(@page)
     else
