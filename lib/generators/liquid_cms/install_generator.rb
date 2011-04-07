@@ -8,20 +8,18 @@ module LiquidCms
     source_root File.expand_path('templates', File.dirname(__FILE__))
 
     def copy_migration_file
-      name = 'create_liquid_cms_setup'
-      if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
-        migration_template 'migration.rb', File.join('db', 'migrate', name)
-      else
-        puts "Migration '#{name}' already exists... skipping"
+      [{name: 'create_liquid_cms_setup', file: 'migration.rb'}, {name: 'create_liquid_cms_upgrade_rev1', file: 'migration_rev1.rb'}].each do |m|
+        name = m[:name]
+        if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
+          migration_template m[:file], File.join('db', 'migrate', name)
+        else
+          puts "Migration '#{name}' already exists... skipping"
+        end
       end
     end
 
     def self.next_migration_number(migration_dir)
       ActiveRecord::Generators::Base.next_migration_number migration_dir
-    end
-
-    def add_unreleased_gem_dependencies
-      append_file 'Gemfile', %q(gem 'vestal_versions', '~> 1.2.1', :git => 'git://github.com/adamcooper/vestal_versions.git')
     end
 
     def copy_setup_controller

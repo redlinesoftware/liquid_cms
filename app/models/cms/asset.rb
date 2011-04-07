@@ -9,7 +9,7 @@ module Cms
 
     def self.tags_for_context(context)
       common_options = {:order => 'name ASC'}
-      context ? Cms::Tag.all({:include => :assets, :conditions => {'cms_assets.context_id' => context.object.id}}.merge(common_options)) : Cms::Tag.all(common_options)
+      context.object ? Cms::Tag.all({:include => :assets, :conditions => {'cms_assets.context_id' => context.object.id}}.merge(common_options)) : Cms::Tag.all(common_options)
     end
 
     class Meta
