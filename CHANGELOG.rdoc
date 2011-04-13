@@ -7,6 +7,9 @@
   * Asset drops (accessible via the asset_data tag) give you access to the meta data and custom image information.
   * limit and random ordering for collection retrieved from the asset_data tag.
 
+* Fixes
+  * Optimize asset image file sizes with -strip
+
 == 0.3.0.10
 
 * Enhancements
