@@ -39,6 +39,7 @@ module Cms
 
     has_attached_file :asset,
       :styles => { :tiny => '50x50>', :thumb => '100x100>', :large => '200x200>', :custom => Proc.new{|instance| custom_dimensions(instance)} },
+      :convert_options => {:all => '-strip -quality 90'},
       :path => ":rails_root/public/cms/assets/:id/:style/:filename",
       :url => "/cms/assets/:id/:style/:filename"
 
