@@ -19,6 +19,9 @@
   margin: 0;
   padding: 0;
 }
+#sidebar #assets li.cms_asset {
+  position: relative;
+}
 #sidebar #assets li.group.tagged {
   margin-bottom: 0.5em;
 }
@@ -58,7 +61,8 @@
 }
 #sidebar .asset_size {
   font-size: 8pt;
-  float: right;
+  position: absolute;
+  right: 0.4em;
 }
 #sidebar #components form {
   margin-bottom: 0.5em;
