@@ -11,7 +11,7 @@ class AssetDataTag < Cms::DataTag
       assets = if options[:random] == true
         assets.scoped(:order => random_func)
       else
-        assets.scoped(:order => 'cms_assets.created_at DESC')
+        assets.scoped(:order => 'cms_assets.created_at ASC')
       end
 
       assets = assets.scoped(:limit => options[:limit]) if options[:limit]
