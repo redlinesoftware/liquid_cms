@@ -28,7 +28,7 @@ module Cms
     named_scope :published, :conditions => {:published => true}
     named_scope :unpublished, :conditions => {:published => false}
     named_scope :layouts, :conditions => {:is_layout_page => true}
-    named_scope :ordered, :order => 'name ASC'
+    named_scope :ordered, :order => 'is_layout_page DESC, name ASC'
 
     def to_s
       name
