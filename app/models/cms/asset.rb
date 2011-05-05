@@ -55,6 +55,14 @@ module Cms
       asset_file_name
     end
 
+    def assign_ordered_attributes(params)
+      # force the custom dimensions to be assigned first so that when the asset is assigned, the custom dims are present
+      # if the custom dims aren't set before the asset is assigned, the custom size won't be generated properly
+      # this can occur if the attribute hash is iterated with the asset coming before the dims
+      self.attributes = params.slice(:custom_height, :custom_width)
+      self.attributes = params
+    end
+
     def self.context_tags(context)
       if context
         Tag.all :joins => 'inner join taggings on taggings.tag_id = tags.id inner join cms_assets on taggings.taggable_id = cms_assets.id', :conditions => {'cms_assets.context_id' => context.id}

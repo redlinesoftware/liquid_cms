@@ -44,6 +44,14 @@ class Cms::AssetTest < ActiveSupport::TestCase
       # check new dimensions
       assert_equal '4x5', Paperclip::Geometry.from_file(@asset.asset.path(:custom)).to_s
     end
+
+    should "correctly create a custom asset while assigning the asset and dims at the same time" do
+      asset_attrs = {:asset => File.open(@fname), :custom_height => '10', :custom_width => '5'}
+      @asset.assign_ordered_attributes asset_attrs
+      @asset.save
+      assert_equal '50x64', Paperclip::Geometry.from_file(@asset.asset.path(:original)).to_s
+      assert_equal '5x6', Paperclip::Geometry.from_file(@asset.asset.path(:custom)).to_s
+    end
   end
 
   context "type checks" do

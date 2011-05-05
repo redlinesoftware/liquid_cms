@@ -10,12 +10,8 @@ class Cms::AssetsController < Cms::MainController
   end
 
   def create
-    asset_attrs = params[:cms_asset].delete(:asset)
-
-    # force the asset to be assigned last so that the custom dims can be set if they're present
-    # if the custom dims aren't set before the asset is assigned, the custom size won't be generated properly
-    @asset = @context.assets.build params[:cms_asset]
-    @asset.asset = asset_attrs if asset_attrs.present?
+    @asset = @context.assets.build
+    @asset.assign_ordered_attributes params[:cms_asset]
 
     if @asset.save
       flash[:notice] = t('assets.flash.created')
@@ -30,14 +26,8 @@ class Cms::AssetsController < Cms::MainController
   end
 
   def update
-    asset_attrs = params[:cms_asset].delete(:asset)
-
     @asset = @context.assets.find params[:id]
-
-    # force the asset to be assigned last so that the custom dims can be set if they're present
-    # if the custom dims aren't set before the asset is assigned, the custom size won't be generated properly
-    @asset.attributes = params[:cms_asset]
-    @asset.asset = asset_attrs if asset_attrs.present?
+    @asset.assign_ordered_attributes params[:cms_asset]
 
     if @asset.save
       flash[:notice] = t('assets.flash.updated')
