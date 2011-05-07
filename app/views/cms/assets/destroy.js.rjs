@@ -1,2 +1,0 @@
-page.remove dom_id(@asset)
-page << %[humanMsg.displayMsg('#{escape_javascript(flash[:notice])}', 'notice}');]
