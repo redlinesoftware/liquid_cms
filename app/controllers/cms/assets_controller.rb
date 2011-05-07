@@ -45,7 +45,6 @@ class Cms::AssetsController < Cms::MainController
     
     respond_to do |format|
       format.html { redirect_to cms_root_path }
-      format.js
     end
   end
 

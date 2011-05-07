@@ -3,14 +3,12 @@
   <% if page.published? %>
     <%= cms_icon 'accept.png' %>
   <% else %>
-    <%= delete_page_link page %>
+    <%= link_to cms_icon('delete.png', :title => 'Delete'), cms_page_path(page), :method => :delete, :confirm => "Are you sure you want to delete the \"#{page}\" page?" %>
   <% end %>
   <%= link_to truncate(page.to_s, :length => 24), edit_cms_page_path(page), :title => "Edit '#{page}'" %>
 
   <%= cms_icon 'house.png', :title => 'Root/Home Page' if page.root? %>
   <%= link_to cms_icon('magnifier.png', :title => 'View'), page.url, :class => 'external' if page.published? %>
-
-  <%= indicator dom_id(page, 'progress') %>
 
   <% unless page.content_pages.empty? %>
     <ul>

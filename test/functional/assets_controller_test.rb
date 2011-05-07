@@ -168,14 +168,6 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         assert_redirected_to cms_root_path
         assert_nil @company.assets.find_by_id(@asset.id)
       end
-
-      should "destroy asset via XHR :DELETE" do
-        assert_not_nil @company.assets.find_by_id(@asset.id)
-
-        xhr :delete, :destroy, :id => @asset
-        assert_response :success
-        assert_nil @company.assets.find_by_id(@asset.id)
-      end
     end
   end
 end
