@@ -14,7 +14,7 @@ See the {wiki page}[http://github.com/redlinesoftware/liquid_cms/wiki] for addit
 
 Add the gem to your Gemfile:
 
-  gem 'liquid_cms', '~> 0.3.0'
+  gem 'liquid_cms', '~> 0.3.1'
 
 Install the gem:
 
