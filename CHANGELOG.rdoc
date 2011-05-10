@@ -1,3 +1,8 @@
+== master
+
+* Fixes
+  * Move data_tag.rb file into cms dir due to possible rails class loading issues.
+
 == 0.3.1.0
 
 * Enhancements
