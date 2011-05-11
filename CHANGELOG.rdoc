@@ -1,5 +1,8 @@
 == master
 
+* Enhancements
+  * Optimize paperclip image dimension lookup in to_liquid calls.  To make use of optimized paperclip attachments in your custom to_liquid methods, add a column to your table in a migration. See the README under the customization section for more information.
+
 * Fixes
   * Move data_tag.rb file into cms dir due to possible rails class loading issues.
 

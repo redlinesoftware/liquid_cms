@@ -8,7 +8,11 @@ module LiquidCms
     source_root File.expand_path('templates', File.dirname(__FILE__))
 
     def copy_migration_file
-      [{name: 'create_liquid_cms_setup', file: 'migration.rb'}, {name: 'create_liquid_cms_upgrade_rev1', file: 'migration_rev1.rb'}].each do |m|
+      [
+        {name: 'create_liquid_cms_setup', file: 'migration.rb'},
+        {name: 'create_liquid_cms_upgrade_rev1', file: 'migration_rev1.rb'},
+        {name: 'create_liquid_cms_upgrade_rev2', file: 'migration_rev2.rb'}
+      ].each do |m|
         name = m[:name]
         if self.class.migration_exists?(File.join('db', 'migrate'), name).blank?
           migration_template m[:file], File.join('db', 'migrate', name)

@@ -62,6 +62,20 @@ In order to expose data in your application in the templates, liquid filters, dr
 
 A set of filters, drops and tags are provided in addition to the defaults provided by liquid.  The documentation link accessible in the CMS provides additional details.
 
+If you're using paperclip images in any models and exposing them via to_liquid, you can add an addtional column to your table to optimize dimension lookup.
+
+  class Customer
+    has_attached :photo
+
+    def to_liquid
+      photo.to_liquid
+    end
+  end
+
+  change_table :customers do |t|
+    t.text :cms_photo_dimensions # field name must be named after the paperclip name. ie. :cms_{paperclip name}_dimensions
+  end
+
 = Upgrading
 
 To upgrade the liquid_cms engine once you've installed a newer gem, simply re-run the liquid_cms generator. If any differences are found in files, you'll be prompted to overwrite or compare versions.
