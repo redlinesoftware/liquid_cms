@@ -6,6 +6,7 @@ class LiquidCmsGenerator < Rails::Generator::Base
       # migrations
       m.migration_template 'migration.rb', File.join('db', 'migrate'), :migration_file_name => 'create_liquid_cms_setup'
       m.migration_template 'migration_rev1.rb', File.join('db', 'migrate'), :migration_file_name => 'create_liquid_cms_upgrade_rev1'
+      m.migration_template 'migration_rev2.rb', File.join('db', 'migrate'), :migration_file_name => 'create_liquid_cms_upgrade_rev2'
 
       # initializers
       m.directory File.join('config', 'initializers', 'cms')

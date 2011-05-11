@@ -1,3 +1,8 @@
+== master
+
+* Enhancements
+  * Optimize paperclip image dimension lookup in to_liquid calls.  To make use of optimized paperclip attachments in your custom to_liquid methods, add a column to your table in a migration. See the README under the customization section for more information.
+
 == 0.2.1.1
 
 * Fixes
