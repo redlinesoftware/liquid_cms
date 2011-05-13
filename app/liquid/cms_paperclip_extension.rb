@@ -59,6 +59,7 @@ module Paperclip
           end
         end
       else
+        log %{To optimize image data in your liquid templates, add a text column named "#{key}" to your "#{instance.class.table_name}" table.}
         # no dimensions found
         geometry_dims(style)
       end
