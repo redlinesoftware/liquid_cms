@@ -62,10 +62,13 @@ protected
         # remove meta values since we only want the key names
         # new values will be provided for the new asset
         asset.meta_data = meta_asset.meta_data.collect{|m| {:name => m[:name], :value => ''}}
+      end
 
+      dims_asset = @context.assets.tagged_with(curr_tag).first :conditions => 'custom_width is not null and custom_height is not null'
+      if dims_asset
         # assign custom dims
-        asset.custom_width = meta_asset.custom_width
-        asset.custom_height = meta_asset.custom_height
+        asset.custom_width = dims_asset.custom_width
+        asset.custom_height = dims_asset.custom_height
       end
 
       asset
