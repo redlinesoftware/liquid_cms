@@ -26,10 +26,21 @@ class Cms::PagesController < Cms::MainController
   def update
     @page = @context.pages.find params[:id]
     if @page.update_attributes(params[:cms_page])
-      flash[:notice] = t('pages.flash.updated')
-      redirect_to edit_cms_page_path(@page)
+      respond_to do |format|
+        format.html {
+          redirect_to edit_cms_page_path(@page), :notice => t('pages.flash.updated')
+        }
+        format.js {
+          flash.now[:notice] = t('pages.flash.updated')
+        }
+      end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html {
+          render :action => 'edit'
+        }
+        format.js
+      end
     end
   end
 
@@ -38,7 +49,7 @@ class Cms::PagesController < Cms::MainController
     @page.destroy
 
     flash[:notice] = t('pages.flash.deleted')
-    
+
     respond_to do |format|
       format.html { redirect_to cms_root_path }
       format.js
