@@ -104,14 +104,6 @@ form.simple_form .details .label {
   float: none;
 }
 
-.CodeMirror-wrapping {
-  display: inline-block;
-}
-.CodeMirror-wrapping iframe {
-  background-color: white;
-  border: 1px solid #BBBBBB !important;
-}
-
 div.dimensions {
   margin-bottom: 1.3em;
 }
