@@ -1,0 +1,5 @@
+if @page.errors.empty?
+  page << cms_flash_message
+else
+  page.replace_html 'content', :file => 'cms/pages/edit.html.erb'
+end
