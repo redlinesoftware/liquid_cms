@@ -6,7 +6,8 @@
   <title><%= t 'pages.layout.title' %></title>
   <%= javascript_include_tag 'prototype', 'effects' %>
   <%= javascript_include_tag '/cms/javascripts/humanmsg', '/cms/javascripts/cookiejar', '/cms/javascripts/cms', '/cms/javascripts/livepipe', '/cms/javascripts/tabs', :cache => 'cms_scripts' %>
-  <%= javascript_include_tag '/cms/codemirror/js/codemirror' %>
+  <%= javascript_include_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/mode/javascript/javascript', '/cms/codemirror/mode/css/css', '/cms/codemirror/mode/xml/xml' %>
+  <%= stylesheet_link_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/theme/default', '/cms/stylesheets/codemirror_changes' %>
   <%= stylesheet_link_tag '/cms/stylesheets/simple_form' %>
   <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles', '/cms/stylesheets/sidebar', :cache => 'cms_styles' %>
   <%= stylesheet_link_tag '/cms/stylesheets/themes/dark' %>
@@ -26,11 +27,11 @@
   <div id="outer-container" class="clearfix">
     <div id="sidebar" class="shadow curved">
       <%= render 'cms/shared/sidebar' %>
-    </div> 
+    </div>
 
     <div id="content">
       <%= yield %>
-      <%= cms_flash_message %>
+      <%= load_cms_flash_message %>
     </div>
   </div>
 </body>

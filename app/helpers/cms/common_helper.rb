@@ -13,7 +13,12 @@ module Cms::CommonHelper
 
   def cms_flash_message
     type = (flash[:error] ? :error : :notice)
-    javascript_tag("document.observe('dom:loaded', function(){ humanMsg.displayMsg('#{escape_javascript(flash[type])}', '#{type}');})") if flash[type].present?
+    flash[type].present? ? "humanMsg.displayMsg('#{escape_javascript(flash[type])}', '#{type}')" : nil
+  end
+
+  def load_cms_flash_message
+    msg = cms_flash_message
+    msg.present? ? javascript_tag("document.observe('dom:loaded', function(){ #{msg} })") : nil
   end
 
   def cms_row_class
@@ -21,40 +26,27 @@ module Cms::CommonHelper
   end
 
   def codemirror_edit(content_type, form, content_id)
-    js_options = case content_type
+    mode = nil
+
+    case content_type
     when "text/css"
-      <<-JS
-      parserfile: ["../../javascripts/parseliquid.js", "parsecss.js"],
-      stylesheet: ["/cms/codemirror/css/csscolors.css", "/cms/stylesheets/liquidcolors.css"],
-      JS
+      mode = 'css'
+      content_for :cms_styles do
+        javascript_include_tag '/cms/codemirror/mode/css/css'
+      end
     when "text/javascript"
-      <<-JS
-      parserfile: ["../../javascripts/parseliquid.js", "tokenizejavascript.js", "parsejavascript.js"],
-      stylesheet: ["/cms/codemirror/css/jscolors.css", "/cms/stylesheets/liquidcolors.css"],
-      JS
+      mode = 'javascript'
+      content_for :cms_styles do
+        javascript_include_tag '/cms/codemirror/mode/javascript/javascript'
+      end
     else
-      <<-JS
-      parserfile: ["../../javascripts/parseliquid.js"],
-      stylesheet: ["/cms/codemirror/css/xmlcolors.css", "/cms/stylesheets/liquidcolors.css"],
-      JS
+      mode = 'htmlmixed'
+      content_for :cms_styles do
+        javascript_include_tag '/cms/codemirror/mode/htmlmixed/htmlmixed'
+      end
     end
 
-    javascript_tag do
-      <<-JS
-      var editor = CodeMirror.fromTextArea("#{content_id}", {
-        #{js_options}
-        path: "/cms/codemirror/js/",
-        textWrapping: false,
-        height: '600px',
-        width: '89%',
-        saveFunction: function() {
-          var form = $$('#{form}').first();
-          $('#{content_id}').setValue(editor.getCode());
-          form.submit();
-        }
-      });
-      JS
-    end
+    javascript_tag %(initCodemirror('#{mode}', $$('#{form}').first(), $('#{content_id}')))
   end
 
   def file_type_icon(file_name)

@@ -2,7 +2,7 @@
 function set_component_view_state(elem) {
   var key = elem.getAttribute('id');
   var current_folders = jar.get('component_folders') || {};
-  
+
   if (elem.next('ul').visible())
     current_folders[key] = true;
   else
@@ -23,6 +23,70 @@ function asset_preview_toggle() {
     previews.invoke('toggle');
     jar.put('toggle', {on:previews.first().visible()});
   }
+}
+
+function codemirrorToggleFullscreenEditing()
+{
+  var editorDiv = $$('.CodeMirror-scroll').first();
+
+  if (!editorDiv.hasClassName('fullscreen')) {
+    var height = document.viewport.getHeight()+document.viewport.getScrollOffsets()[1];
+
+    toggleFullscreenEditing.beforeFullscreen = { height: editorDiv.getHeight(), width: editorDiv.getWidth() }
+    editorDiv.addClassName('fullscreen');
+    editorDiv.setStyle({height:height+'px', width:'100%'});
+    editor.refresh();
+  }
+  else {
+    editorDiv.removeClassName('fullscreen');
+    editorDiv.setStyle({
+      height:toggleFullscreenEditing.beforeFullscreen.height,
+      width:toggleFullscreenEditing.beforeFullscreen.width
+    });
+    editor.refresh();
+  }
+}
+
+function codemirrorSave(editor, form) {
+  editor.save();
+
+  var has_indicator = $('indicator');
+
+  if (has_indicator)
+    Element.show('indicator');
+
+  new Ajax.Request(form.action, {asynchronous:true, evalScripts:true, onComplete:
+    function(request){
+      if (has_indicator)
+        Element.hide('indicator');
+
+      form.enable();
+    },
+    parameters:form.serialize()}
+  );
+
+  form.disable();
+}
+
+function initCodemirror(mode, form, textarea) {
+  var codeMirrorOptions = {
+    mode : mode,
+    onKeyEvent : function(instance, event){
+      if (event.type == 'keydown') {
+        if (event.ctrlKey && (event.which == 83 || event.keyCode == 83)) {
+          event.stop();
+          codemirrorSave(instance, form);
+        }
+        // Hook into F11
+        //else if (event.keyCode == 122 || event.keyCode == 27) {
+        //  event.stop();
+        //  codemirrorToggleFullscreenEditing();
+        //}
+      }
+    }
+  }
+
+  var editor = CodeMirror.fromTextArea(textarea, codeMirrorOptions);
 }
 
 $(document).observe('dom:loaded', function() {
