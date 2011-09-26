@@ -9,3 +9,15 @@ class SimpleForm::FormBuilder
     end
   end
 end
+
+module SimpleForm
+  module Inputs
+    class Base
+      def translate_with_html_safe(namespace, default='')
+        t = translate_without_html_safe(namespace, default)
+        t ? t.html_safe : t
+      end
+      alias_method_chain :translate, :html_safe
+    end
+  end
+end
