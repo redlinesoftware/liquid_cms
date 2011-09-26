@@ -55,7 +55,7 @@ class Cms::ComponentTest < ActiveSupport::TestCase
       end
 
       should "expand a zip file" do
-        create_zip 'test.zip' do |path|
+        create_zip 'test.zip' do |path, relpath|
           Cms::Component.expand @context, path
 
           assert File.exist?(Cms::Component.full_path(@context).join('test.txt'))

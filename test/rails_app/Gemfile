@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.10'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,4 +30,3 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # end
 
 gem 'liquid_cms', :path => '../..'
-gem 'vestal_versions', '~> 1.2.1', :git => 'http://github.com/adamcooper/vestal_versions.git'

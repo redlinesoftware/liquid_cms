@@ -1,7 +1,7 @@
 <%= simple_form_for @page do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, :required => true %>
   <%= f.input :slug, :required => false %>
-  <%= f.input :content, :input_html => {:rows => 30, :spellcheck => false} %>
+  <%= f.input :content, :input_html => {:spellcheck => false} %>
   <%= f.input :layout_page_id, :collection => layouts_for_page(@page).collect{|pg| [pg.to_s, pg.id]}, :include_blank => '-- layout file --', :required => false unless layouts_for_page(@page).empty? %>
   <%= f.input :published, :required => false %>
   <%= f.input :root, :required => false %>
