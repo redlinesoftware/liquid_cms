@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 2.3.5'
   s.add_dependency 'paperclip', '~> 2.3.1'
-  s.add_dependency 'vestal_versions', '~> 1.0.1'
   s.add_dependency 'simple_form', '1.0.4'
   s.add_dependency 'rubyzip', '~> 0.9.1'
   s.add_dependency 'will_paginate', '~> 2.3.12'
