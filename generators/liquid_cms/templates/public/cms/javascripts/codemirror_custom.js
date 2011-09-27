@@ -89,8 +89,8 @@ function initCodemirror(mode, form, textarea, use_ajax, liquid_support) {
     }
   }
 
-  if (liquid_support)
-    codeMirrorOptions.mode = 'liquid';
+  //if (liquid_support)
+  //  codeMirrorOptions.mode = 'liquid';
 
   var editor = CodeMirror.fromTextArea(textarea, codeMirrorOptions);
 }

@@ -6,8 +6,8 @@
   <title><%= t 'pages.layout.title' %></title>
   <%= javascript_include_tag 'prototype', 'effects' %>
   <%= javascript_include_tag '/cms/javascripts/humanmsg', '/cms/javascripts/cookiejar', '/cms/javascripts/cms', '/cms/javascripts/livepipe', '/cms/javascripts/tabs', :cache => 'cms_scripts' %>
-  <%= javascript_include_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/mode/javascript/javascript', '/cms/codemirror/mode/css/css', '/cms/codemirror/mode/xml/xml', '/cms/codemirror/lib/overlay', '/cms/javascripts/codemirror_custom' %>
-  <%= stylesheet_link_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/theme/default', '/cms/stylesheets/codemirror_changes', '/cms/stylesheets/liquid' %>
+  <%= javascript_include_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/mode/javascript/javascript', '/cms/codemirror/mode/css/css', '/cms/codemirror/mode/xml/xml', '/cms/codemirror/lib/overlay', '/cms/javascripts/codemirror_custom', :cache => 'codemirror_scripts' %>
+  <%= stylesheet_link_tag '/cms/codemirror/lib/codemirror', '/cms/codemirror/theme/default', '/cms/stylesheets/codemirror_changes', :cache => 'codemirror_styles' %>
   <%= stylesheet_link_tag '/cms/stylesheets/simple_form' %>
   <%= stylesheet_link_tag '/cms/stylesheets/clearfix', '/cms/stylesheets/humanmsg', '/cms/stylesheets/styles', '/cms/stylesheets/sidebar', :cache => 'cms_styles' %>
   <%= stylesheet_link_tag '/cms/stylesheets/themes/dark' %>
