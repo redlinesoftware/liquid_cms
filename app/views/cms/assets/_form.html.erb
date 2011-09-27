@@ -25,7 +25,7 @@
       <%= f.input :file_content, :as => :text, :input_html => {:rows => 40, :cols => nil} %>
     </div>
 
-    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content' %>
+    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content', !@asset.new_record? %>
   <% end %>
 
   <div class="dimensions">

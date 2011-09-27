@@ -30,10 +30,21 @@ class Cms::AssetsController < Cms::MainController
     @asset.assign_ordered_attributes params[:cms_asset]
 
     if @asset.save
-      flash[:notice] = t('assets.flash.updated')
-      redirect_to cms_root_path
+      respond_to do |format|
+        format.html {
+          redirect_to edit_cms_asset_path(@asset), :notice => t('assets.flash.updated')
+        }
+        format.js {
+          flash.now[:notice] = t('assets.flash.updated')
+        }
+      end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html {
+          render :action => 'edit'
+        }
+        format.js
+      end
     end
   end
 
@@ -42,7 +53,7 @@ class Cms::AssetsController < Cms::MainController
     @asset.destroy
 
     flash[:notice] = t('assets.flash.deleted')
-    
+
     respond_to do |format|
       format.html { redirect_to cms_root_path }
     end
