@@ -70,12 +70,25 @@ class Cms::PagesControllerTest < ActionController::TestCase
       assert_template 'edit'
     end
 
-    should "update a page" do
-      put :update, :id => @company.pages.first.id, :cms_page => {:slug => '', :published => false}
-      assert_response :redirect
-      assert_equal true, assigns(:page).errors.empty?
-      assert_equal 'The page has been updated.', flash[:notice]
-      assert_redirected_to edit_cms_page_path
+    context "update" do
+      setup do
+        @page = @company.pages.first
+      end
+
+      should "update via HTTP" do
+        put :update, :id => @page.id, :cms_page => {:slug => '', :published => false}
+        assert_response :redirect
+        assert_equal true, assigns(:page).errors.empty?
+        assert_redirected_to edit_cms_page_path(@page)
+        assert_equal 'The page has been updated.', flash[:notice]
+      end
+
+      should "update via XHR" do
+        xhr :put, :update, :id => @page.id, :cms_page => {:slug => '', :published => false}
+        assert_response :success
+        assert_equal true, assigns(:page).errors.empty?
+        assert_equal 'The page has been updated.', flash[:notice]
+      end
     end
 
     should "destroy a page via HTML :DELETE" do

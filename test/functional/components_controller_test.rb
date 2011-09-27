@@ -27,11 +27,21 @@ class Cms::ComponentsControllerTest < ActionController::TestCase
         assert_template 'edit'
       end
 
-      should "update" do
-        put :update, :url => @file, :file_content => 'new content'
-        assert_response :redirect
-        assert_equal "The component file has been updated.", flash[:notice]
-        assert_equal "new content\n", File.read(Cms::Component.full_path(@context).join(@file))
+      context "update" do
+        should "update via HTTP" do
+          put :update, :url => @file, :file_content => 'new content'
+          assert_response :redirect
+          assert_redirected_to :controller => 'cms/components', :action => 'edit', :url => @file
+          assert_equal "The component file has been updated.", flash[:notice]
+          assert_equal "new content\n", File.read(Cms::Component.full_path(@context).join(@file))
+        end
+
+        should "update via XHR" do
+          xhr :put, :update, :url => @file, :file_content => 'new content'
+          assert_response :success
+          assert_equal "The component file has been updated.", flash[:notice]
+          assert_equal "new content\n", File.read(Cms::Component.full_path(@context).join(@file))
+        end
       end
 
       should "valid destroy" do
