@@ -23,7 +23,6 @@
 
     <div class="text required">
       <%= f.input :file_content, :as => :text, :input_html => {:rows => 40, :cols => nil} %>
-      <span class="hint"><%= t('simple_form.hints.cms_asset.file_content').html_safe %></span>
     </div>
 
     <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content', !@asset.new_record? %>
