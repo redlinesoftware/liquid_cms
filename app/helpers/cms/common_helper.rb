@@ -33,7 +33,7 @@ module Cms::CommonHelper
     end
   end
 
-  def codemirror_edit(content_type, form, content_id, use_ajax = true)
+  def codemirror_edit(content_type, form, content_id, use_ajax = true, liquid_support = false)
     mode = nil
 
     case content_type
@@ -54,7 +54,7 @@ module Cms::CommonHelper
       end
     end
 
-    javascript_tag %(initCodemirror('#{mode}', $$('#{form}').first(), $('#{content_id}'), #{use_ajax}))
+    javascript_tag %(initCodemirror('#{mode}', $$('#{form}').first(), $('#{content_id}'), #{use_ajax}, #{liquid_support}))
   end
 
   def file_type_icon(file_name)

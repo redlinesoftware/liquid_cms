@@ -1,0 +1,7 @@
+span.cm-liquid-control {
+}
+span.cm-liquid-output {
+}
+span.cm-liquid-control, span.cm-liquid-output {
+  color: purple;
+}
