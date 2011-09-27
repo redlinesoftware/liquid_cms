@@ -2,7 +2,7 @@ require 'zip/zip'
 
 class Cms::Component
   attr_reader :path
-  
+
   def initialize(context, path = nil)
     @context = context
     @path = self.class.clean_path(path) if path
@@ -67,7 +67,7 @@ class Cms::Component
       end if exist
     end
   end
-  
+
   def delete
     return false if @path.blank?
 

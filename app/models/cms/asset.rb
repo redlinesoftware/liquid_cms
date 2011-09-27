@@ -81,7 +81,7 @@ module Cms
     end
 
     def editable?
-      !(asset_content_type =~ /(javascript|css|xml|html)$/).blank?
+      Cms::Component.editable?(asset_file_name)
     end
 
     def file_content
