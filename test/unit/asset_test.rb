@@ -122,7 +122,7 @@ class Cms::AssetTest < ActiveSupport::TestCase
 
     context "javascript" do
       setup do
-        @asset.update_attribute :asset_content_type, 'text/javascript'
+        @asset.update_attributes :asset_content_type => 'text/javascript', :asset_file_name => 'test.js'
         setup_asset @asset.asset.path(:original)
       end
 

@@ -78,7 +78,7 @@ class Cms::Component
   end
 
   def self.editable?(file)
-    Cms.editable_component_exts.include?(File.extname(file).downcase)
+    file.present? && Cms.editable_component_exts.include?(File.extname(file).downcase)
   end
 
 protected
