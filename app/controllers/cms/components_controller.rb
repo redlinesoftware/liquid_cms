@@ -13,15 +13,23 @@ class Cms::ComponentsController < Cms::MainController
   end
 
   def update
+    edit_url = {:controller => 'cms/components', :action => 'edit', :url => @path}
+
     if Cms::Component.editable?(@path)
       @component = Cms::Component.new(@context, @path)
       @component.write params[:file_content]
 
-      flash[:notice] = "The component file has been updated."
-      redirect_to cms_root_path
+      respond_to do |format|
+        format.html {
+          redirect_to edit_url, :notice => t('components.flash.updated')
+        }
+        format.js {
+          flash.now[:notice] = t('components.flash.updated')
+        }
+      end
     else
       flash[:error] = "Not an editable component."
-      redirect_to :controller => 'cms/components', :action => 'edit', :url => @path
+      redirect_to edit_url
     end
   end
 

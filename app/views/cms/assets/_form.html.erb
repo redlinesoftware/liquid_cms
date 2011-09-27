@@ -26,7 +26,7 @@
       <span class="hint"><%= t('simple_form.hints.cms_asset.file_content').html_safe %></span>
     </div>
 
-    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content' %>
+    <%= codemirror_edit Cms::Editable::content_type(@asset.asset_file_name), 'form.simple_form', 'cms_asset_file_content', !@asset.new_record? %>
   <% end %>
 
   <div class="dimensions">

@@ -25,7 +25,15 @@ module Cms::CommonHelper
     cycle 'dark', 'light'
   end
 
-  def codemirror_edit(content_type, form, content_id)
+  def cms_ajax_update_form(page, object, path)
+    if object.errors.empty?
+      page << cms_flash_message
+    else
+      page.replace_html 'content', :file => "cms/#{path}/edit.html.erb"
+    end
+  end
+
+  def codemirror_edit(content_type, form, content_id, use_ajax = true)
     mode = nil
 
     case content_type
@@ -46,7 +54,7 @@ module Cms::CommonHelper
       end
     end
 
-    javascript_tag %(initCodemirror('#{mode}', $$('#{form}').first(), $('#{content_id}')))
+    javascript_tag %(initCodemirror('#{mode}', $$('#{form}').first(), $('#{content_id}'), #{use_ajax}))
   end
 
   def file_type_icon(file_name)

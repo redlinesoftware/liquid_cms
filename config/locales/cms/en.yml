@@ -39,6 +39,8 @@ en:
       index:
         title: 'Components'
         none: 'There are currently no components.'
+    flash:
+      updated: 'The component file has been updated.'
 
   simple_form:
     "yes": 'Yes'
