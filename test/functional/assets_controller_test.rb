@@ -119,7 +119,8 @@ class Cms::AssetsControllerTest < ActionController::TestCase
 
         put :update, :id => asset, :cms_asset => {:asset => ActionController::TestUploadedFile.new(new_asset_file)}
         assert_response :redirect
-        assert_redirected_to cms_root_path
+        assert_redirected_to edit_cms_asset_path(asset)
+        assert_equal 'The asset has been updated.', flash[:notice]
 
         # check that the file name updated
         assert_equal File.basename(new_asset_file), asset.reload.asset_file_name
@@ -131,27 +132,41 @@ class Cms::AssetsControllerTest < ActionController::TestCase
         # file contents are ignored for non-editable assets
         put :update, :id => asset, :cms_asset => {:file_content => 'new content'}
         assert_response :redirect
-        assert_redirected_to cms_root_path
+        assert_redirected_to edit_cms_asset_path(asset)
+        assert_equal 'The asset has been updated.', flash[:notice]
       end
 
-      should "modify the contents of an editable asset file and it's meta data" do
-        asset = Factory(:js_asset, :context => @company)
-        assert_nil asset.meta_data
-        assert_equal 0, asset.meta.length
+      context "update editable content" do
+        setup do
+          @asset = Factory(:js_asset, :context => @company)
 
-        asset_file = asset_file(asset.asset_file_name)
-        setup_asset asset_file
+          asset_file = asset_file(@asset.asset_file_name)
+          setup_asset asset_file
 
-        Cms::Asset.any_instance.stubs(:asset => stub(:path => asset_file))
-        Cms::Asset.any_instance.expects(:file_content=).with('new content').returns('new content')
+          Cms::Asset.any_instance.stubs(:asset => stub(:path => asset_file))
+          Cms::Asset.any_instance.expects(:file_content=).with('new content').returns('new content')
+        end
 
-        put :update, :id => asset, :cms_asset => {:file_content => 'new content', :meta => {'new_0' => {:name => 'key_a', :value => 'test'}, 'new_1' => {:name => 'key_b', :value => 'test'}}}
-        assert_response :redirect
-        assert_redirected_to cms_root_path
+        teardown do
+          assert_equal 'The asset has been updated.', flash[:notice]
+          @asset.reload
+          assert_not_nil @asset.meta_data
+          assert_equal 2, @asset.meta.length
+        end
 
-        asset.reload
-        assert_not_nil asset.meta_data
-        assert_equal 2, asset.meta.length
+        should "modify the contents of an editable asset file and it's meta data" do
+          assert_nil @asset.meta_data
+          assert_equal 0, @asset.meta.length
+
+          put :update, :id => @asset, :cms_asset => {:file_content => 'new content', :meta => {'new_0' => {:name => 'key_a', :value => 'test'}, 'new_1' => {:name => 'key_b', :value => 'test'}}}
+          assert_response :redirect
+          assert_redirected_to edit_cms_asset_path(@asset)
+        end
+
+        should "update via XHR" do
+          xhr :put, :update, :id => @asset, :cms_asset => {:file_content => 'new content', :meta => {'new_0' => {:name => 'key_a', :value => 'test'}, 'new_1' => {:name => 'key_b', :value => 'test'}}}
+          assert_response :success
+        end
       end
     end
 

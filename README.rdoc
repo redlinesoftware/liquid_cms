@@ -29,7 +29,7 @@ Run the generator:
 Configure the engine in config/initializers/cms/liquid_cms.rb:
 
   If you wish to run the cms under multiple "contexts" (ie. a cms each for a company, business, customer, etc.) then you need to perform the following steps:
-  
+
     * Set the *context_class* attribute to your apps context class:
 
       config.context_class = :Company
