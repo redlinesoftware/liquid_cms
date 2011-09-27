@@ -9,4 +9,4 @@
   <%= f.commit_button_or_cancel %>
 <% end %>
 
-<%= codemirror_edit @page.content_type, 'form.simple_form.cms_page', 'cms_page_content', !@page.new_record? %>
+<%= codemirror_edit @page.content_type, 'form.simple_form.cms_page', 'cms_page_content', !@page.new_record?, true %>
